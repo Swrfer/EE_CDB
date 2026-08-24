@@ -1,0 +1,22 @@
+# Archivos internos de macOS
+.DS_Store
+**/.DS_Store
+
+# Archivos temporales de Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+
+# Datos clínicos grandes
+/lab02/data/
+
+# Synthea y archivos descargados
+/tools/
+*.jar
+*.zip
+
+# Notebook inicial fuera del entregable
+/Lab02.ipynb

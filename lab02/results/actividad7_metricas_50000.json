@@ -1,0 +1,11 @@
+{
+  "filas_procesadas": 17677231,
+  "bloques_procesados": 354,
+  "chunksize": 50000,
+  "tiempo_s": 16.327187916002003,
+  "memoria_inicial_mib": 105.71875,
+  "memoria_pico_mib": 275.640625,
+  "incremento_pico_mib": 169.921875,
+  "presupuesto_mib": 200.0,
+  "cumple_presupuesto_absoluto": false
+}

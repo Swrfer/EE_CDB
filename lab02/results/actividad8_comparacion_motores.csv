@@ -1,0 +1,4 @@
+motor,filas,codigos,tiempo_pipeline_s,tiempo_total_s,memoria_pico_MiB,aceleracion_vs_pandas
+pandas,17677231,295,15.248,16.037,338.219,1.0
+Polars,17677231,295,1.98,2.231,3072.812,7.188
+PySpark,17677231,295,9.806,18.778,911.875,0.854

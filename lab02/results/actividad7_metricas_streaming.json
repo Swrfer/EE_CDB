@@ -1,0 +1,10 @@
+{
+  "filas_procesadas": 17677231,
+  "metodo": "csv.reader fila por fila",
+  "tiempo_s": 29.22324049999588,
+  "memoria_inicial_mib": 23.78125,
+  "memoria_pico_mib": 24.046875,
+  "incremento_pico_mib": 0.265625,
+  "presupuesto_mib": 200.0,
+  "cumple_presupuesto_absoluto": true
+}
