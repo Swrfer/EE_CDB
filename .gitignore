@@ -20,3 +20,9 @@ __pycache__/
 
 # Notebook inicial fuera del entregable
 /Lab02.ipynb
+
+# Datos locales del Laboratorio 03
+/lab03/data/
+
+# Configuración de una regeneración exploratoria no utilizada
+/lab03/synthea_diabetes.properties
