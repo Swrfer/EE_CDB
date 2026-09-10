@@ -140,3 +140,73 @@ def test_validacion_temporal_rechaza_pacientes_duplicados(
             malicious_patients,
             patient_id="person_id",
         )
+
+
+def test_distingue_nacimiento_invalido_de_nacimiento_faltante(
+    malicious_patients: pd.DataFrame,
+) -> None:
+    """Flag an impossible calendar date without flagging missing dates."""
+    # Lab 2: auditoría temporal; fecha imposible añadida preventivamente.
+    patients = malicious_patients.iloc[[0, 2, 6]].copy()
+    encounters = pd.DataFrame(
+        {
+            "PATIENT": ["p1", "p3", "p6"],
+            "START": ["2025-01-01"] * 3,
+            "STOP": ["2025-01-02"] * 3,
+        }
+    )
+
+    result = flag_impossible_encounters(
+        encounters,
+        patients,
+        patient_id="person_id",
+    )
+
+    assert len(result) == 3
+    assert result["invalid_birth_date"].tolist() == [False, False, True]
+    assert not result["invalid_death_date"].any()
+    assert not result["invalid_start_date"].any()
+    assert not result["invalid_stop_date"].any()
+
+    # La fecha original se conserva para poder investigar el problema.
+    assert result["BIRTHDATE"].iloc[2] == "1990-02-30"
+
+
+@pytest.mark.parametrize(
+    ("date_column", "flag_column"),
+    [
+        ("START", "invalid_start_date"),
+        ("STOP", "invalid_stop_date"),
+        ("BIRTHDATE", "invalid_birth_date"),
+        ("DEATHDATE", "invalid_death_date"),
+    ],
+)
+def test_marca_fecha_no_interpretable_en_cada_columna(
+    date_column: str,
+    flag_column: str,
+) -> None:
+    """Flag malformed values in each supported date column."""
+    # Lab 2: validación de fechas; texto mal formado como caso preventivo.
+    patients = pd.DataFrame(
+        {
+            "Id": ["p1"],
+            "BIRTHDATE": ["1980-01-01"],
+            "DEATHDATE": ["2025-01-01"],
+        }
+    )
+    encounters = pd.DataFrame(
+        {
+            "PATIENT": ["p1"],
+            "START": ["2020-01-01"],
+            "STOP": ["2020-01-02"],
+        }
+    )
+
+    if date_column in encounters.columns:
+        encounters.loc[0, date_column] = "not-a-date"
+    else:
+        patients.loc[0, date_column] = "not-a-date"
+
+    result = flag_impossible_encounters(encounters, patients)
+
+    assert bool(result.loc[0, flag_column])

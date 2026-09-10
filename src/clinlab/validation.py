@@ -70,11 +70,17 @@ def flag_impossible_encounters(
     death_column
         Death-date column.
 
-    Returns
+        Returns
     -------
     pandas.DataFrame
-        Copy of the encounters with ``visit_before_birth``,
-        ``start_after_death`` and ``stop_after_death`` Boolean columns.
+        Encounters joined with patient dates, plus Boolean columns
+        ``visit_before_birth``, ``start_after_death``, ``stop_after_death``,
+        ``invalid_start_date``, ``invalid_stop_date``,
+        ``invalid_birth_date`` and ``invalid_death_date``.
+        Invalid dates are nonmissing input values that cannot be parsed.
+        Missing dates are not flagged as invalid. A false chronology flag
+        does not establish temporal validity when a required date is
+        missing or invalid.
 
     Raises
     ------
@@ -117,7 +123,10 @@ def flag_impossible_encounters(
     stop = pd.to_datetime(result[stop_column], errors="coerce")
     birth = pd.to_datetime(result[birth_column], errors="coerce")
     death = pd.to_datetime(result[death_column], errors="coerce")
-
+    result["invalid_start_date"] = result[start_column].notna() & start.isna()
+    result["invalid_stop_date"] = result[stop_column].notna() & stop.isna()
+    result["invalid_birth_date"] = result[birth_column].notna() & birth.isna()
+    result["invalid_death_date"] = result[death_column].notna() & death.isna()
     result["visit_before_birth"] = start.notna() & birth.notna() & start.lt(birth)
     result["start_after_death"] = start.notna() & death.notna() & start.gt(death)
     result["stop_after_death"] = stop.notna() & death.notna() & stop.gt(death)
