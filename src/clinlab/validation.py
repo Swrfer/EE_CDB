@@ -132,3 +132,54 @@ def flag_impossible_encounters(
     result["stop_after_death"] = stop.notna() & death.notna() & stop.gt(death)
 
     return result
+
+
+def flag_patient_sentinels(
+    patients: pd.DataFrame,
+    *,
+    age_column: str = "age",
+    hba1c_column: str = "hba1c",
+) -> pd.DataFrame:
+    """Flag the specific sentinel values defined for the laboratory.
+
+    Parameters
+    ----------
+    patients
+        Patient table. Ages are measured in years and HbA1c in percent.
+    age_column
+        Column containing patient ages.
+    hba1c_column
+        Column containing HbA1c percentages.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Copy with Boolean columns ``age_sentinel`` and ``hba1c_sentinel``.
+        These flag age 180 years and HbA1c 0 percent, respectively.
+        Original values and rows are preserved.
+
+    Raises
+    ------
+    ValueError
+        If either required column is absent.
+
+    Notes
+    -----
+    Missing or nonnumeric values are not flagged as these sentinels.
+    A false flag does not establish that a value is clinically valid.
+    No unit conversion or general clinical range validation is performed.
+    """
+    required = {age_column, hba1c_column}
+    missing = sorted(required.difference(patients.columns))
+
+    if missing:
+        raise ValueError(f"Missing required columns: {', '.join(missing)}")
+
+    result = patients.copy()
+    ages = pd.to_numeric(result[age_column], errors="coerce")
+    hba1c = pd.to_numeric(result[hba1c_column], errors="coerce")
+
+    result["age_sentinel"] = ages.eq(180).fillna(False).astype(bool)
+    result["hba1c_sentinel"] = hba1c.eq(0).fillna(False).astype(bool)
+
+    return result
