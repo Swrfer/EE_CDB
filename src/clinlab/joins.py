@@ -15,19 +15,19 @@ def merge_with_patient_data(
     patient_id: str = "Id",
     patient_columns: Sequence[str] | None = None,
 ) -> pd.DataFrame:
-    """Join clinical records with patient data using many-to-one validation.
+    """Join clinical records with patients using many-to-one validation.
 
     Parameters
     ----------
     records
-        Clinical records containing a patient identifier. Measurements retain
-        their original units; this function performs no unit conversion.
+        Clinical records containing a patient identifier. Measurements
+        retain their original units; no unit conversion is performed.
     patients
-        Patient-level table expected to contain one row per patient.
+        Patient table with one row per patient.
     record_patient_id
-        Identifier column in the clinical records.
+        Identifier column in the clinical records. Identifiers have no units.
     patient_id
-        Identifier column in the patient table.
+        Identifier column in the patient table. Identifiers have no units.
     patient_columns
         Optional patient columns to append. The identifier is included
         automatically.
@@ -35,18 +35,25 @@ def merge_with_patient_data(
     Returns
     -------
     pandas.DataFrame
-        Joined table preserving the rows and order of ``records``.
+        Joined table preserving the number and order of record rows.
+        The original index is not preserved. Unmatched records are retained
+        with missing patient data.
 
     Raises
     ------
     ValueError
         If an identifier or requested column is absent, or if patient
-        identifiers are duplicated.
+        identifiers contain missing values or duplicates.
     """
     if record_patient_id not in records.columns:
         raise ValueError(f"Missing record identifier: {record_patient_id}")
+
     if patient_id not in patients.columns:
         raise ValueError(f"Missing patient identifier: {patient_id}")
+
+    if patients[patient_id].isna().any():
+        raise ValueError("Patient identifiers must not be missing")
+
     if patients[patient_id].duplicated().any():
         raise ValueError("Patient identifiers must be unique")
 
