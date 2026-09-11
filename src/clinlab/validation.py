@@ -53,10 +53,12 @@ def flag_impossible_encounters(
     Parameters
     ----------
     encounters
-        Encounter table. ``START`` and ``STOP`` represent calendar dates.
+        Encounter table. ``START`` and ``STOP`` are ISO dates or timestamps.
+        Comparisons use UTC calendar days; naive values are assumed UTC.
     patients
         Patient table. ``BIRTHDATE`` and ``DEATHDATE`` represent calendar
-        dates; a missing death date is interpreted as no recorded death.
+        dates (ISO format); a missing death date means no recorded death.
+        Events on the recorded death day are not flagged as postmortem.
     encounter_patient_id
         Patient identifier column in the encounter table.
     patient_id
@@ -70,7 +72,7 @@ def flag_impossible_encounters(
     death_column
         Death-date column.
 
-        Returns
+    Returns
     -------
     pandas.DataFrame
         Encounters joined with patient dates, plus Boolean columns
@@ -119,10 +121,18 @@ def flag_impossible_encounters(
         sort=False,
     )
 
-    start = pd.to_datetime(result[start_column], errors="coerce")
-    stop = pd.to_datetime(result[stop_column], errors="coerce")
-    birth = pd.to_datetime(result[birth_column], errors="coerce")
-    death = pd.to_datetime(result[death_column], errors="coerce")
+    start = pd.to_datetime(
+        result[start_column], errors="coerce", utc=True, format="ISO8601"
+    ).dt.normalize()
+    stop = pd.to_datetime(
+        result[stop_column], errors="coerce", utc=True, format="ISO8601"
+    ).dt.normalize()
+    birth = pd.to_datetime(
+        result[birth_column], errors="coerce", utc=True, format="ISO8601"
+    ).dt.normalize()
+    death = pd.to_datetime(
+        result[death_column], errors="coerce", utc=True, format="ISO8601"
+    ).dt.normalize()
     result["invalid_start_date"] = result[start_column].notna() & start.isna()
     result["invalid_stop_date"] = result[stop_column].notna() & stop.isna()
     result["invalid_birth_date"] = result[birth_column].notna() & birth.isna()
