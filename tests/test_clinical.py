@@ -49,3 +49,43 @@ def test_egfr_coincide_con_referencia_externa(
     )
 
     assert result == pytest.approx(expected, abs=0.5, rel=0)
+
+
+@pytest.mark.parametrize(
+    "creatinine",
+    [0.0, -1.0, float("nan"), float("inf"), float("-inf")],
+)
+def test_egfr_rechaza_creatinina_no_positiva_o_no_finita(
+    creatinine: float,
+) -> None:
+    """Reject nonpositive or nonfinite creatinine values in mg/dL."""
+    with pytest.raises(
+        ValueError,
+        match="Creatinine must be finite and greater than zero",
+    ):
+        egfr_ckd_epi_2021(creatinine, 40, "female")
+
+
+@pytest.mark.parametrize(
+    "age",
+    [17.0, -1.0, float("nan"), float("inf"), float("-inf")],
+)
+def test_egfr_rechaza_edad_pediatrica_o_no_finita(
+    age: float,
+) -> None:
+    """Reject ages below 18 years and nonfinite ages."""
+    with pytest.raises(
+        ValueError,
+        match="Age must be finite and at least 18 years",
+    ):
+        egfr_ckd_epi_2021(0.9, age, "male")
+
+
+def test_egfr_rechaza_categoria_de_sexo_no_admitida() -> None:
+    """Verify runtime rejection of a value outside the Literal contract."""
+    with pytest.raises(
+        ValueError,
+        match="Sex must be 'female' or 'male'",
+    ):
+        # Deliberately violate the type contract to test runtime validation.
+        egfr_ckd_epi_2021(0.9, 40, "unknown")  # type: ignore[arg-type]

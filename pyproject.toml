@@ -29,7 +29,12 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra"
+addopts = [
+    "-ra",
+    "--cov=clinlab",
+    "--cov-report=term-missing",
+    "--cov-fail-under=80",
+]
 
 [tool.ruff]
 line-length = 88
