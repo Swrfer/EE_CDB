@@ -1,5 +1,5 @@
 # clinlab
-
+[![CI](https://github.com/Swrfer/lab05-clinlab/actions/workflows/ci.yml/badge.svg)](https://github.com/Swrfer/lab05-clinlab/actions/workflows/ci.yml)
 Paquete de Python para validar y resumir datos clínicos derivados del laboratorio 2.
 
 ## Instalación para desarrollo
