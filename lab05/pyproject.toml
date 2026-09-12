@@ -44,6 +44,10 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["clinlab"]
+known-third-party = ["IPython", "matplotlib", "numpy", "pandas", "pytest"]
+
 [tool.mypy]
 python_version = "3.12"
 check_untyped_defs = true
