@@ -1,0 +1,23 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff-lab05
+        entry: python -m ruff check --config lab05/pyproject.toml
+        language: system
+        files: ^lab05/
+        types_or: [python, pyi, jupyter]
+
+      - id: ruff-format
+        name: ruff-format-lab05
+        entry: python -m ruff format --check --config lab05/pyproject.toml
+        language: system
+        files: ^lab05/
+        types_or: [python, pyi, jupyter]
+
+      - id: mypy
+        name: mypy-lab05
+        entry: python -m mypy --config-file lab05/pyproject.toml lab05/src/
+        language: system
+        pass_filenames: false
+        always_run: true

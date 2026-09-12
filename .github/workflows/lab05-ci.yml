@@ -1,0 +1,55 @@
+name: Lab 05 CI
+
+on:
+  push:
+    paths:
+      - "lab05/**"
+      - ".github/workflows/lab05-ci.yml"
+      - ".pre-commit-config.yaml"
+  pull_request:
+    paths:
+      - "lab05/**"
+      - ".github/workflows/lab05-ci.yml"
+      - ".pre-commit-config.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Ruff, mypy, and pytest
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: lab05
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: lab05/pyproject.toml
+
+      - name: Install package and development dependencies
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run Ruff checks
+        run: ruff check .
+
+      - name: Check Ruff formatting
+        run: >
+          ruff format --check
+          src/
+          tests/
+          notebooks/analisis_pacientes.ipynb
+
+      - name: Run mypy
+        run: mypy src/
+
+      - name: Run pytest with coverage
+        run: python -m pytest
