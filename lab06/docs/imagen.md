@@ -353,7 +353,48 @@ Trivy o reconstruir la imagen.
 
 ## 8. Pruebas dentro del contenedor
 
-Pendiente de completar.
+La suite completa se ejecutó utilizando únicamente el contenido de la imagen:
+
+```bash
+docker run --rm clinlab:final pytest -q
+```
+
+El resultado fue:
+
+```text
+58 passed in 0.24s
+Required test coverage of 80% reached.
+Total coverage: 95.19%
+Código de salida: 0
+```
+
+La ubicación desde la que Python importó el paquete fue:
+
+```text
+/app/.venv/lib/python3.12/site-packages/clinlab/__init__.py
+```
+
+Esto confirma que las pruebas utilizan la versión instalada de `clinlab` y no
+una copia del código fuente del equipo anfitrión.
+
+| Comprobación | Resultado |
+|---|---|
+| Python | 3.12.14 |
+| Sistema del contenedor | Linux |
+| Arquitectura local | `aarch64` / `linux/arm64` |
+| Pruebas aprobadas | 58 |
+| Cobertura | 95.19% |
+| Código de salida | 0 |
+| Volúmenes declarados | `null` |
+| Ubicación del paquete | `/app/.venv/lib/python3.12/site-packages/clinlab/` |
+
+La imagen no declaró volúmenes ni recibió un montaje de `~/EE_CDB`. Por tanto,
+el contenedor no pudo acceder al entorno Conda, al código fuente ni a los
+paquetes instalados en la computadora anfitriona.
+
+No se encontraron dependencias ocultas del entorno local: las mismas 58
+pruebas que funcionaron en macOS se ejecutaron correctamente dentro de Linux
+ARM64 usando exclusivamente las versiones registradas en `uv.lock`.
 
 ## 9. Publicación
 
