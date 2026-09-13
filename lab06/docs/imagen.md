@@ -180,7 +180,46 @@ terminen dentro de una capa.
 
 ## 5. Ejecución como usuario no-root
 
-Pendiente de completar.
+La imagen definitiva `clinlab:final` utiliza una construcción multi-stage y
+ejecuta el paquete mediante un usuario específico sin privilegios
+administrativos.
+
+La identidad obtenida dentro del contenedor fue:
+
+```text
+uid=10001(clinlab) gid=10001(clinlab) groups=10001(clinlab)
+```
+
+La configuración almacenada en la imagen también fue comprobada:
+
+```text
+Usuario configurado: 10001:10001
+```
+
+Por tanto, el proceso principal no utiliza `uid=0(root)`.
+
+| Verificación | Resultado |
+|---|---:|
+| Tiempo de build limpio | 25.55 s |
+| Tamaño de la imagen | 132,508,661 bytes (132.51 MB) |
+| Uso mostrado por Docker Desktop | 609 MB |
+| Pruebas dentro del contenedor | 58 aprobadas |
+| Cobertura de líneas | 95.19% |
+| Usuario configurado | `10001:10001` |
+
+Ejecutar como usuario no-root limita las consecuencias de una vulnerabilidad,
+porque el proceso comprometido no obtiene automáticamente privilegios
+administrativos dentro del contenedor. También reduce el riesgo de modificar
+archivos protegidos o recursos montados con permisos elevados.
+
+Las pruebas se ejecutaron correctamente con el usuario sin privilegios:
+
+```bash
+docker run --rm clinlab:final python -m pytest -q
+```
+
+El resultado confirma que `clinlab` no necesita permisos de administrador para
+funcionar ni para generar sus archivos temporales de cobertura.
 
 ## 6. Demostración de secretos en capas
 
