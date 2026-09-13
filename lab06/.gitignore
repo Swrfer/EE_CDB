@@ -1,0 +1,21 @@
+# Entornos virtuales
+.venv/
+
+# Cachés y bytecode de Python
+__pycache__/
+*.py[cod]
+
+# Metadatos y artefactos de construcción
+*.egg-info/
+build/
+dist/
+
+# Resultados locales de pruebas
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configuración local y secretos
+.env
+.env.*
+!.env.example

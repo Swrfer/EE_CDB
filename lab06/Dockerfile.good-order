@@ -1,0 +1,22 @@
+FROM python:3.12
+
+WORKDIR /app
+
+# Los archivos de dependencias cambian con poca frecuencia.
+COPY pyproject.toml uv.lock README.md ./
+
+RUN python -m pip install uv==0.12.13
+
+# Instala dependencias sin instalar todavía el proyecto local.
+RUN uv sync --locked --extra dev --no-install-project
+
+# El código cambia con mayor frecuencia y se copia después.
+COPY src ./src
+COPY tests ./tests
+
+# Instala únicamente el proyecto sobre el entorno ya preparado.
+RUN uv sync --locked --extra dev
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+CMD ["pytest"]

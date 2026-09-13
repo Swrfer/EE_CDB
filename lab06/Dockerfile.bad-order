@@ -1,0 +1,15 @@
+FROM python:3.12
+
+WORKDIR /app
+
+# Orden deliberadamente ineficiente:
+# cualquier cambio del proyecto invalida las instalaciones posteriores.
+COPY . .
+
+RUN python -m pip install uv==0.12.13
+
+RUN uv sync --locked --extra dev
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+CMD ["pytest"]
