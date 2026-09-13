@@ -62,41 +62,49 @@ diferentes sin que el cambio quede registrado.
 
 ## 2. Caché de construcción
 
-### Dockerfile con orden deliberadamente ineficiente
+### Comparación del orden de las capas
 
 El primer Dockerfile copia todo el proyecto antes de instalar `uv` y las
-dependencias. Se descargó previamente la imagen base `python:3.12` para evitar
-incluir ese tiempo de descarga en la medición.
+dependencias. El segundo copia primero `pyproject.toml` y `uv.lock`, instala el
+entorno y copia el código después.
+
+Se descargó previamente la imagen base `python:3.12` para no incluir su
+descarga en las mediciones.
 
 | Escenario | Orden malo | Orden bueno |
 |---|---:|---:|
-| Build desde cero (`--no-cache`) | 28.26 s | Pendiente |
-| Rebuild tras cambiar código | 364.73 s | Pendiente |
-| Rebuild tras cambiar una dependencia | No medido en esta configuración | Pendiente |
+| Build desde cero (`--no-cache`) | 28.26 s | 27.93 s |
+| Rebuild tras cambiar código | 364.73 s | 2.43 s |
+| Rebuild tras cambiar una dependencia | 24.76 s | 25.18 s |
 
-Después de modificar una línea de `src/clinlab/__init__.py`, Docker solo
-reutilizó la capa anterior a `COPY`. La copia del proyecto, la instalación de
-`uv` y `uv sync` se ejecutaron otra vez.
+En el Dockerfile mal ordenado, modificar una línea de
+`src/clinlab/__init__.py` invalidó `COPY . .`. Como consecuencia, tanto la
+instalación de `uv` como `uv sync` se ejecutaron nuevamente. En ese rebuild,
+`uv sync` tardó 350.2 s debido también a variabilidad de red, mientras que la
+exportación permaneció estable en aproximadamente 9.5 s.
 
-En el build limpio, `uv sync` tardó 14.0 s. En el rebuild tardó 350.2 s,
-mientras que la exportación permaneció prácticamente constante: 9.6 s frente
-a 9.5 s. Por tanto, la demora extraordinaria ocurrió durante la reinstalación
-de dependencias, afectada también por variabilidad de red, y no durante la
-exportación de la imagen.
+En el Dockerfile bien ordenado, las capas que contienen `pyproject.toml`,
+`uv.lock`, `uv` y las dependencias quedaron en caché después del mismo cambio
+de código. Solo se copiaron nuevamente `src` y `tests`, y se reconstruyó el
+paquete local `clinlab`. Esta operación tardó 1.7 s y el build completo terminó
+en 2.43 s.
 
-El resultado demuestra que el orden malo elimina el beneficio de la caché:
-incluso un cambio que no modifica dependencias obliga a resolverlas e
-instalarlas nuevamente.
+Para evaluar un cambio real de dependencias se añadió temporalmente
+`requests>=2.32` y se regeneró `uv.lock`. Ambos órdenes reconstruyeron las
+dependencias y tardaron prácticamente lo mismo: 24.76 s y 25.18 s. Esto
+confirma que la optimización conserva la caché cuando cambia el código, pero la
+invalida correctamente cuando cambia el entorno.
 
 ## 3. Tamaño de imagen
 
 | Imagen o medida | Uso mostrado en disco | Tamaño reportado por `docker image inspect` |
 |---|---:|---:|
 | `clinlab:bad-order` con `python:3.12` | 2.12 GB | 530,330,419 bytes |
+| `clinlab:good-order` con `python:3.12` | 2.13 GB | 530,318,669 bytes |
 
 Docker Desktop distingue el espacio utilizado por las capas descomprimidas en
-su almacén local del tamaño de contenido reportado para la imagen. Se
-conservarán ambas métricas durante la optimización.
+su almacén local del tamaño de contenido reportado para la imagen. El cambio de
+orden mejora la caché, pero no reduce de manera relevante el tamaño final.
 
 ## 4. Contexto de construcción
 
