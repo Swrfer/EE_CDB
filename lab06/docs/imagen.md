@@ -398,5 +398,72 @@ ARM64 usando exclusivamente las versiones registradas en `uv.lock`.
 
 ## 9. Publicación
 
-Pendiente de completar con la URL de GitHub Container Registry y la
-verificación externa.
+La imagen fue construida y publicada automáticamente después de unir el pull
+request número 3 a `main`. El workflow terminó correctamente tanto la prueba
+del contenedor como la publicación multi-plataforma.
+
+| Elemento | Resultado |
+|---|---|
+| Registro | GitHub Container Registry |
+| Imagen pública | `ghcr.io/swrfer/clinlab` |
+| Etiqueta de versión | `0.1.0` |
+| Etiqueta SHA | `5f20b0e7d9aa5cc5622d8b47313772312e808bed` |
+| Digest del índice OCI | `sha256:db7db1dd67039b537dc369aa2b8b72dd151e09d35704884d3ddb7dee283bd999` |
+| Plataforma 1 | `linux/amd64` |
+| Plataforma 2 | `linux/arm64` |
+| Procedencia y SBOM | Incluidos como manifiestos de attestations |
+| Estado de GitHub Actions | Aprobado |
+
+El manifiesto AMD64 publicado tiene el digest:
+
+```text
+sha256:5b88aee1ff31c782e157811914bda604c5467c1fdae226f8b636eea367049415
+```
+
+El manifiesto ARM64 publicado tiene el digest:
+
+```text
+sha256:a85d79a360475ab2b6ce07d00afc219503c1d0c8091b512aeb29186adbdae8d4
+```
+
+La etiqueta de versión se descargó desde GHCR en una Mac Apple Silicon. Docker
+seleccionó automáticamente la variante ARM64:
+
+```text
+Sistema=linux
+Arquitectura=arm64
+Usuario=10001:10001
+Tamaño=132509845 bytes
+```
+
+La imagen descargada desde el registro ejecutó correctamente:
+
+```bash
+docker run --rm \
+  ghcr.io/swrfer/clinlab:0.1.0 \
+  pytest -q
+```
+
+El resultado fue de 58 pruebas aprobadas, 95.19% de cobertura y código de salida
+cero. También se confirmó la ejecución sin privilegios:
+
+```text
+uid=10001(clinlab) gid=10001(clinlab) groups=10001(clinlab)
+```
+
+La etiqueta SHA completa produjo el mismo resultado y apuntó al mismo digest
+del índice OCI que `0.1.0`.
+
+### Alcance de la verificación externa
+
+La imagen fue validada en dos entornos independientes:
+
+- Mac Apple Silicon ARM64 mediante una descarga pública desde GHCR.
+- Runner Linux AMD64 de GitHub Actions mediante la construcción y ejecución de
+  la suite dentro del contenedor.
+
+No se obtuvo respuesta de un compañero con Docker antes del cierre del
+laboratorio. Por tanto, no se declara una confirmación humana externa. La
+validación automatizada en una máquina remota AMD64 demuestra la portabilidad
+técnica, pero se documenta que no sustituye literalmente el criterio de
+verificación por un tercero.
