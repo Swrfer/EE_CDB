@@ -290,7 +290,66 @@ experimento. En ningún momento se utilizó un secreto real.
 
 ## 7. Escaneo de vulnerabilidades
 
-Pendiente de completar con Docker Scout.
+Docker Scout no pudo ejecutar el análisis sin iniciar sesión en Docker Hub. El
+comando terminó con código 1 antes de escanear la imagen. Como alternativa
+permitida por el laboratorio, se utilizó Trivy desde su imagen oficial.
+
+| Componente | Resultado |
+|---|---|
+| Escáner | Trivy 0.74.0 |
+| Imagen del escáner | `aquasec/trivy:latest` |
+| Identificador del escáner | `sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969` |
+| Imagen analizada | `clinlab:final` |
+| Sistema detectado | Debian 13.6 |
+| Paquetes del sistema examinados | 87 |
+| Vulnerabilidades críticas | 3 |
+| Vulnerabilidades altas | 53 |
+| Total críticas y altas | 56 |
+| Código de salida del escaneo | 0 |
+
+Las 56 vulnerabilidades críticas o altas correspondieron a paquetes del sistema
+operativo. Las dependencias Python examinadas por Trivy no presentaron
+vulnerabilidades de esas severidades. Esto no significa que la imagen sea
+completamente segura, sino que no se encontraron CVE críticas o altas asociadas
+a esas versiones de paquetes Python en la base consultada.
+
+### Decisión sobre las tres primeras vulnerabilidades
+
+| Vulnerabilidad | Paquete y versión | Corrección | Evaluación y decisión |
+|---|---|---|---|
+| `CVE-2026-76642` | `bsdutils` `1:2.41.5-0+deb13u1` | No disponible | Afecta la ejecución privilegiada de acciones posteriores a un montaje cuando falla un ayudante externo. `clinlab` no realiza montajes y corre sin privilegios. Se acepta temporalmente y se vigilará una actualización de Debian. |
+| `CVE-2026-78408` | `bsdutils` `1:2.41.5-0+deb13u1` | No disponible | Afecta `nsenter --join-cgroup` y la autoridad para migrar procesos entre cgroups. La aplicación no utiliza `nsenter` y el contenedor no recibe capacidades adicionales. Se acepta temporalmente y se actualizará la imagen base cuando exista una corrección. |
+| `CVE-2026-78409` | `bsdutils` `1:2.41.5-0+deb13u1` | No disponible | Afecta la resolución de rutas de `X-mount.subdir` mediante enlaces simbólicos. La imagen no ejecuta operaciones de montaje. Se considera de baja exposición para este uso, pero se mantendrá bajo seguimiento. |
+
+Las tres decisiones son aceptaciones temporales, no declaraciones de ausencia
+de riesgo. Se sustentan en que la imagen se ejecuta como el usuario
+`10001:10001`, no añade capacidades Linux, no monta sistemas de archivos desde
+la aplicación y únicamente ejecuta la suite de `clinlab`.
+
+### Vulnerabilidades críticas
+
+Trivy también encontró tres vulnerabilidades críticas asociadas a
+`perl-base` 5.40.1-6:
+
+- `CVE-2026-13221`: procesamiento incorrecto de expresiones regulares grandes.
+- `CVE-2026-42496`: recorrido de rutas mediante enlaces simbólicos al extraer
+  archivos TAR.
+- `CVE-2026-8376`: desbordamiento de búfer al compilar expresiones regulares en
+  construcciones de 32 bits.
+
+Para ellas se reportó como versión corregida `5.40.1-6+deb13u1`. Antes de usar
+la imagen en producción se reconstruiría con el digest más reciente de
+`python:3.12-slim` y se repetiría el escaneo. Si la imagen base continuara
+incluyendo la versión vulnerable, se aplicaría la actualización de seguridad
+de Debian durante el build y se volverían a medir el tamaño y las pruebas.
+
+El tercer caso está descrito para construcciones de 32 bits, mientras que esta
+imagen se construyó para ARM64 de 64 bits. Aun así, la actualización del paquete
+es preferible a depender únicamente de esa menor exposición.
+
+El resultado representa el estado de la base de vulnerabilidades utilizada el
+13 de septiembre de 2026. Los conteos pueden cambiar al actualizar la base de
+Trivy o reconstruir la imagen.
 
 ## 8. Pruebas dentro del contenedor
 
