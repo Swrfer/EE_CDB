@@ -1,0 +1,31 @@
+# Control de versiones
+.git
+.gitignore
+.github/
+
+# Entornos y artefactos de Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Documentación y evidencias que no necesita la imagen
+docs/
+evidencias/
+
+# Dockerfiles experimentales y registros
+Dockerfile*
+*.log
+
+# Variables locales y secretos
+.env
+.env.*
+!.env.example
+
+# Archivos del sistema
+.DS_Store

@@ -108,7 +108,30 @@ orden mejora la caché, pero no reduce de manera relevante el tamaño final.
 
 ## 4. Contexto de construcción
 
-Pendiente de completar antes y después de crear `.dockerignore`.
+Para evitar comparar transferencias incrementales de BuildKit, la medición
+definitiva se realizó con dos copias simultáneas del mismo proyecto. La única
+diferencia entre ellas fue la presencia de `.dockerignore`.
+
+| Escenario | Contexto enviado | Tiempo |
+|---|---:|---:|
+| Sin `.dockerignore` | 529.40 kB | 0.34 s |
+| Con `.dockerignore` | 523.47 kB | 0.31 s |
+| Reducción | 5.93 kB (1.12%) | 0.03 s |
+
+Sin `.dockerignore` se enviaban archivos que no forman parte de la aplicación:
+
+- `.gitignore`
+- `docs/imagen.md`
+- Dockerfiles experimentales
+- el directorio `evidencias/`
+- posibles cachés, coberturas y entornos virtuales
+- posibles archivos `.env`
+
+La reducción actual es pequeña porque `uv.lock`, con aproximadamente 472 kB,
+representa la mayor parte del contexto y es necesario para la instalación
+reproducible. El beneficio de `.dockerignore` también es preventivo: evita que
+los futuros reportes, evidencias, cachés o secretos incrementen el contexto o
+terminen dentro de una capa.
 
 ## 5. Ejecución como usuario no-root
 
