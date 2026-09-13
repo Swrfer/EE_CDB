@@ -95,16 +95,61 @@ dependencias y tardaron prácticamente lo mismo: 24.76 s y 25.18 s. Esto
 confirma que la optimización conserva la caché cuando cambia el código, pero la
 invalida correctamente cuando cambia el entorno.
 
-## 3. Tamaño de imagen
+## 3. Tamaño y optimización de la imagen
 
-| Imagen o medida | Uso mostrado en disco | Tamaño reportado por `docker image inspect` |
-|---|---:|---:|
-| `clinlab:bad-order` con `python:3.12` | 2.12 GB | 530,330,419 bytes |
-| `clinlab:good-order` con `python:3.12` | 2.13 GB | 530,318,669 bytes |
+Se compararon varias construcciones utilizando la misma aplicación y el mismo
+lockfile. El tamaño principal corresponde a `docker image inspect`, mientras
+que el uso en disco corresponde a la información mostrada por Docker Desktop.
 
-Docker Desktop distingue el espacio utilizado por las capas descomprimidas en
-su almacén local del tamaño de contenido reportado para la imagen. El cambio de
-orden mejora la caché, pero no reduce de manera relevante el tamaño final.
+| Imagen o medida | Build limpio | Tamaño de imagen | Uso en disco | Reducción acumulada |
+|---|---:|---:|---:|---:|
+| `clinlab:good-order`, base `python:3.12` | 27.93 s | 530,318,669 bytes (530.32 MB) | 2.13 GB | Referencia |
+| `clinlab:slim-base`, base `python:3.12-slim` | 24.67 s | 177,140,968 bytes (177.14 MB) | 737 MB | 66.60% |
+| `clinlab:slim-no-cache` | 134.09 s | 155,718,417 bytes (155.72 MB) | 687 MB | 70.64% |
+| `clinlab:multistage` | 73.55 s | 132,495,875 bytes (132.50 MB) | 609 MB | 75.01% |
+| `clinlab:alpine` | Falló a los 18.08 s | No se generó | No aplica | No aplica |
+
+La imagen final multi-stage mide 132.50 MB según `docker image inspect`, por
+lo que cumple ampliamente el objetivo de menos de 500 MB. Docker Desktop
+muestra además el espacio local ocupado por las capas descomprimidas y
+compartidas; esa métrica no equivale al tamaño distribuible de la imagen.
+
+### Aporte de cada medida
+
+- Cambiar de `python:3.12` a `python:3.12-slim` redujo la imagen de 530.32 MB a
+  177.14 MB, una disminución de 66.60%.
+- Utilizar `pip --no-cache-dir` y `uv sync --no-cache` evitó conservar cachés de
+  descarga y redujo otros 21.42 MB, de 177.14 MB a 155.72 MB.
+- La construcción multi-stage separó la instalación de la imagen final. El
+  ejecutable de `uv`, sus archivos temporales y los artefactos de construcción
+  permanecieron en la etapa `builder`, reduciendo otros 23.22 MB.
+- `.dockerignore` evita enviar documentación, evidencias, cachés, entornos
+  virtuales, Dockerfiles experimentales y posibles archivos `.env`. Su efecto
+  actual en el tamaño es pequeño porque el proyecto está limpio, pero impide que
+  esos archivos terminen en capas futuras.
+
+Las 58 pruebas se ejecutaron correctamente dentro de las imágenes
+`slim-base`, `slim-no-cache` y `multistage`, con 95.19% de cobertura. La imagen
+multi-stage instala `clinlab` de forma no editable, por lo que las pruebas
+utilizan la copia instalada en `site-packages` y no dependen accidentalmente del
+código fuente del equipo anfitrión.
+
+### Experimento con Alpine
+
+Se probó `python:3.12-alpine` sobre ARM64. El build terminó con código de salida
+1 después de 18.08 segundos y no produjo una imagen.
+
+`uv` encontró ruedas compatibles con `musl` para varias dependencias, pero no
+para `matplotlib==3.11.2`. Por ello descargó su distribución fuente e intentó
+construirla mediante Meson. La compilación falló porque la imagen Alpine no
+incluía ninguno de los compiladores buscados (`cc`, `gcc` o `clang`).
+
+Alpine utiliza `musl`, mientras que las imágenes Debian `slim` utilizan
+`glibc`. Muchas bibliotecas científicas publican primero o exclusivamente
+ruedas compatibles con `manylinux`/`glibc`. Instalar compiladores y bibliotecas
+de desarrollo podría permitir continuar, pero aumentaría el tiempo,
+complejidad y tamaño de la construcción. Para este paquete, `python:3.12-slim`
+es una base más práctica y reproducible.
 
 ## 4. Contexto de construcción
 
