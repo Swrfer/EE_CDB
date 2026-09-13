@@ -1,0 +1,107 @@
+name: Lab 06 Container Image
+
+on:
+  pull_request:
+    paths:
+      - "lab06/**"
+      - ".github/workflows/lab06-image.yml"
+
+  push:
+    branches:
+      - main
+    paths:
+      - "lab06/**"
+      - ".github/workflows/lab06-image.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: swrfer/clinlab
+  IMAGE_VERSION: "0.1.0"
+
+jobs:
+  test-image:
+    name: Build and test container
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build test image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./lab06
+          file: ./lab06/Dockerfile
+          load: true
+          push: false
+          tags: clinlab:ci-test
+          cache-from: type=gha,scope=lab06-test
+          cache-to: type=gha,mode=max,scope=lab06-test
+
+      - name: Verify non-root user
+        run: |
+          CONTAINER_UID="$(docker run --rm clinlab:ci-test id -u)"
+          echo "Container UID: ${CONTAINER_UID}"
+          test "${CONTAINER_UID}" = "10001"
+
+      - name: Run tests inside container
+        run: docker run --rm clinlab:ci-test pytest -q
+
+  publish-image:
+    name: Publish multi-platform image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - test-image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate image metadata
+        id: metadata
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ env.IMAGE_VERSION }}
+            type=sha,prefix=,format=long
+
+      - name: Build and publish multi-platform image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./lab06
+          file: ./lab06/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha,scope=lab06-multiarch
+          cache-to: type=gha,mode=max,scope=lab06-multiarch
+          provenance: mode=max
+          sbom: true
