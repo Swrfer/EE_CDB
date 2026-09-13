@@ -223,7 +223,70 @@ funcionar ni para generar sus archivos temporales de cobertura.
 
 ## 6. Demostración de secretos en capas
 
-Pendiente de completar utilizando exclusivamente un valor falso.
+Se creó una imagen temporal usando exclusivamente el siguiente valor falso:
+
+```text
+CLINLAB_FAKE_TOKEN=demostracion-lab06-no-es-secreto-real
+```
+
+El Dockerfile inseguro copió `.env` en una instrucción y lo eliminó en la
+siguiente:
+
+```dockerfile
+COPY .env .env
+RUN rm .env
+```
+
+Desde el estado final del contenedor, el archivo ya no era visible:
+
+```text
+El archivo .env no está visible en la capa final
+```
+
+Sin embargo, `docker history --no-trunc` mostró que ambas instrucciones
+permanecían en el historial:
+
+```text
+RUN /bin/sh -c rm .env
+COPY .env .env
+```
+
+Después se exportó la imagen con `docker save`, se extrajo el archivo TAR y se
+examinaron individualmente sus blobs OCI. El archivo fue localizado en la capa:
+
+```text
+blobs/sha256/5c30ff87eabe0a9c9596a477da11a975ed672396d00c79a4165fc3c5ce9187c9
+```
+
+Dentro de esa capa todavía existía la ruta `demo/.env`, de la cual se recuperó
+el valor supuestamente borrado:
+
+```text
+CLINLAB_FAKE_TOKEN=demostracion-lab06-no-es-secreto-real
+```
+
+Esto demuestra que eliminar un archivo en una instrucción posterior no lo
+elimina de las capas anteriores. Cualquier persona que obtenga la imagen puede
+exportarla e inspeccionar esas capas.
+
+La forma correcta de proporcionar esta configuración es hacerlo en tiempo de
+ejecución, sin copiarla al contexto ni escribirla en el Dockerfile:
+
+```bash
+docker run --rm \
+  --env CLINLAB_FAKE_TOKEN=valor-entregado-en-runtime \
+  clinlab:final \
+  sh -c 'printf "%s\n" "$CLINLAB_FAKE_TOKEN"'
+```
+
+La imagen recibió correctamente el valor `valor-entregado-en-runtime`. Este
+valor existe únicamente durante la ejecución del contenedor y no se almacena
+en una capa de la imagen. Para un sistema real también sería preferible usar
+un gestor de secretos en lugar de escribir valores sensibles directamente en
+el historial de comandos de la terminal.
+
+La imagen insegura y su directorio temporal se eliminaron al terminar el
+experimento. En ningún momento se utilizó un secreto real.
 
 ## 7. Escaneo de vulnerabilidades
 
