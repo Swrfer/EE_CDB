@@ -29,7 +29,6 @@ El proyecto utiliza `uv` para resolver y congelar sus dependencias en
 ```bash
 uv lock
 uv lock --check
-
 ```
 
 La resolución produjo 123 paquetes. Una vez generado el archivo, la
@@ -45,30 +44,59 @@ La reconstrucción fue verificada mediante un entorno aislado:
 uv run --isolated --locked --extra dev python -m pytest -q
 ```
 
-Se instalaron 37 paquetes desde la resolución bloqueada. Las 58 pruebas
-aprobaron y la cobertura obtenida fue de 95.19%.
+Se instalaron 37 paquetes y se ejecutaron correctamente 58 pruebas, con una
+cobertura de líneas de 95.19%.
 
 ### Ejemplos de dependencias transitivas
 
 | Dependencia transitiva | Versión bloqueada | Procedencia |
 |---|---:|---|
-| `contourpy` | 1.4.0 | Requerida por la dependencia directa `matplotlib` 3.11.2. |
-| `python-dateutil` | 2.9.0.post0 | Requerida por las dependencias directas `pandas` 3.0.5 y `matplotlib` 3.11.2. |
-| `coverage` | 7.16.0 | Requerida por la dependencia directa de desarrollo `pytest-cov` 7.1.0. |
+| `contourpy` | 1.4.0 | Es requerida por la dependencia directa `matplotlib` 3.11.2. |
+| `python-dateutil` | 2.9.0.post0 | Es requerida por las dependencias directas `pandas` 3.0.5 y `matplotlib` 3.11.2. |
+| `coverage` | 7.16.0 | Es requerida por la dependencia directa de desarrollo `pytest-cov` 7.1.0. |
 
 Estas bibliotecas no aparecen como requisitos directos de `clinlab` en
 `pyproject.toml`, pero son necesarias para que sus dependencias directas
-funcionen. El lockfile impide que sus versiones cambien silenciosamente entre
-instalaciones.
+funcionen. El lockfile evita que una instalación futura resuelva versiones
+diferentes sin que el cambio quede registrado.
 
 ## 2. Caché de construcción
 
-Pendiente de completar con las mediciones de los Dockerfiles con orden malo y
-orden optimizado.
+### Dockerfile con orden deliberadamente ineficiente
+
+El primer Dockerfile copia todo el proyecto antes de instalar `uv` y las
+dependencias. Se descargó previamente la imagen base `python:3.12` para evitar
+incluir ese tiempo de descarga en la medición.
+
+| Escenario | Orden malo | Orden bueno |
+|---|---:|---:|
+| Build desde cero (`--no-cache`) | 28.26 s | Pendiente |
+| Rebuild tras cambiar código | 364.73 s | Pendiente |
+| Rebuild tras cambiar una dependencia | No medido en esta configuración | Pendiente |
+
+Después de modificar una línea de `src/clinlab/__init__.py`, Docker solo
+reutilizó la capa anterior a `COPY`. La copia del proyecto, la instalación de
+`uv` y `uv sync` se ejecutaron otra vez.
+
+En el build limpio, `uv sync` tardó 14.0 s. En el rebuild tardó 350.2 s,
+mientras que la exportación permaneció prácticamente constante: 9.6 s frente
+a 9.5 s. Por tanto, la demora extraordinaria ocurrió durante la reinstalación
+de dependencias, afectada también por variabilidad de red, y no durante la
+exportación de la imagen.
+
+El resultado demuestra que el orden malo elimina el beneficio de la caché:
+incluso un cambio que no modifica dependencias obliga a resolverlas e
+instalarlas nuevamente.
 
 ## 3. Tamaño de imagen
 
-Pendiente de completar con las imágenes inicial, multi-stage y Alpine.
+| Imagen o medida | Uso mostrado en disco | Tamaño reportado por `docker image inspect` |
+|---|---:|---:|
+| `clinlab:bad-order` con `python:3.12` | 2.12 GB | 530,330,419 bytes |
+
+Docker Desktop distingue el espacio utilizado por las capas descomprimidas en
+su almacén local del tamaño de contenido reportado para la imagen. Se
+conservarán ambas métricas durante la optimización.
 
 ## 4. Contexto de construcción
 
