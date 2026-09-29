@@ -49,3 +49,23 @@ La carpeta `initdb/` se montó como:
 
 ```text
 /docker-entrypoint-initdb.d
+
+## 5. Healthcheck y orden de arranque
+
+### Comportamiento sin healthcheck
+
+En el experimento de reinicialización de la actividad 3 se ejecutaron consultas
+inmediatamente después de `docker compose up -d`. La primera falló porque el
+socket de PostgreSQL todavía no existía y la siguiente indicó que la base
+`clinical` aún no había sido creada.
+
+Esto demostró que un contenedor con estado `running` no necesariamente tiene su
+servicio listo para aceptar conexiones. La evidencia se conserva en
+`evidencias/lab07_07_no_healthcheck_startup_race.png`.
+
+### Configuración corregida
+
+Se añadió a PostgreSQL un `healthcheck` basado en:
+
+```bash
+pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"

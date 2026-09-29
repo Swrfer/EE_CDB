@@ -12,6 +12,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 5s
 
   adminer:
     image: adminer:4.8.1
@@ -20,7 +28,8 @@ services:
     ports:
       - "${ADMINER_PORT}:8080"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   jupyter:
     build:
@@ -36,15 +45,19 @@ services:
     volumes:
       - ./notebooks:/workspace/notebooks
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     command:
-      - jupyter
-      - lab
-      - --ip=0.0.0.0
-      - --port=8888
-      - --no-browser
-      - --allow-root
-      - --IdentityProvider.token=${JUPYTER_TOKEN}
+      - sh
+      - -c
+      - >-
+        python /usr/local/bin/check_database.py &&
+        exec jupyter lab
+        --ip=0.0.0.0
+        --port=8888
+        --no-browser
+        --allow-root
+        --IdentityProvider.token="$${JUPYTER_TOKEN}"
 
 volumes:
   postgres_data:
