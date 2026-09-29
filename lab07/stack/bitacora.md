@@ -29,3 +29,16 @@ Los dos servicios se levantaron correctamente:
 ```text
 lab07-clinical-stack-adminer-1
 lab07-clinical-stack-postgres-1
+
+## 2. Comunicación entre servicios
+
+Se añadió un servicio Jupyter construido desde `Dockerfile.jupyter`. El
+directorio local `notebooks/` se monta en `/workspace/notebooks`, por lo que los
+archivos guardados desde Jupyter persisten en el equipo anfitrión.
+
+### Conexión desde Jupyter
+
+Jupyter se conectó utilizando el nombre del servicio de PostgreSQL:
+
+```text
+postgresql://clinlab:***@postgres:5432/clinical

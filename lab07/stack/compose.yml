@@ -21,5 +21,29 @@ services:
     depends_on:
       - postgres
 
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    environment:
+      DATABASE_URL: >-
+        postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN}
+    ports:
+      - "${JUPYTER_PORT}:8888"
+    volumes:
+      - ./notebooks:/workspace/notebooks
+    depends_on:
+      - postgres
+    command:
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --port=8888
+      - --no-browser
+      - --allow-root
+      - --IdentityProvider.token=${JUPYTER_TOKEN}
+
 volumes:
   postgres_data:
