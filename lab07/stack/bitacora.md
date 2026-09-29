@@ -69,3 +69,36 @@ Se añadió a PostgreSQL un `healthcheck` basado en:
 
 ```bash
 pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+
+## 6. Configuración externa y protección de secretos
+
+La configuración del stack se almacena localmente en `.env`. Este archivo está
+excluido mediante `.gitignore` y no se versiona. En su lugar, el repositorio
+incluye `.env.example` con nombres de variables y valores de demostración.
+
+Las variables configuradas son:
+
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `POSTGRES_DB`
+- `POSTGRES_HOST_PORT`
+- `ADMINER_PORT`
+- `JUPYTER_PORT`
+- `JUPYTER_TOKEN`
+
+Las variables críticas utilizan la sintaxis `${VAR:?mensaje}`. Al ejecutar
+Compose con `POSTGRES_PASSWORD` vacía, la validación terminó con un código
+distinto de cero y explicó que la variable obligatoria no tenía valor. Por
+tanto, el stack falla de forma temprana antes de crear contenedores con una
+configuración incompleta.
+
+También se comprobó que `.env` está ignorado, que únicamente `.env.example`
+puede versionarse y que la contraseña local no aparece en `compose.yml` ni en
+`.env.example`.
+
+Los puertos se publican exclusivamente en `127.0.0.1`, de modo que Postgres,
+Adminer y Jupyter son accesibles desde la computadora anfitriona, pero no se
+exponen directamente a otros equipos de la red local.
+
+La evidencia se conserva en
+`evidencias/lab07_13_env_validation.png`.
