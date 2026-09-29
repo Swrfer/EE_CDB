@@ -42,3 +42,10 @@ Jupyter se conectó utilizando el nombre del servicio de PostgreSQL:
 
 ```text
 postgresql://clinlab:***@postgres:5432/clinical
+
+## 3. Inicialización de la base de datos
+
+La carpeta `initdb/` se montó como:
+
+```text
+/docker-entrypoint-initdb.d
