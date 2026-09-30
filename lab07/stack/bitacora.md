@@ -356,3 +356,10 @@ un error de autenticación:
 
 ```text
 password authentication failed for user "clinlab"
+
+## 9. Prueba de reproducibilidad en un clon limpio
+
+Se apagó el stack original y se eliminó su volumen mediante:
+
+```bash
+docker compose --profile dev down -v
