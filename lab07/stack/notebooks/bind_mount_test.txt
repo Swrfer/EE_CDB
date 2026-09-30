@@ -1,0 +1,1 @@
+Archivo creado desde macOS y visible dentro del contenedor Jupyter.
