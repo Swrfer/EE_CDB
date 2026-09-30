@@ -330,36 +330,235 @@ Evidencias:
 
 ## 8. Depuración intencional: contraseña discordante
 
-Se conservó el volumen existente de PostgreSQL y se cambió temporalmente
-`POSTGRES_PASSWORD` únicamente en el archivo local `.env`. De este modo, la
-base conservó su contraseña original, mientras que Jupyter recibió una
-contraseña diferente.
+Para provocar un fallo controlado se conservó el volumen de PostgreSQL y se
+cambió temporalmente `POSTGRES_PASSWORD` únicamente en el archivo local
+`.env`. De esta manera, PostgreSQL mantuvo la contraseña con la que había sido
+inicializado, mientras que Jupyter recibió una credencial diferente.
 
-Durante el primer intento Jupyter continuó conectándose correctamente porque
-la terminal todavía conservaba una versión exportada de `POSTGRES_PASSWORD`.
-Las variables del entorno de la shell tienen prioridad sobre los valores del
-archivo `.env`. Después de ejecutar `unset POSTGRES_PASSWORD` y recrear
-Jupyter, el fallo apareció correctamente.
+Durante el primer intento Jupyter continuó conectándose correctamente porque la
+terminal conservaba una versión exportada de `POSTGRES_PASSWORD`. Las variables
+del entorno de la shell tienen prioridad sobre los valores de `.env`. Después
+de ejecutar `unset POSTGRES_PASSWORD` y recrear el servicio, el fallo apareció
+correctamente.
 
 ### Paso 1: `docker compose ps`
 
-`docker compose ps -a` mostró que PostgreSQL permanecía activo y saludable,
-mientras que Jupyter había terminado durante su comprobación inicial.
+Se ejecutó:
 
-Esto permitió localizar el problema en Jupyter o en su configuración, en lugar
-de asumir que todo el stack había fallado.
+```bash
+docker compose ps -a
+```
+
+PostgreSQL permaneció activo y saludable, mientras que Jupyter terminó durante
+la comprobación inicial de la conexión. Esto permitió localizar el problema en
+Jupyter o en su configuración, en lugar de asumir que toda la base de datos
+había fallado.
+
+Evidencia:
+
+- `evidencias/lab07_16_debug_ps.png`
 
 ### Paso 2: `docker compose logs jupyter`
 
-Los registros mostraron que Jupyter intentó conectarse a PostgreSQL y recibió
-un error de autenticación:
+Se inspeccionaron los registros mediante:
+
+```bash
+docker compose logs --no-color --tail=80 jupyter
+```
+
+Los registros mostraron que Jupyter intentó conectarse a PostgreSQL antes de
+iniciar el servidor y recibió el siguiente mensaje:
 
 ```text
 password authentication failed for user "clinlab"
+```
+
+El error confirmó que PostgreSQL estaba accesible, pero rechazaba la
+autenticación presentada por Jupyter.
+
+Evidencia:
+
+- `evidencias/lab07_17_debug_logs.png`
+
+### Paso 3: `docker compose exec`
+
+Se inspeccionó desde el interior del stack la configuración recibida por el
+servicio y se repitió la comprobación de conexión. El contenedor resolvía el
+nombre `postgres` y alcanzaba el puerto interno `5432`, pero no podía
+autenticarse con la contraseña discordante.
+
+Evidencia:
+
+- `evidencias/lab07_18_debug_exec.png`
+
+### Diagnóstico final
+
+La red de Compose, la resolución del nombre del servicio y PostgreSQL
+funcionaban correctamente. El fallo se debía exclusivamente a que Jupyter y la
+base utilizaban contraseñas diferentes.
+
+Se restauró el archivo `.env`, se eliminó la variable exportada de la shell y se
+recrearon los servicios. PostgreSQL, Jupyter y Adminer regresaron al estado
+saludable, y los registros volvieron a mostrar una conexión exitosa.
+
+El experimento confirmó la utilidad del orden de depuración:
+
+```text
+ps → logs → exec
+```
+
+`ps` permitió identificar el servicio afectado, `logs` mostró el error de
+autenticación y `exec` permitió comprobar desde dentro del stack qué
+configuración y conectividad veía el contenedor.
 
 ## 9. Prueba de reproducibilidad en un clon limpio
 
-Se apagó el stack original y se eliminó su volumen mediante:
+Primero se apagó el stack original y se eliminó su volumen:
 
 ```bash
 docker compose --profile dev down -v
+```
+
+Después se creó un clon limpio del repositorio en un directorio temporal
+diferente. El clon contenía `.env.example`, pero no el archivo local `.env`.
+
+La preparación y el arranque se realizaron con los pasos documentados:
+
+```bash
+cp .env.example .env
+
+docker compose up \
+  -d \
+  --build \
+  --wait \
+  --wait-timeout 120
+```
+
+PostgreSQL alcanzó el estado `healthy` y Jupyter inició correctamente sin pasos
+manuales adicionales. Adminer no se levantó porque pertenece al perfil
+opcional `dev`.
+
+La conexión desde el notebook también se verificó dentro del clon:
+
+```bash
+docker compose exec \
+  -T \
+  jupyter \
+  jupyter nbconvert \
+  --to notebook \
+  --execute \
+  --inplace \
+  /workspace/notebooks/conexion_postgres.ipynb
+```
+
+La ejecución terminó con código de salida `0`. El notebook se conectó a
+PostgreSQL mediante el nombre del servicio `postgres` y consultó correctamente
+la base `clinical`.
+
+Evidencia:
+
+- `evidencias/lab07_19_clean_clone.png`
+
+### Resultado
+
+La prueba confirmó que un clon sin el archivo `.env` original puede levantar el
+stack copiando `.env.example`, sin depender del entorno Conda, de paquetes
+Python instalados en macOS ni del volumen creado durante experimentos
+anteriores.
+
+No se obtuvo una validación adicional de un compañero antes del cierre del
+laboratorio. Por tanto, no se declara una confirmación humana externa. La
+prueba en un clon limpio y un directorio independiente verifica la
+reproducibilidad técnica, pero esta limitación queda documentada explícitamente.
+
+## 10. Comparación con la solución de referencia
+
+La solución de referencia se consultó únicamente después de terminar las
+actividades anteriores. Se comparó su archivo `compose.yml` con la
+implementación desarrollada en este laboratorio.
+
+### Diferencia 1: tratamiento de variables críticas
+
+La referencia proporciona valores predeterminados para las credenciales:
+
+```yaml
+POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-omop}
+```
+
+La implementación propia exige que las variables estén definidas:
+
+```yaml
+POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD in .env}
+```
+
+**Evaluación:** la implementación propia es mejor para este laboratorio. La
+referencia facilita un arranque inmediato, pero puede iniciar
+inadvertidamente con credenciales conocidas. La forma `${VAR:?mensaje}`
+detiene la creación del stack cuando falta una variable crítica y permite
+identificar el problema antes de iniciar los contenedores.
+
+### Diferencia 2: publicación de puertos
+
+La referencia publica los puertos sobre todas las interfaces del equipo y usa
+valores fijos:
+
+```yaml
+ports:
+  - "5432:5432"
+```
+
+La implementación propia los restringe a la interfaz local y permite cambiar el
+puerto mediante `.env`:
+
+```yaml
+ports:
+  - "127.0.0.1:${POSTGRES_HOST_PORT:?Define POSTGRES_HOST_PORT in .env}:5432"
+```
+
+**Evaluación:** la implementación propia es mejor para un entorno local de
+análisis. Restringir la publicación a `127.0.0.1` evita exponer PostgreSQL,
+Adminer y Jupyter a otros equipos de la red. El puerto configurable también
+reduce conflictos con servicios instalados en la máquina anfitriona.
+
+### Diferencia 3: Adminer y alcance de los bind mounts
+
+En la referencia, Adminer forma parte del arranque normal y Jupyter monta todo
+el directorio del proyecto:
+
+```yaml
+volumes:
+  - ./:/home/jovyan/work
+```
+
+En la implementación propia, Adminer utiliza el perfil opcional `dev` y Jupyter
+solo monta la carpeta de notebooks:
+
+```yaml
+profiles:
+  - dev
+```
+
+```yaml
+volumes:
+  - ./notebooks:/workspace/notebooks
+```
+
+**Evaluación:** la implementación propia es mejor para reducir la superficie de
+ejecución. El stack normal solo inicia PostgreSQL y Jupyter, mientras que
+Adminer se solicita explícitamente con `--profile dev`. Además, el contenedor
+de Jupyter recibe únicamente los archivos que necesita editar y no todo el
+directorio del stack. La referencia resulta más cómoda para explorar todos los
+archivos desde Jupyter, pero concede un acceso más amplio del necesario.
+
+### Conclusión
+
+Las dos implementaciones usan un volumen nombrado para PostgreSQL, scripts de
+inicialización, un healthcheck real y `depends_on` con
+`condition: service_healthy`. Por tanto, su arquitectura básica es
+equivalente.
+
+La solución propia añade decisiones más conservadoras para este escenario:
+variables críticas obligatorias, puertos limitados a `localhost`, versiones de
+imagen fijadas, Adminer opcional y un bind mount limitado a los notebooks.
+Estas diferencias priorizan seguridad, reproducibilidad y mínimo acceso sin
+cambiar la finalidad del stack.
