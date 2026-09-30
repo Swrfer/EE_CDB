@@ -327,3 +327,32 @@ Evidencias:
 
 - `evidencias/lab07_14_profile_without_adminer.png`
 - `evidencias/lab07_15_profile_with_adminer.png`
+
+## 8. Depuración intencional: contraseña discordante
+
+Se conservó el volumen existente de PostgreSQL y se cambió temporalmente
+`POSTGRES_PASSWORD` únicamente en el archivo local `.env`. De este modo, la
+base conservó su contraseña original, mientras que Jupyter recibió una
+contraseña diferente.
+
+Durante el primer intento Jupyter continuó conectándose correctamente porque
+la terminal todavía conservaba una versión exportada de `POSTGRES_PASSWORD`.
+Las variables del entorno de la shell tienen prioridad sobre los valores del
+archivo `.env`. Después de ejecutar `unset POSTGRES_PASSWORD` y recrear
+Jupyter, el fallo apareció correctamente.
+
+### Paso 1: `docker compose ps`
+
+`docker compose ps -a` mostró que PostgreSQL permanecía activo y saludable,
+mientras que Jupyter había terminado durante su comprobación inicial.
+
+Esto permitió localizar el problema en Jupyter o en su configuración, en lugar
+de asumir que todo el stack había fallado.
+
+### Paso 2: `docker compose logs jupyter`
+
+Los registros mostraron que Jupyter intentó conectarse a PostgreSQL y recibió
+un error de autenticación:
+
+```text
+password authentication failed for user "clinlab"
