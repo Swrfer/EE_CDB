@@ -26,3 +26,8 @@ __pycache__/
 
 # Configuración de una regeneración exploratoria no utilizada
 /lab03/synthea_diabetes.properties
+
+# Datos locales del Laboratorio 08
+/lab08/data/
+/lab08/.cache/
+/lab08/.env

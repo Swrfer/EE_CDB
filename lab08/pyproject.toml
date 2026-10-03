@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biomedical-api-client"
+version = "0.1.0"
+description = "Robust and reproducible client for public biomedical APIs."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.3",
+    "pyarrow>=25",
+    "pydantic>=2.13,<3",
+    "requests>=2.34,<3",
+    "requests-cache>=1.3,<2",
+]
+
+[project.optional-dependencies]
+notebooks = [
+    "ipykernel>=6",
+    "jupyterlab>=4",
+]
+dev = [
+    "mypy>=1.14",
+    "pytest>=9",
+    "responses>=0.26,<1",
+    "ruff>=0.9",
+    "types-requests>=2.33,<3",
+]
+
+[tool.setuptools]
+packages = ["clientes"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["clientes"]
+known-third-party = [
+    "pandas",
+    "pydantic",
+    "pytest",
+    "requests",
+    "requests_cache",
+    "responses",
+]
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
