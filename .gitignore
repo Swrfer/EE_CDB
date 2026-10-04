@@ -31,3 +31,8 @@ __pycache__/
 /lab08/data/
 /lab08/.cache/
 /lab08/.env
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/*.egg-info/
+/lab08/*.egg-info/

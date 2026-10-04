@@ -1,0 +1,18 @@
+===== MÉTRICAS POR ACTIVIDAD =====
+Exploración y fallos controlados (actividades 1–2): reales=6, caché=0
+Paginación de ClinicalTrials.gov (actividad 3): reales=3, caché=6
+Descarga cruda de las tres APIs (actividad 5): reales=3, caché=0
+Resumen ESummary de PubMed (actividad 6): reales=1, caché=0
+Validación, consolidación y pruebas (actividades 6–8): reales=0, caché=0
+
+===== TOTALES =====
+Peticiones reales: 13
+Respuestas desde caché: 6
+Solicitudes resueltas: 19
+Porcentaje resuelto desde caché: 31.58%
+
+===== REFLEXIÓN =====
+Mil primeras ejecuciones simultáneas podrían generar 13,000 solicitudes reales y ejercer presión innecesaria.
+La caché reduce las repeticiones, pero también se requieren límites de tasa, pausas y ejecuciones escalonadas.
+
+Informe JSON: evidencias/lab08_09_metrics.json

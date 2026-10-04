@@ -497,3 +497,510 @@ evidencias/lab08_03_memory.txt
 | Medición con generador | 0 | 3 |
 | Medición con lista | 0 | 3 |
 | **Total acumulado** | **9** | **6** |
+
+## 4. Cliente HTTP robusto
+
+Se implementó `RobustAPIClient` en `clientes/base.py` como componente común para
+PubMed, ClinicalTrials.gov y openFDA.
+
+El cliente incorpora:
+
+- Tiempo límite de conexión y lectura en todas las peticiones.
+- Una `CachedSession` reutilizable.
+- Caché persistente en SQLite para el uso real.
+- Reintentos restringidos a métodos idempotentes.
+- Backoff exponencial.
+- Respeto del encabezado `Retry-After`.
+- Contadores de peticiones reales, caché y reintentos.
+- Cierre explícito de la sesión.
+- Uso como administrador de contexto mediante `with`.
+
+### Sesión y caché
+
+La sesión conserva conexiones HTTP entre solicitudes y evita crear una conexión
+nueva para cada página. En la configuración real, la caché se almacena en disco
+con una vigencia predeterminada de siete días.
+
+Solo se almacenan respuestas HTTP 200. Los errores 429 y 5xx no se guardan, ya
+que hacerlo podría convertir un fallo transitorio en una respuesta persistente
+de caché.
+
+Los métodos permitidos en la caché son:
+
+```text
+GET
+HEAD
+OPTIONS
+```
+
+Estos métodos se consideran idempotentes: repetirlos no debería crear ni
+modificar recursos en el servidor.
+
+### Política de reintentos
+
+El cliente utiliza tres intentos totales. Esto significa una petición inicial y,
+como máximo, dos repeticiones.
+
+| Código o situación | ¿Reintenta? | Justificación |
+|---|---|---|
+| 400 Bad Request | No | La solicitud está mal formada; repetirla sin cambios produciría el mismo resultado |
+| 401 Unauthorized | No | Requiere corregir autenticación o permisos |
+| 404 Not Found | No | El recurso solicitado no existe |
+| 429 Too Many Requests | Sí | Es una limitación temporal de tasa y puede resolverse esperando |
+| 500 Internal Server Error | Sí | Puede representar un fallo transitorio del servidor |
+| 503 Service Unavailable | Sí | El servicio puede recuperarse después de una espera |
+| Otros códigos 5xx | Sí | Representan errores del lado del servidor potencialmente temporales |
+| Timeout | Sí | Puede deberse a una interrupción transitoria |
+| ConnectionError | Sí | La conexión puede recuperarse en un intento posterior |
+| Método no idempotente | No | Repetirlo podría duplicar una operación con efectos laterales |
+
+Las excepciones de red solo se reintentan cuando el método es idempotente.
+
+### Backoff exponencial
+
+Con el factor predeterminado de 0.5 segundos, las esperas después de los intentos
+fallidos son:
+
+```text
+Primer fallo: 0.5 segundos
+Segundo fallo: 1.0 segundos
+```
+
+Si se configuraran más intentos, la siguiente espera sería de 2.0 segundos.
+
+Cuando la respuesta incluye `Retry-After`, este valor tiene prioridad sobre el
+backoff calculado. El cliente acepta tanto segundos numéricos como una fecha
+HTTP.
+
+### Métricas
+
+Cada instancia mantiene tres contadores:
+
+| Métrica | Significado |
+|---|---|
+| `real_requests` | Intentos que llegaron a la red o fallaron durante la conexión |
+| `cache_hits` | Respuestas recuperadas sin consultar nuevamente al servidor |
+| `retries` | Repeticiones posteriores a un fallo |
+
+La propiedad `total_attempts` suma peticiones reales y respuestas desde caché.
+
+### Pruebas simuladas
+
+La política se verificó con `responses` y el dominio reservado `example.test`.
+No se realizaron llamadas externas.
+
+Se comprobaron los siguientes escenarios:
+
+1. Respuesta 200 con JSON válido.
+2. Respuesta 429 seguida de 200, respetando `Retry-After: 2`.
+3. Error 500 persistente, abandonado después de tres intentos.
+4. Error 503 seguido de recuperación mediante backoff.
+5. Errores 400, 401 y 404 sin reintento.
+6. Método POST sin reintento ante 503.
+7. Segunda petición GET idéntica resuelta desde caché.
+
+El resultado fue:
+
+```text
+9 passed in 0.19s
+```
+
+La prueba de 500 persistente confirmó dos esperas simuladas de 0.5 y 1.0
+segundos. La prueba de 429 confirmó una espera simulada de 2.0 segundos, tomada
+de `Retry-After`.
+
+La prueba de caché confirmó una petición real y una respuesta desde caché para
+dos GET idénticos.
+
+La evidencia quedó guardada en:
+
+```text
+evidencias/lab08_04_client_tests.txt
+```
+
+Estas pruebas se ejecutaron con respuestas interceptadas, pero la verificación
+definitiva con el wifi apagado se realizará en la Actividad 8.
+
+### Conteo acumulado de solicitudes públicas
+
+Las pruebas de esta actividad no consultaron ninguna API real. Por tanto, el
+conteo acumulado del laboratorio permanece en:
+
+| Origen | Solicitudes reales | Resueltas desde caché |
+|---|---:|---:|
+| Actividades 1–3 | 9 | 6 |
+| Pruebas simuladas de la Actividad 4 | 0 | 0 |
+| **Total acumulado** | **9** | **6** |
+
+## 5. Conservación de las respuestas crudas
+
+Se implementó `RawResponseStore` en `clientes/raw_storage.py` para guardar cada
+respuesta antes de transformarla.
+
+El orden de trabajo quedó centralizado en `fetch_json_and_store()`:
+
+```text
+petición HTTP
+→ guardado del cuerpo crudo
+→ guardado de metadatos
+→ interpretación del JSON
+```
+
+De esta manera, un error durante el parseo o la validación no destruye la
+respuesta original.
+
+### Formato de almacenamiento
+
+El cuerpo se escribe directamente desde `response.content`. No se utiliza
+`response.json()` ni se vuelve a serializar el contenido antes de guardarlo.
+
+Cada descarga produce dos archivos:
+
+1. El cuerpo crudo con extensión `.json`, `.xml` o `.bin`, según
+   `Content-Type`.
+2. Un archivo lateral `.metadata.json`.
+
+El nombre contiene:
+
+- Fuente.
+- Fecha y hora UTC con microsegundos.
+- Los primeros 12 caracteres del SHA-256 del cuerpo.
+
+Por ejemplo:
+
+```text
+pubmed_20261004T173459737582Z_7d470623a896.json
+```
+
+### Metadatos reproducibles
+
+El archivo lateral registra:
+
+- Fuente.
+- Fecha y hora de descarga en UTC.
+- Método HTTP.
+- Código de estado.
+- URL solicitada.
+- Parámetros utilizados.
+- Tipo de contenido.
+- Tamaño en bytes.
+- SHA-256 completo.
+- Procedencia de red o caché.
+- Encabezados de la respuesta.
+
+Los parámetros con nombres como `api_key`, `token`, `access_token` o `key` se
+sustituyen por:
+
+```text
+***REDACTED***
+```
+
+La misma censura se aplica si una credencial aparece dentro de la URL.
+
+### Prueba del orden de operaciones
+
+Se simuló una respuesta HTTP 200 cuyo encabezado declaraba JSON, pero cuyo cuerpo
+contenía HTML inválido:
+
+```text
+<html>temporary error</html>
+```
+
+El parseo produjo el `JSONDecodeError` esperado. Sin embargo, antes de la
+excepción ya se habían escrito:
+
+- El cuerpo exacto.
+- Su archivo de metadatos.
+
+La prueba confirmó que el archivo guardado era idéntico byte por byte a la
+respuesta simulada.
+
+### Descarga real de las tres fuentes
+
+El script `scripts/descargar_crudos.py` realizó una solicitud controlada a cada
+API.
+
+#### PubMed
+
+```text
+Cuerpo: data/raw/pubmed/pubmed_20261004T173459737582Z_7d470623a896.json
+Tamaño: 266 bytes
+Claves: esearchresult, header
+```
+
+#### ClinicalTrials.gov
+
+```text
+Cuerpo: data/raw/clinicaltrials/clinicaltrials_20261004T173459918362Z_7d31ac3182e4.json
+Tamaño: 123,424 bytes
+Claves: nextPageToken, studies, totalCount
+```
+
+#### openFDA
+
+```text
+Cuerpo: data/raw/openfda/openfda_20261004T173507410629Z_2d6b0efb69be.json
+Tamaño: 47,483 bytes
+Claves: meta, results
+```
+
+Las tres respuestas provinieron de la red. No hubo reintentos ni respuestas
+desde caché.
+
+### Importancia para la reproducibilidad de la tesis
+
+1. El archivo crudo conserva exactamente la evidencia disponible en la fecha de descarga, aunque la API cambie posteriormente.
+2. Los parámetros y el hash permiten auditar qué se solicitó y comprobar que el insumo no fue modificado.
+3. La transformación puede repetirse con código nuevo sin volver a consultar el servicio ni depender de su estado futuro.
+
+### Exclusión de datos
+
+Se generaron seis archivos dentro de `data/raw/`: tres cuerpos y tres archivos
+de metadatos.
+
+El directorio completo está excluido mediante `.gitignore`:
+
+```text
+/lab08/data/
+```
+
+Por tanto, el repositorio documenta cómo regenerar los datos, pero no versiona
+las respuestas descargadas.
+
+La salida resumida y versionable se guardó en:
+
+```text
+evidencias/lab08_05_raw_downloads.txt
+```
+
+### Conteo acumulado de solicitudes
+
+| Actividad | Solicitudes reales | Resueltas desde caché |
+|---|---:|---:|
+| Actividades 1–4 | 9 | 6 |
+| Descarga cruda de PubMed | 1 | 0 |
+| Descarga cruda de ClinicalTrials.gov | 1 | 0 |
+| Descarga cruda de openFDA | 1 | 0 |
+| **Total acumulado** | **12** | **6** |
+
+
+## 6. Validar en la frontera
+
+Se definieron modelos de Pydantic para ClinicalTrials.gov, PubMed y openFDA. La
+validación se ejecuta después de adaptar el JSON original y antes de construir
+los DataFrames, para impedir que registros incompletos o clínicamente
+incoherentes continúen hacia el análisis.
+
+### Modelos y reglas aplicadas
+
+| Fuente | Modelo | Validaciones principales |
+|---|---|---|
+| ClinicalTrials.gov | `ClinicalTrialRecord` | NCT válido, título no vacío, estado conocido, inscripción >= 0 y fechas coherentes |
+| PubMed | `PubMedRecord` | PMID numérico, título no vacío, año plausible y autores |
+| openFDA | `OpenFDAEvent` | Identificador numérico, fechas coherentes, medicamentos y reacciones no vacíos, edad entre 0 y 130 años |
+
+Cada registro se procesa de manera independiente. Los válidos continúan; los
+malformados se registran con su fuente, identificador y motivo, y después se
+omiten sin detener el lote completo.
+
+### Resultados de los registros reales
+
+| Fuente | Recibidos | Válidos | Descartados |
+|---|---:|---:|---:|
+| ClinicalTrials.gov | 3 | 3 | 0 |
+| PubMed | 3 | 3 | 0 |
+| openFDA | 3 | 3 | 0 |
+| **Total** | **9** | **9** | **0** |
+
+Los nueve registros reales pasaron la validación. Esto demuestra la
+compatibilidad inicial de los adaptadores con las respuestas descargadas, pero
+no garantiza que todos los registros futuros de las APIs sean válidos.
+
+### Muestra de tres registros rechazados
+
+Se introdujeron defectos controlados en copias de registros reales. Estos
+controles no proceden directamente de las APIs ni se mezclaron con los datos
+válidos.
+
+| Fuente | Identificador | Defecto controlado | Motivo del rechazo |
+|---|---|---|---|
+| ClinicalTrials.gov | NCT00911820 | Conteo de inscripción ausente | `enrollmentInfo.count` debe ser un entero |
+| PubMed | 42829718 | Título vacío | `title` debe ser texto no vacío |
+| openFDA | 10004141 | Lista de reacciones vacía | `reactions` debe contener al menos un elemento |
+
+Los tres controles malformados fueron rechazados:
+
+```text
+Controles recibidos: 3
+Controles válidos: 0
+Controles rechazados: 3
+```
+
+El informe completo se guardó localmente en
+`data/processed/validation_report.json`, ruta excluida mediante `.gitignore`.
+La evidencia de ejecución se conserva en
+`evidencias/lab08_06_validation.txt`.
+
+### Conteo acumulado de solicitudes
+
+La validación utilizó archivos locales y realizó cero solicitudes nuevas. La
+consulta ESummary necesaria para completar los registros de PubMed realizó una
+solicitud real.
+
+| Actividad | Solicitudes reales | Resueltas desde caché |
+|---|---:|---:|
+| Actividades 1–5 | 12 | 6 |
+| Resumen ESummary de PubMed | 1 | 0 |
+| Validación local | 0 | 0 |
+| **Total acumulado** | **13** | **6** |
+
+
+## 7. Consolidar y analizar
+
+Los nueve registros que superaron la validación se normalizaron con
+`pandas.json_normalize` y se organizaron en tres DataFrames. Las columnas con
+valores múltiples, como países, autores, medicamentos y reacciones, se
+conservaron como listas para no perder información.
+
+### Archivos Parquet
+
+| Fuente | Filas | Columnas | Archivo local |
+|---|---:|---:|---|
+| ClinicalTrials.gov | 3 | 8 | `data/processed/clinicaltrials.parquet` |
+| PubMed | 3 | 5 | `data/processed/pubmed.parquet` |
+| openFDA | 3 | 7 | `data/processed/openfda.parquet` |
+
+Los tres archivos se volvieron a leer con pandas después de escribirlos. Las
+dimensiones y las filas esperadas se conservaron, por lo que se comprobó el
+ciclo de escritura y lectura de Parquet. Todo `data/processed/` permanece
+excluido mediante `.gitignore`.
+
+### Pregunta 1: ensayos activos y ubicación
+
+Se consideraron activos los estados `RECRUITING`, `NOT_YET_RECRUITING`,
+`ENROLLING_BY_INVITATION` y `ACTIVE_NOT_RECRUITING`. Ninguno de los tres
+ensayos de la muestra tenía uno de esos estados: dos estaban completados y uno
+tenía estado desconocido.
+
+Por tanto, la muestra validada contenía **0 ensayos activos** y no fue posible
+asignar ensayos activos a algún país. Esto describe únicamente la muestra de
+tres registros y no el universo completo de ClinicalTrials.gov.
+
+### Pregunta 2: reacciones notificadas en openFDA
+
+Después de expandir la lista de reacciones, `Pyrexia` apareció en dos reportes.
+Las otras ocho reacciones aparecieron una vez cada una. Estos datos son
+notificaciones de farmacovigilancia y no demuestran causalidad entre un
+medicamento y un evento.
+
+### Pregunta 3: publicaciones por año
+
+Los tres artículos recuperados de PubMed correspondieron a 2026. Esta
+concentración se debe a que se utilizaron los primeros resultados de la consulta
+y no representa la evolución histórica completa de la literatura sobre cáncer
+gástrico.
+
+### Notebook reproducible
+
+El análisis quedó implementado en `notebooks/consolidado.ipynb`. El notebook
+contiene 15 celdas, de las cuales 5 son de código. Todas se ejecutaron con
+`nbconvert`: no quedaron celdas sin ejecutar y no se registraron errores.
+
+La advertencia del kernel sobre comunicación TCP corresponde al funcionamiento
+local de Jupyter. El notebook leyó exclusivamente los archivos Parquet locales
+y no realizó solicitudes de red.
+
+Las evidencias de esta actividad se guardaron en
+`evidencias/lab08_07_consolidation.txt` y
+`evidencias/lab08_07_notebook_execution.txt`.
+
+### Conteo acumulado de solicitudes
+
+La consolidación, la lectura de Parquet y la ejecución del notebook fueron
+operaciones locales. El conteo acumulado se mantiene en **13 solicitudes
+reales**, **6 respuestas desde caché** y ninguna solicitud adicional durante
+esta actividad.
+
+
+## 8. Pruebas completamente offline
+
+La suite utiliza `responses` para simular las respuestas HTTP y evitar la
+dependencia de los servicios públicos durante las pruebas. Además, una fixture
+global reemplaza `socket.socket.connect`; cualquier intento accidental de abrir
+una conexión real provoca un fallo inmediato.
+
+### Casos obligatorios
+
+| Caso | Comportamiento comprobado |
+|---|---|
+| 200 con JSON válido | El cliente devuelve el contenido esperado |
+| 429 seguido de 200 | Reintenta, respeta `Retry-After` y termina correctamente |
+| 500 persistente | Se detiene después de tres intentos |
+| 404 | Propaga el error sin reintentar |
+| Campo obligatorio ausente | Pydantic produce un `ValidationError` |
+
+La suite también cubre un 503 con backoff exponencial, los códigos 400 y 401 sin
+reintento, métodos no idempotentes, respuestas desde caché, conservación de
+bytes crudos y rechazo de valores clínicamente inválidos.
+
+### Verificación con el Wi-Fi apagado
+
+La prueba final se ejecutó el 4 de octubre de 2026 con la interfaz `en0`
+desactivada. El sistema informó explícitamente:
+
+```text
+Wi-Fi Power (en0): Off
+```
+
+Pytest recolectó y ejecutó 24 pruebas:
+
+```text
+24 passed in 0.28s
+```
+
+No quedaron pruebas omitidas ni errores. La evidencia completa, incluidos los
+nombres individuales de los casos, se guardó en
+`evidencias/lab08_08_pytest_offline.txt`.
+
+La combinación de mocks, bloqueo de sockets y ejecución física sin Wi-Fi
+demuestra que la suite no depende de PubMed, ClinicalTrials.gov, openFDA ni de
+otro servicio externo.
+
+### Conteo de solicitudes
+
+Las pruebas offline realizaron **0 solicitudes reales**. Las respuestas 200,
+429, 500, 503, 400, 401 y 404 observadas durante pytest fueron simuladas y no
+incrementan las métricas de uso de las APIs públicas.
+
+
+## 9. Medir la cortesía
+
+El cliente robusto utiliza `RequestMetrics` para distinguir intentos reales,
+respuestas obtenidas desde caché y reintentos. Para el resumen final se
+combinaron esas métricas instrumentadas con las seis solicitudes exploratorias
+realizadas antes de construir el cliente.
+
+| Actividad | Solicitudes reales | Respuestas desde caché |
+|---|---:|---:|
+| Exploración y fallos controlados, actividades 1–2 | 6 | 0 |
+| Paginación de ClinicalTrials.gov, actividad 3 | 3 | 6 |
+| Descarga cruda de las tres APIs, actividad 5 | 3 | 0 |
+| Resumen ESummary de PubMed, actividad 6 | 1 | 0 |
+| Validación, consolidación y pruebas, actividades 6–8 | 0 | 0 |
+| **Total** | **13** | **6** |
+
+En total se resolvieron 19 solicitudes lógicas. Seis fueron atendidas desde la
+caché, equivalentes al **31.58%**. Las respuestas simuladas por `responses`
+durante pytest no se contabilizaron como tráfico real ni como caché de las APIs
+públicas.
+
+### Reflexión
+
+Mil primeras ejecuciones simultáneas podrían generar 13,000 solicitudes reales
+y ejercer presión innecesaria sobre servicios públicos gratuitos.
+La caché reduce las repeticiones, pero también se requieren límites de tasa,
+pausas y ejecuciones escalonadas.
+
+El desglose reproducible se guardó en
+`evidencias/lab08_09_metrics.txt` y
+`evidencias/lab08_09_metrics.json`.

@@ -1,0 +1,35 @@
+===== REGISTROS REALES =====
+===== CLINICALTRIALS =====
+Recibidos: 3
+Válidos: 3
+Descartados: 0
+===== PUBMED =====
+Recibidos: 3
+Válidos: 3
+Descartados: 0
+===== OPENFDA =====
+Recibidos: 3
+Válidos: 3
+Descartados: 0
+===== CONTROLES MALFORMADOS =====
+===== CLINICALTRIALS_CONTROL =====
+Recibidos: 1
+Válidos: 0
+Descartados: 1
+FALLO: NCT00911820 | enrollmentInfo.count debe ser un entero.
+===== PUBMED_CONTROL =====
+Recibidos: 1
+Válidos: 0
+Descartados: 1
+FALLO: 42829718 | title debe ser texto no vacío.
+===== OPENFDA_CONTROL =====
+Recibidos: 1
+Válidos: 0
+Descartados: 1
+FALLO: 10004141 | 1 validation error for OpenFDAEvent | reactions |   List should have at least 1 item after validation, not 0 [type=too_short, input_value=[], input_type=list] |     For further information visit https://errors.pydantic.dev/2.13/v/too_short
+===== RESUMEN =====
+Registros reales recibidos: 9
+Registros reales válidos: 9
+Fallos reales: 0
+Controles malformados rechazados: 3
+Informe: data/processed/validation_report.json

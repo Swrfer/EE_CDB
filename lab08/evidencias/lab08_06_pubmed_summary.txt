@@ -1,0 +1,10 @@
+===== PUBMED ESUMMARY =====
+PMID solicitados: ['42829718', '42828570', '42828177']
+Cuerpo: data/raw/pubmed_summary/pubmed_summary_20261004T175053463911Z_1859fb9d434e.json
+Metadatos: data/raw/pubmed_summary/pubmed_summary_20261004T175053463911Z_1859fb9d434e.metadata.json
+Bytes: 6985
+Claves JSON: ['header', 'result']
+===== MÉTRICAS =====
+Peticiones reales: 1
+Respuestas desde caché: 0
+Reintentos: 0

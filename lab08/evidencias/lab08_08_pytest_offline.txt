@@ -1,0 +1,39 @@
+===== EVIDENCIA PYTEST SIN WIFI =====
+Fecha local: domingo,  4 de octubre de 2026, 12:16:34 CST
+Dispositivo Wi-Fi: en0
+Wi-Fi Power (en0): Off
+===== SUITE COMPLETA =====
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /opt/anaconda3/envs/cdb/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/alejandrogarciacolorado/EE_CDB/lab08
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.14.2
+collecting ... collected 24 items
+
+tests/test_base.py::test_200_returns_valid_json PASSED                   [  4%]
+tests/test_base.py::test_429_honors_retry_after_then_succeeds PASSED     [  8%]
+tests/test_base.py::test_persistent_500_stops_after_three_attempts PASSED [ 12%]
+tests/test_base.py::test_503_uses_exponential_backoff PASSED             [ 16%]
+tests/test_base.py::test_client_errors_are_not_retried[400] PASSED       [ 20%]
+tests/test_base.py::test_client_errors_are_not_retried[401] PASSED       [ 25%]
+tests/test_base.py::test_client_errors_are_not_retried[404] PASSED       [ 29%]
+tests/test_base.py::test_non_idempotent_method_is_not_retried PASSED     [ 33%]
+tests/test_base.py::test_second_identical_get_uses_cache PASSED          [ 37%]
+tests/test_fetch.py::test_raw_response_is_saved_before_json_parsing PASSED [ 41%]
+tests/test_models.py::test_valid_clinical_trial_accepts_partial_dates PASSED [ 45%]
+tests/test_models.py::test_trial_rejects_missing_enrollment PASSED       [ 50%]
+tests/test_models.py::test_trial_rejects_negative_enrollment PASSED      [ 54%]
+tests/test_models.py::test_trial_rejects_reversed_dates PASSED           [ 58%]
+tests/test_models.py::test_trial_rejects_unknown_status PASSED           [ 62%]
+tests/test_models.py::test_valid_pubmed_record PASSED                    [ 66%]
+tests/test_models.py::test_pubmed_rejects_empty_title PASSED             [ 70%]
+tests/test_models.py::test_valid_openfda_event PASSED                    [ 75%]
+tests/test_models.py::test_openfda_rejects_empty_reactions PASSED        [ 79%]
+tests/test_models.py::test_openfda_rejects_impossible_age PASSED         [ 83%]
+tests/test_offline_requirements.py::test_real_network_is_blocked PASSED  [ 87%]
+tests/test_offline_requirements.py::test_pydantic_rejects_missing_required_field PASSED [ 91%]
+tests/test_raw_storage.py::test_raw_body_is_preserved_and_metadata_is_written PASSED [ 95%]
+tests/test_raw_storage.py::test_non_json_body_is_saved_without_parsing PASSED [100%]
+
+============================== 24 passed in 0.28s ==============================
