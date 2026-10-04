@@ -1,0 +1,39 @@
+{
+  "activities": [
+    {
+      "activity": "Exploración y fallos controlados (actividades 1–2)",
+      "real_requests": 6,
+      "cache_hits": 0
+    },
+    {
+      "activity": "Paginación de ClinicalTrials.gov (actividad 3)",
+      "real_requests": 3,
+      "cache_hits": 6
+    },
+    {
+      "activity": "Descarga cruda de las tres APIs (actividad 5)",
+      "real_requests": 3,
+      "cache_hits": 0
+    },
+    {
+      "activity": "Resumen ESummary de PubMed (actividad 6)",
+      "real_requests": 1,
+      "cache_hits": 0
+    },
+    {
+      "activity": "Validación, consolidación y pruebas (actividades 6–8)",
+      "real_requests": 0,
+      "cache_hits": 0
+    }
+  ],
+  "totals": {
+    "real_requests": 13,
+    "cache_hits": 6,
+    "resolved_requests": 19,
+    "cache_percentage": 31.58
+  },
+  "interpretation": {
+    "simultaneous_users": 1000,
+    "estimated_first_run_requests": 13000
+  }
+}

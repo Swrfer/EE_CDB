@@ -1,0 +1,26 @@
+===== CALENTAMIENTO DE CACHÉ =====
+Registros recorridos: 300
+Peticiones reales: 3
+Respuestas desde caché: 0
+
+===== GENERADOR =====
+Generador, registro   1: actual=10.01 MiB, pico=14.71 MiB
+Generador, registro 100: actual=10.01 MiB, pico=14.71 MiB
+Generador, registro 200: actual=13.99 MiB, pico=27.66 MiB
+Generador, registro 300: actual=8.80 MiB, pico=27.66 MiB
+
+===== LISTA =====
+
+===== COMPARACIÓN =====
+Generador: 300 registros
+Lista: 300 registros
+Primer NCT idéntico: True
+Último NCT idéntico: True
+Pico generador: 27.66 MiB
+Pico lista: 31.39 MiB
+Diferencia: 3.73 MiB
+Reducción respecto a la lista: 11.89%
+
+===== PETICIONES =====
+Peticiones reales: 3
+Respuestas desde caché: 6

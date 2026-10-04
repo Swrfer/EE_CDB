@@ -1,0 +1,28 @@
+===== DATAFRAMES =====
+ClinicalTrials.gov: (3, 8)
+PubMed: (3, 5)
+openFDA: (3, 7)
+
+===== PARQUET =====
+clinicaltrials: data/processed/clinicaltrials.parquet
+pubmed: data/processed/pubmed.parquet
+openfda: data/processed/openfda.parquet
+
+===== PREGUNTA 1: ENSAYOS ACTIVOS POR PAÍS =====
+No hay ensayos activos en la muestra validada.
+
+===== PREGUNTA 2: REACCIONES OPENFDA =====
+Pyrexia: 2
+Hepatic lesion: 1
+Malignant neoplasm progression: 1
+Gastric cancer: 1
+Product use issue: 1
+Facial bones fracture: 1
+Syncope: 1
+Neutropenia: 1
+Chest pain: 1
+
+===== PREGUNTA 3: PUBLICACIONES POR AÑO =====
+2026: 3
+
+Resumen: data/processed/analysis_summary.json

@@ -1,0 +1,19 @@
+===== PUBMED =====
+Cuerpo: data/raw/pubmed/pubmed_20261004T173459737582Z_7d470623a896.json
+Metadatos: data/raw/pubmed/pubmed_20261004T173459737582Z_7d470623a896.metadata.json
+Bytes: 266
+Claves JSON: ['esearchresult', 'header']
+===== CLINICALTRIALS =====
+Cuerpo: data/raw/clinicaltrials/clinicaltrials_20261004T173459918362Z_7d31ac3182e4.json
+Metadatos: data/raw/clinicaltrials/clinicaltrials_20261004T173459918362Z_7d31ac3182e4.metadata.json
+Bytes: 123424
+Claves JSON: ['nextPageToken', 'studies', 'totalCount']
+===== OPENFDA =====
+Cuerpo: data/raw/openfda/openfda_20261004T173507410629Z_2d6b0efb69be.json
+Metadatos: data/raw/openfda/openfda_20261004T173507410629Z_2d6b0efb69be.metadata.json
+Bytes: 47483
+Claves JSON: ['meta', 'results']
+===== MÉTRICAS =====
+Peticiones reales: 3
+Respuestas desde caché: 0
+Reintentos: 0
