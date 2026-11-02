@@ -1,0 +1,4 @@
+query_id,question,sql_lines,pandas_lines,sql_median_ms,pandas_median_ms,pandas_sql_ratio,same_result
+query_01,"Pacientes totales, vivos y fallecidos",9,6,0.523374998010695,1.0252079810015857,1.9588401908733057,True
+query_02,Distribución por sexo,10,10,0.9986669756472111,1.4198330463841558,1.4217282447574653,True
+query_05,Encuentros por año,6,12,9.368167025968432,26.267917011864483,2.8039548119765767,True

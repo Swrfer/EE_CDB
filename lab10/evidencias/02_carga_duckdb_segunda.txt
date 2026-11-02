@@ -1,0 +1,30 @@
+===== VALIDACIÓN DE CSV =====
+patients.csv: 28 columnas correctas
+encounters.csv: 15 columnas correctas
+conditions.csv: 7 columnas correctas
+medications.csv: 13 columnas correctas
+observations.csv: 9 columnas correctas
+
+===== CARGA =====
+Base: /Users/alejandrogarciacolorado/EE_CDB/lab10/clinical.duckdb
+SQL: /Users/alejandrogarciacolorado/EE_CDB/lab10/sql/carga.sql
+
+===== CONTEOS EN DUCKDB =====
+patients: 5745
+encounters: 353175
+conditions: 204995
+medications: 280594
+observations: 4534043
+
+===== COLUMNAS TEMPORALES =====
+conditions.start_date: DATE
+conditions.stop_date: DATE
+encounters.start_time: TIMESTAMP WITH TIME ZONE
+encounters.stop_time: TIMESTAMP WITH TIME ZONE
+medications.start_time: TIMESTAMP WITH TIME ZONE
+medications.stop_time: TIMESTAMP WITH TIME ZONE
+observations.observation_time: TIMESTAMP WITH TIME ZONE
+patients.birth_date: DATE
+patients.death_date: DATE
+
+Carga completada correctamente.

@@ -1,0 +1,14 @@
+===== TRAMPA DEL LEFT JOIN =====
+
+stage | joined_rows | patients_retained
+filter_in_where | 12945 | 4065
+filter_in_on | 14625 | 5745
+
+Pacientes excluidos por WHERE: 1680
+
+El filtro en WHERE se aplica después del join.
+Las filas sin encuentro de urgencias tienen NULL
+en la tabla derecha y son eliminadas.
+
+El filtro en ON limita las coincidencias, pero
+conserva a todos los pacientes del lado izquierdo.

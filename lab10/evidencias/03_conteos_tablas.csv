@@ -1,0 +1,6 @@
+table_name,row_count
+patients,5745
+encounters,353175
+conditions,204995
+medications,280594
+observations,4534043

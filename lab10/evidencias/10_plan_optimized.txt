@@ -1,0 +1,30 @@
+╭─ Summary ───────────╮
+│ Total Time: 0.0039s │
+╰─────────────────────╯
+╭─ Ungrouped Aggregate ────────────────────╮
+│ Aggregates: count_star()                 │
+│ 1 row                                0µs │
+╰─────────────────────┬────────────────────╯
+╭─ Hash Join ─────────┴────────────────────╮
+│ Join Type: ANTI                          │
+│ Conditions: patient_id = patient_id      │
+│ 143 rows                             0µs │
+╰─────────────────────┬────────────────────╯
+                      ├─────────────────────────────────────────╮
+╭─ Hash Group By ─────┴────────────────────╮  ╭─ Hash Group By ─┴─────────────────╮
+│ Groups: #0                               │  │ Groups: #0                        │
+│ 2,477 rows                           0µs │  │ 2,462 rows                 10.0ms │
+╰─────────────────────┬────────────────────╯  ╰─────────────────┒┎────────────────╯
+╭─ Projection ────────┴────────────────────╮  ╭─ Projection ────┚┖────────────────╮
+│ Projections: patient_id                  │  │ Projections: patient_id           │
+│ 4,381 rows                           0µs │  │ 46,481 rows                   0µs │
+╰─────────────────────┬────────────────────╯  ╰─────────────────┒┎────────────────╯
+╭─ Table Scan ────────┴────────────────────╮  ╭─ Table Scan ────┚┖────────────────╮
+│ Table: clinical.main.conditions          │  │ Table: clinical.main.observations │
+│ Type: Sequential Scan                    │  │ Type: Sequential Scan             │
+│ Projections: patient_id                  │  │ Projections: patient_id           │
+│ Filters:                                 │  │ Filters: code = '4548-4'          │
+│ contains(lower(description), 'diabetes') │  │ Row Groups Scanned: 40 / 40       │
+│ Row Groups Scanned: 2 / 2                │  │ 46,481 rows                10.0ms │
+│ 4,381 rows                           0µs │  ╰───────────────────────────────────╯
+╰──────────────────────────────────────────╯
