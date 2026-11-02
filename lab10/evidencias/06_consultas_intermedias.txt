@@ -1,0 +1,371 @@
+===== CONSULTA 1 =====
+total_patients | living_patients | deceased_patients
+5745 | 5000 | 745
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_01.csv
+
+===== CONSULTA 2 =====
+gender | patients | percentage
+M | 2919 | 50.81
+F | 2826 | 49.19
+Filas: 2
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_02.csv
+
+===== CONSULTA 3 =====
+code | description | diagnosis_records | distinct_patients
+314529007 | Medication review due (situation) | 41818 | 5745
+73595000 | Stress (finding) | 16658 | 4543
+160903007 | Full-time employment (finding) | 15277 | 4520
+66383009 | Gingivitis (disorder) | 10343 | 4680
+160904001 | Part-time employment (finding) | 9541 | 3670
+444814009 | Viral sinusitis (disorder) | 5960 | 3684
+423315002 | Limited social contact (finding) | 5931 | 3111
+422650009 | Social isolation (finding) | 5857 | 3115
+741062008 | Not in labor force (finding) | 5282 | 2727
+706893006 | Victim of intimate partner abuse (finding) | 3802 | 2462
+Filas: 10
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_03.csv
+
+===== CONSULTA 4 =====
+patients_born_before_1960
+1152
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_04.csv
+
+===== CONSULTA 5 =====
+encounter_year | encounters
+1918 | 1
+1919 | 3
+1920 | 3
+1921 | 9
+1922 | 14
+1923 | 10
+1924 | 11
+1925 | 11
+1926 | 7
+1927 | 12
+1928 | 7
+1929 | 16
+1930 | 12
+1931 | 16
+1932 | 19
+1933 | 13
+1934 | 29
+1935 | 34
+1936 | 48
+1937 | 29
+1938 | 31
+1939 | 40
+1940 | 41
+1941 | 47
+1942 | 43
+1943 | 50
+1944 | 46
+1945 | 54
+1946 | 86
+1947 | 174
+1948 | 178
+1949 | 177
+1950 | 184
+1951 | 91
+1952 | 90
+1953 | 120
+1954 | 123
+1955 | 218
+1956 | 208
+1957 | 222
+1958 | 223
+1959 | 264
+1960 | 303
+1961 | 295
+1962 | 393
+1963 | 422
+1964 | 491
+1965 | 612
+1966 | 568
+1967 | 510
+1968 | 569
+1969 | 523
+1970 | 574
+1971 | 578
+1972 | 581
+1973 | 732
+1974 | 752
+1975 | 818
+1976 | 720
+1977 | 851
+1978 | 900
+1979 | 965
+1980 | 1083
+1981 | 1198
+1982 | 1093
+1983 | 1103
+1984 | 1045
+1985 | 964
+1986 | 962
+1987 | 1109
+1988 | 1131
+1989 | 1171
+1990 | 1749
+1991 | 1671
+1992 | 1944
+1993 | 1825
+1994 | 1862
+1995 | 2015
+1996 | 2259
+1997 | 2311
+1998 | 2450
+1999 | 2834
+2000 | 2742
+2001 | 2949
+2002 | 2900
+2003 | 2969
+2004 | 3357
+2005 | 3543
+2006 | 3845
+2007 | 3906
+2008 | 4479
+2009 | 4210
+2010 | 3742
+2011 | 4249
+2012 | 4309
+2013 | 4410
+2014 | 6990
+2015 | 6049
+2016 | 9933
+2017 | 21304
+2018 | 21000
+2019 | 21610
+2020 | 22419
+2021 | 28965
+2022 | 23268
+2023 | 23564
+2024 | 24414
+2025 | 24758
+2026 | 20341
+Filas: 109
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_05.csv
+
+===== CONSULTA 6 =====
+mean_encounters | median_encounters | minimum_encounters | maximum_encounters
+61.48 | 37.0 | 1 | 905
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_06.csv
+
+===== CONSULTA 7 =====
+condition | patients | mean_age_at_first_diagnosis
+Viral sinusitis (disorder) | 3684 | 38.38
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_07.csv
+
+===== CONSULTA 8 =====
+code | description | distinct_patients | diagnosis_records
+314529007 | Medication review due (situation) | 5745 | 41818
+66383009 | Gingivitis (disorder) | 4680 | 10343
+73595000 | Stress (finding) | 4543 | 16658
+160903007 | Full-time employment (finding) | 4520 | 15277
+444814009 | Viral sinusitis (disorder) | 3684 | 5960
+160904001 | Part-time employment (finding) | 3670 | 9541
+422650009 | Social isolation (finding) | 3115 | 5857
+423315002 | Limited social contact (finding) | 3111 | 5931
+162864005 | Body mass index 30+ - obesity (finding) | 2800 | 2800
+741062008 | Not in labor force (finding) | 2727 | 5282
+224299000 | Received higher education (finding) | 2723 | 2723
+195662009 | Acute viral pharyngitis (disorder) | 2580 | 3399
+706893006 | Victim of intimate partner abuse (finding) | 2462 | 3802
+80967001 | Dental caries | 2430 | 3073
+10509002 | Acute bronchitis (disorder) | 2224 | 2789
+714628002 | Prediabetes (finding) | 2175 | 2175
+271737000 | Anemia (disorder) | 2127 | 2127
+424393004 | Reports of violence in the environment (finding) | 1935 | 3190
+73438004 | Unemployed (finding) | 1746 | 2146
+473461003 | Educated to high school level (finding) | 1390 | 1390
+160968000 | Risk activity involvement (finding) | 1356 | 1451
+59621000 | Essential hypertension (disorder) | 1355 | 1355
+82423001 | Chronic pain (finding) | 1340 | 1340
+234949000 | Tooth eruption disorder | 1225 | 1328
+40055000 | Chronic sinusitis (disorder) | 1162 | 1163
+266948004 | Has a criminal record (finding) | 1069 | 1069
+161744009 | Past pregnancy history of miscarriage (situation) | 1069 | 1069
+72892002 | Normal pregnancy (finding) | 1068 | 2552
+274531002 | Abnormal findings diagnostic imaging heart+coronary circulat (finding) | 979 | 979
+278860009 | Chronic low back pain (finding) | 975 | 975
+414545008 | Ischemic heart disease (disorder) | 969 | 969
+237602007 | Metabolic syndrome X (disorder) | 860 | 860
+10939881000119105 | Unhealthy alcohol drinking behavior (finding) | 856 | 958
+312608009 | Laceration - injury (disorder) | 772 | 833
+105531004 | Housing unsatisfactory (finding) | 762 | 762
+125605004 | Fracture of bone (disorder) | 741 | 800
+384709000 | Sprain (morphologic abnormality) | 738 | 791
+K02.9 | Dental caries  unspecified | 725 | 1069
+43878008 | Streptococcal sore throat (disorder) | 718 | 786
+80583007 | Severe anxiety (panic) (finding) | 658 | 750
+65363002 | Otitis media (disorder) | 657 | 900
+267020005 | History of tubal ligation (situation) | 614 | 614
+307426000 | Acute infective cystitis (disorder) | 611 | 654
+1121000119107 | Chronic neck pain (finding) | 610 | 610
+55822004 | Hyperlipidemia (disorder) | 604 | 604
+127013003 | Disorder of kidney due to diabetes mellitus (disorder) | 602 | 602
+5689008 | Chronic periodontitis | 569 | 595
+44465007 | Sprain of ankle (disorder) | 535 | 565
+431855005 | Chronic kidney disease stage 1 (disorder) | 532 | 544
+266934004 | Transport problem (finding) | 530 | 530
+713458007 | Lack of access to transportation (finding) | 527 | 527
+224295006 | Only received primary school education (finding) | 523 | 523
+90781000119102 | Microalbuminuria due to type 2 diabetes mellitus (disorder) | 507 | 507
+840544004 | Suspected disease caused by Severe acute respiratory coronavirus 2 (situation) | 496 | 496
+840539006 | Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder) | 476 | 476
+31642005 | Acute gingivitis | 471 | 484
+431856006 | Chronic kidney disease stage 2 (disorder) | 471 | 481
+110030002 | Concussion injury of brain (disorder) | 459 | 477
+44054006 | Diabetes mellitus type 2 (disorder) | 457 | 457
+386661006 | Fever (finding) | 446 | 446
+302870006 | Hypertriglyceridemia (disorder) | 435 | 435
+361055000 | Misuses drugs (finding) | 428 | 447
+68496003 | Polyp of colon (disorder) | 403 | 419
+399261000 | History of coronary artery bypass grafting (situation) | 402 | 402
+1172608001 | Accretion on tooth | 379 | 387
+157141000119108 | Proteinuria due to type 2 diabetes mellitus (disorder) | 350 | 350
+49727002 | Cough (finding) | 343 | 343
+62106007 | Concussion with no loss of consciousness (disorder) | 337 | 349
+75498004 | Acute bacterial sinusitis (disorder) | 325 | 335
+2556008 | Periodontal disease | 320 | 325
+36971009 | Sinusitis (disorder) | 312 | 320
+433144002 | Chronic kidney disease stage 3 (disorder) | 310 | 311
+19169002 | Miscarriage in first trimester (disorder) | 302 | 364
+6525002 | Dependent drug abuse (disorder) | 266 | 266
+1187604002 | Serving in military service (finding) | 264 | 264
+239873007 | Osteoarthritis of knee (disorder) | 263 | 263
+196416002 | Impacted molars (disorder) | 262 | 262
+36955009 | Loss of taste (finding) | 261 | 261
+39898005 | Sleep disorder (disorder) | 256 | 256
+1149222004 | Overdose (disorder) | 255 | 793
+399211009 | History of myocardial infarction (situation) | 247 | 247
+48333001 | Burn injury (morphologic abnormality) | 246 | 249
+235104008 | Impacted tooth | 246 | 250
+124171000119105 | Chronic intractable migraine without aura (disorder) | 245 | 245
+90460009 | Injury of neck (disorder) | 243 | 250
+39848009 | Whiplash injury to neck (disorder) | 243 | 250
+197927001 | Recurrent urinary tract infection (disorder) | 242 | 242
+446654005 | Refugee (person) | 239 | 239
+64859006 | Osteoporosis (disorder) | 237 | 237
+80394007 | Hyperglycemia (disorder) | 228 | 228
+428251008 | History of appendectomy (situation) | 220 | 220
+70704007 | Sprain of wrist (disorder) | 219 | 226
+698306007 | Awaiting transplantation of kidney (situation) | 204 | 205
+105995000 | Disorder of teeth AND/OR supporting structures | 196 | 199
+156073000 | Complete miscarriage (disorder) | 191 | 216
+1290882004 | History of seizure (situation) | 190 | 190
+128613002 | Seizure disorder (disorder) | 190 | 190
+431857002 | Chronic kidney disease stage 4 (disorder) | 189 | 190
+91302008 | Sepsis (disorder) | 189 | 189
+84229001 | Fatigue (finding) | 188 | 188
+283385000 | Laceration of thigh (disorder) | 183 | 183
+58150001 | Fracture of clavicle (disorder) | 176 | 178
+65966004 | Fracture of forearm (disorder) | 175 | 180
+161665007 | History of renal transplant (situation) | 174 | 174
+707251008 | Generalised chronic periodontitis | 171 | 178
+78275009 | Obstructive sleep apnea syndrome (disorder) | 170 | 170
+284551006 | Laceration of foot (disorder) | 168 | 169
+283371005 | Laceration of forearm (disorder) | 168 | 170
+248595008 | Sputum finding (finding) | 167 | 167
+88805009 | Chronic congestive heart failure (disorder) | 162 | 162
+284549007 | Laceration of hand (disorder) | 158 | 159
+263102004 | Fracture subluxation of wrist (disorder) | 157 | 159
+16114001 | Fracture of ankle (disorder) | 155 | 156
+1085991000119107 | Dental caries on smooth surface penetrating into dentin | 152 | 154
+K04.7 | Periapical abscess without sinus | 152 | 160
+370247008 | Facial laceration (disorder) | 151 | 152
+1085961000119100 | Dental caries on pit and fissure surface penetrating into dentin | 144 | 144
+1086001000119108 | Dental caries on smooth surface penetrating into pulp | 143 | 144
+403190006 | Epidermal burn of skin (disorder) | 143 | 144
+183996000 | Sterilization requested (situation) | 142 | 142
+203646004 | Adolescent idiopathic scoliosis (disorder) | 139 | 139
+368581000119106 | Neuropathy due to type 2 diabetes mellitus (disorder) | 135 | 135
+398254007 | Pre-eclampsia (disorder) | 134 | 149
+233678006 | Childhood asthma (disorder) | 133 | 133
+401314000 | Acute non-ST segment elevation myocardial infarction (disorder) | 132 | 132
+125601008 | Injury of knee (disorder) | 132 | 133
+1551000119108 | Nonproliferative diabetic retinopathy due to type II diabetes mellitus | 130 | 130
+713197008 | Recurrent rectal polyp (disorder) | 130 | 130
+203082005 | Fibromyalgia (disorder) | 126 | 126
+22298006 | Myocardial infarction (disorder) | 125 | 125
+26929004 | Alzheimer's disease (disorder) | 123 | 123
+K00.6 | Disturbances in tooth eruption | 119 | 127
+233604007 | Pneumonia (disorder) | 118 | 118
+239872002 | Osteoarthritis of hip (disorder) | 117 | 117
+201834006 | Localized  primary osteoarthritis of the hand (disorder) | 116 | 116
+84757009 | Epilepsy (disorder) | 114 | 114
+R69 | Illness  unspecified | 114 | 121
+198992004 | Eclampsia in pregnancy (disorder) | 111 | 112
+401303003 | Acute ST segment elevation myocardial infarction (disorder) | 108 | 108
+46177005 | End-stage renal disease (disorder) | 108 | 108
+254837009 | Malignant neoplasm of breast (disorder) | 103 | 103
+446096008 | Perennial allergic rhinitis (disorder) | 101 | 101
+35999006 | Blighted ovum (disorder) | 98 | 101
+K08.9 | Disorder of teeth and supporting structures  unspecified | 98 | 105
+K02.63 | Dental caries on smooth surface penetrating into pulp | 97 | 100
+24079001 | Atopic dermatitis (disorder) | 96 | 96
+32911000 | Homeless (finding) | 95 | 101
+232353008 | Perennial allergic rhinitis with seasonal variation (disorder) | 95 | 95
+62564004 | Concussion with loss of consciousness (disorder) | 93 | 95
+K03.81 | Cracked tooth | 93 | 100
+403191005 | Partial thickness burn (disorder) | 93 | 93
+185086009 | Chronic obstructive bronchitis (disorder) | 91 | 91
+267036007 | Dyspnea (finding) | 87 | 87
+126906006 | Neoplasm of prostate (disorder) | 87 | 87
+56018004 | Wheezing (finding) | 87 | 87
+73430006 | Sleep apnea (disorder) | 86 | 86
+66569006 | Retained dental root | 85 | 87
+87433001 | Pulmonary emphysema (disorder) | 83 | 83
+K05.10 | Chronic gingivitis  plaque induced | 82 | 83
+307731004 | Injury of tendon of the rotator cuff of shoulder (disorder) | 82 | 83
+192127007 | Child attention deficit disorder (disorder) | 81 | 81
+389087006 | Hypoxemia (disorder) | 81 | 81
+271825005 | Respiratory distress (finding) | 81 | 81
+92691004 | Carcinoma in situ of prostate (disorder) | 79 | 79
+33737001 | Fracture of rib (disorder) | 76 | 76
+M27.2 | Inflammatory conditions of jaws | 76 | 77
+25064002 | Headache (finding) | 75 | 75
+K08.0 | Exfoliation of teeth due to systemic causes | 71 | 74
+718052004 | Asymptomatic periapical periodontitis | 68 | 68
+Z01.20 | Encounter for dental examination and cleaning without abnormal findings | 67 | 68
+1231000119100 | History of aortic valve replacement (situation) | 67 | 67
+315268008 | Suspected prostate cancer (situation) | 66 | 82
+K12.2 | Cellulitis and abscess of mouth | 65 | 65
+57676002 | Joint pain | 65 | 65
+68962001 | Muscle pain (finding) | 65 | 65
+267102003 | Sore throat (finding) | 64 | 64
+241929008 | Acute allergic reaction (disorder) | 59 | 61
+60573004 | Aortic valve stenosis (disorder) | 59 | 59
+85116003 | Miscarriage in second trimester (disorder) | 58 | 58
+K08.409 | Partial loss of teeth  unspecified cause  unspecified class | 56 | 58
+162573006 | Suspected lung cancer (situation) | 55 | 55
+43724002 | Chill (finding) | 54 | 54
+443165006 | Osteoporotic fracture of bone (disorder) | 54 | 63
+K08.8 | Other specified disorders of teeth and supporting structures | 54 | 54
+8004003 | Teething syndrome | 54 | 54
+427419006 | Transformed migraine (disorder) | 54 | 54
+408512008 | Body mass index 40+ - severely obese (finding) | 53 | 53
+C01 | Malignant neoplasm of base of tongue | 51 | 52
+Filas: 188
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_08.csv
+
+===== CONSULTA 9 =====
+measurements | mean_hba1c | median_hba1c | p10_hba1c | p90_hba1c
+46481 | 4.59 | 4.2 | 2.9 | 6.3
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_09.csv
+
+===== CONSULTA 10 =====
+age_group | gender | patients
+00–17 | F | 535
+00–17 | M | 562
+18–39 | F | 824
+18–39 | M | 735
+40–64 | F | 1001
+40–64 | M | 1048
+65+ | F | 466
+65+ | M | 574
+Filas: 8
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_10.csv

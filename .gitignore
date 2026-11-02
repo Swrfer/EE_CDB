@@ -36,3 +36,10 @@ __pycache__/
 **/.ruff_cache/
 **/*.egg-info/
 /lab08/*.egg-info/
+/revision_genes/data/
+/revision_genes/.cache/
+/revision_genes/.env
+/lab10/data/
+/lab10/*.duckdb
+/lab10/*.db
+/lab10/.ipynb_checkpoints/
