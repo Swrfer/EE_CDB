@@ -1,0 +1,4 @@
+gap_days,episodes,patients,median_duration_days,mean_duration_days,maximum_duration_days
+30,927,927,3655.0,3034.9773462783173,3998
+60,927,927,3655.0,3034.9773462783173,3998
+90,927,927,3655.0,3034.9773462783173,3998
