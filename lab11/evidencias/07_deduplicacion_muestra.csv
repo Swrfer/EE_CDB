@@ -1,0 +1,21 @@
+patient_id,code,description,observation_time,value,units
+0002414f-84c1-f978-9506-b60f53c6da5e,10230-1,Left ventricular Ejection fraction,2013-01-13 04:01:44-06:00,38.9,%
+0002414f-84c1-f978-9506-b60f53c6da5e,1742-6,Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,39.6,U/L
+0002414f-84c1-f978-9506-b60f53c6da5e,1751-7,Albumin [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,4.4,g/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,17861-6,Calcium [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,8.5,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,18262-6,Cholesterol in LDL [Mass/volume] in Serum or Plasma by Direct assay,2013-07-19 17:47:46-05:00,95.8,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,19123-9,Magnesium [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,1.6,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,1920-8,Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,4.2,U/L
+0002414f-84c1-f978-9506-b60f53c6da5e,1975-2,Bilirubin.total [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,0.9,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2028-9,Carbon dioxide  total [Moles/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,23.2,mmol/L
+0002414f-84c1-f978-9506-b60f53c6da5e,20565-8,Carbon dioxide  total [Moles/volume] in Blood,2013-01-13 04:01:44-06:00,25.2,mmol/L
+0002414f-84c1-f978-9506-b60f53c6da5e,2069-3,Chloride [Moles/volume] in Blood,2013-01-13 04:01:44-06:00,103.3,mmol/L
+0002414f-84c1-f978-9506-b60f53c6da5e,2075-0,Chloride [Moles/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,103.6,mmol/L
+0002414f-84c1-f978-9506-b60f53c6da5e,2085-9,Cholesterol in HDL [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,54.0,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2093-3,Cholesterol [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,176.5,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2160-0,Creatinine [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,0.7,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2276-4,Ferritin [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,78.5,ug/L
+0002414f-84c1-f978-9506-b60f53c6da5e,2339-0,Glucose [Mass/volume] in Blood,2013-01-13 04:01:44-06:00,84.8,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2345-7,Glucose [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,99.4,mg/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2498-4,Iron [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,46.0,ug/dL
+0002414f-84c1-f978-9506-b60f53c6da5e,2500-7,Iron binding capacity [Mass/volume] in Serum or Plasma,2013-07-19 17:47:46-05:00,381.5,ug/dL
