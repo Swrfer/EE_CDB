@@ -80,3 +80,24 @@ y orquestación. La selección del ensayo de nuevas descargas es unstranded y qu
 registrada; no se atribuye retroactivamente ese ensayo al objeto histórico.
 No se instaló aquí el entorno científico completo ni se descargó TCGA real.
 La validación integral con datos vivos y el CSV del autor queda pendiente.
+
+## Corrección de conexión GEO — 20/11/2026
+
+El autor informó una descarga/preparación TCGA completada y un error de conexión
+al iniciar getGEO(GSE62254). No se dispone de traceback para atribuir con certeza
+la conexión interna concreta. Se reemplazó esa adquisición por descarga directa
+HTTPS de la misma Series Matrix oficial y lectura local sin GPL adicional.
+Las funciones de instalación, VST, LASSO, RSF y evaluación permanecen iguales.
+
+- test_descarga_y_csv.R: PASS, incluido fallo GEO después de guardar TCGA y
+  reanudación sin modificar las huellas de sus dos RDS.
+- test_geo_https_y_reanudacion.R: PASS; rechaza HTML y gzip/tabla incompletos,
+  reintenta, conserva un archivo anterior inválido y reutiliza una matriz válida.
+- Descarga real desde NCBI por HTTPS en este entorno: 85,256,104 bytes;
+  300 muestras, 54,675 sondas, gzip leído hasta EOF y marcador de fin de tabla.
+  MD5 observado: be14c49340c65d7b16dfd072d178622c.
+- El validador R de producción aceptó esa matriz real. No se ejecutó el parser
+  GEOquery ni se instalaron paquetes ni se ajustaron modelos reales aquí.
+
+El nuevo transporte evita el listado automático de GEO y la descarga GPL. No
+prueba que esas fueran necesariamente las causas del mensaje original.

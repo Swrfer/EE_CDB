@@ -177,6 +177,90 @@ fmp_cache_rds <- function(archivo, crear, validar) {
   invisible(TRUE)
 }
 
+fmp_geo_matriz_valida <- function(archivo) {
+  if (!file.exists(archivo) || is.na(file.info(archivo)$size) || file.info(archivo)$size < 20) return(FALSE)
+  tryCatch(withCallingHandlers({
+    binario <- file(archivo, "rb")
+    firma <- readBin(binario, what = "raw", n = 2L)
+    close(binario)
+    if (!identical(firma, as.raw(c(31, 139)))) return(FALSE)
+    conexion <- gzfile(archivo, "rt")
+    on.exit(close(conexion), add = TRUE)
+    serie <- plataforma <- inicio <- fin <- FALSE
+    repeat {
+      lineas <- readLines(conexion, n = 1000L, warn = FALSE)
+      if (!length(lineas)) break
+      serie <- serie || any(startsWith(lineas, "!Series_geo_accession") & grepl("GSE62254", lineas, fixed = TRUE))
+      plataforma <- plataforma || any(startsWith(lineas, "!Sample_platform_id") & grepl("GPL570", lineas, fixed = TRUE))
+      inicio <- inicio || any(startsWith(lineas, "!series_matrix_table_begin"))
+      fin <- fin || any(startsWith(lineas, "!series_matrix_table_end"))
+    }
+    serie && plataforma && inicio && fin
+  }, warning = function(w) stop(conditionMessage(w), call. = FALSE)), error = function(e) FALSE)
+}
+
+fmp_geo_descargar_matriz <- function(directorio, descargar = utils::download.file,
+    esperar = Sys.sleep, intentos = 3L) {
+  dir.create(directorio, recursive = TRUE, showWarnings = FALSE)
+  archivo <- file.path(directorio, "GSE62254_series_matrix.txt.gz")
+  url <- "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE62nnn/GSE62254/matrix/GSE62254_series_matrix.txt.gz"
+  if (fmp_geo_matriz_valida(archivo)) {
+    message("GEO: reutilizando la matriz local verificada.")
+    return(normalizePath(archivo))
+  }
+  if (file.exists(archivo)) {
+    respaldo <- tempfile(paste0(basename(archivo), ".incompleto_"), tmpdir = directorio)
+    fmp_exigir(file.rename(archivo, respaldo), "No se pudo conservar el archivo GEO incompleto antes de reintentar.")
+    message("GEO: se conservo un archivo incompleto en ", basename(respaldo))
+  }
+  fmp_exigir(length(intentos) == 1L && is.finite(intentos) && intentos >= 1L, "Numero de intentos GEO no valido.")
+  ultimo <- "sin respuesta"
+  for (i in seq_len(intentos)) {
+    parcial <- tempfile("GSE62254_parcial_", tmpdir = directorio, fileext = ".txt.gz")
+    on.exit(unlink(parcial), add = TRUE)
+    message("GEO: descargando Series Matrix por HTTPS (intento ", i, "/", intentos, ")...")
+    correcto <- tryCatch({
+      estado <- descargar(url = url, destfile = parcial, mode = "wb",
+        method = if (isTRUE(capabilities("libcurl"))) "libcurl" else "auto",
+        quiet = FALSE, cacheOK = FALSE)
+      fmp_exigir(is.null(estado) || identical(as.integer(estado), 0L), "La descarga GEO devolvio un estado distinto de cero.")
+      fmp_exigir(fmp_geo_matriz_valida(parcial), "El archivo recibido no es una matriz GSE62254/GPL570 completa (gzip, cabeceras o fin de tabla no validos).")
+      TRUE
+    }, error = function(e) {
+      ultimo <<- conditionMessage(e)
+      FALSE
+    })
+    if (correcto) {
+      fmp_exigir(file.rename(parcial, archivo), "No se pudo guardar la matriz GEO validada.")
+      fmp_csv(data.frame(source_url = url, downloaded_UTC = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+        md5 = unname(tools::md5sum(archivo)), getGPL = FALSE),
+        file.path(directorio, "GSE62254_series_matrix_procedencia.csv"))
+      return(normalizePath(archivo))
+    }
+    unlink(parcial)
+    if (i < intentos) esperar(min(i * 2L, 6L))
+  }
+  stop(paste0("No se pudo descargar GSE62254 desde ", url, ". Ultimo error: ", ultimo,
+    "\nLos RDS TCGA existentes se conservaron. Puedes guardar manualmente ese mismo archivo en ",
+    archivo, " y volver a ejecutar el maestro."), call. = FALSE)
+}
+
+fmp_geo_cargar <- function(directorio) {
+  matriz <- fmp_geo_descargar_matriz(directorio)
+  args_geo <- list(filename = matriz, destdir = directorio, GSEMatrix = TRUE,
+    getGPL = FALSE, AnnotGPL = FALSE)
+  if ("returnType" %in% names(formals(GEOquery::getGEO))) args_geo$returnType <- "ExpressionSet"
+  geo <- tryCatch(do.call(GEOquery::getGEO, args_geo), error = function(e) stop(paste0(
+    "La matriz GEO se descargo, pero fallo su lectura local: ", conditionMessage(e),
+    "\nArchivo conservado: ", matriz, ". Version GEOquery: ", utils::packageVersion("GEOquery"),
+    ". No se modificaron los datos TCGA."), call. = FALSE))
+  candidatos <- if (inherits(geo, "ExpressionSet")) list(geo) else geo
+  idx <- which(vapply(candidatos, function(z) inherits(z, "ExpressionSet") &&
+    Biobase::annotation(z) == "GPL570", logical(1)))
+  fmp_exigir(length(idx) == 1L, "La matriz local GEO no produjo una unica ExpressionSet GPL570.")
+  candidatos[[idx]]
+}
+
 fmp_descargar_entradas <- function(cfg) {
   rutas <- c(cfg$archivo_tcga, cfg$archivo_clinico_tcga, cfg$archivo_acrg)
   faltan <- !file.exists(rutas)
@@ -226,14 +310,7 @@ fmp_descargar_entradas <- function(cfg) {
   if (faltan[3L]) {
     message("Descarga de GSE62254/GPL570 desde GEO...")
     creado[3L] <- fmp_cache_rds(cfg$archivo_acrg, function() {
-      args_geo <- list(GEO = "GSE62254", GSEMatrix = TRUE, destdir = cfg$data_dir)
-      # Las versiones nuevas de GEOquery cambiaron el retorno por defecto.
-      if ("returnType" %in% names(formals(GEOquery::getGEO))) args_geo$returnType <- "ExpressionSet"
-      geo <- do.call(GEOquery::getGEO, args_geo)
-      candidatos <- if (inherits(geo, "ExpressionSet")) list(geo) else geo
-      idx <- which(vapply(candidatos, function(z) inherits(z, "ExpressionSet") && Biobase::annotation(z) == "GPL570", logical(1)))
-      fmp_exigir(length(idx) == 1L, "GEO no devolvio una unica ExpressionSet GPL570.")
-      candidatos[[idx]]
+      fmp_geo_cargar(cfg$data_dir)
     }, function(z) inherits(z, "ExpressionSet") && Biobase::annotation(z) == "GPL570" &&
       ncol(Biobase::exprs(z)) > 0L && all(is.finite(Biobase::exprs(z))))
     fechas[3L] <- ahora()

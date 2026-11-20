@@ -58,25 +58,36 @@ dobles <- c(
   '.servicio$assay <- function(z,name) {stopifnot(name=="unstranded");z$counts}',
   '.servicio$colData <- function(z) data.frame(sample=colnames(z$counts))',
   '.servicio$GDCquery_clinic <- function(...) {.anotar_test("clinical_download");data.frame(submitter_id=paste0("TCGA-XX-000",1:4),vital_status=c("Alive","Dead","Alive","Dead"),days_to_death=c(NA,100,NA,200),days_to_last_follow_up=c(300,NA,400,NA))}',
-  '.servicio$getGEO <- function(GEO,GSEMatrix,destdir,returnType=c("SummarizedExperiment","ExpressionSet")) {stopifnot(GEO=="GSE62254",GSEMatrix,identical(returnType,"ExpressionSet"));.anotar_test("geo_download");list(structure(list(values=matrix(1:12,nrow=3)),class="ExpressionSet"))}',
+  '.servicio$getGEO <- function(filename,GSEMatrix,destdir,getGPL,AnnotGPL,returnType=c("SummarizedExperiment","ExpressionSet")) {stopifnot(file.exists(filename),GSEMatrix,!getGPL,!AnnotGPL,identical(returnType,"ExpressionSet"));.anotar_test("geo_download");list(structure(list(values=matrix(1:12,nrow=3)),class="ExpressionSet"))}',
   '.servicio$annotation <- function(z) "GPL570"',
   '.servicio$exprs <- function(z) z$values',
+  'fmp_geo_descargar_matriz <- function(directorio) {.anotar_test("matrix_https");marca<-file.path(directorio,"test_fallo_GEO_una_vez");if(!file.exists(marca)){writeLines("fallo simulado",marca);stop("cannot open the connection: fallo GEO simulado")};f<-file.path(directorio,"GSE62254_series_matrix.txt.gz");writeLines("fixture parser",f);f}',
+  '.txt_geo <- paste(deparse(body(fmp_geo_cargar)),collapse="\n")',
+  '.txt_geo <- gsub("Biobase::|GEOquery::",".servicio$",.txt_geo)',
+  'body(fmp_geo_cargar) <- parse(text=.txt_geo)[[1L]]',
   '.txt <- paste(deparse(body(fmp_descargar_entradas)),collapse="\n")',
   '.txt <- gsub("TCGAbiolinks::|SummarizedExperiment::|Biobase::|GEOquery::",".servicio$",.txt)',
   'body(fmp_descargar_entradas) <- parse(text=.txt)[[1L]]'
 )
 cat("\n", paste(dobles, collapse = "\n"), "\n", file = file.path(proyecto, "funciones_fmp_original.R"), append = TRUE)
 rscript <- file.path(R.home("bin"), "Rscript")
-correr <- function() {
+correr <- function(exito = TRUE) {
   out <- system2(rscript, c("--vanilla", shQuote(file.path(proyecto, "ejecutar_replica_fmp.R")),
     "--stage=download", shQuote(paste0("--acrg-clinical=", csv))), stdout = TRUE, stderr = TRUE)
-  code <- attr(out, "status"); if (!is.null(code) && code != 0L) stop(paste(out, collapse = "\n"))
+  code <- attr(out, "status")
+  if (!exito) {stopifnot(!is.null(code),code!=0L);return(invisible(out))}
+  if (!is.null(code) && code != 0L) stop(paste(out, collapse = "\n"))
 }
-correr()
+suppressWarnings(correr(exito = FALSE))
 raw <- file.path(proyecto, "data", "raw")
+tcga_guardado <- file.path(raw,c("tcga_counts_metadata.rds","tcga_clinical_original.rds"))
+stopifnot(all(file.exists(tcga_guardado)),!file.exists(file.path(raw,"GSE62254_eset.rds")))
+md5_tcga <- tools::md5sum(tcga_guardado)
+correr()
+stopifnot(identical(md5_tcga,tools::md5sum(tcga_guardado)))
 archivos <- file.path(raw, c("tcga_counts_metadata.rds", "tcga_clinical_original.rds", "GSE62254_eset.rds"))
 stopifnot(all(file.exists(archivos)), identical(readRDS(archivos[1L])$provenance$assay, "unstranded"),
-  identical(trimws(readLines(logfile)), c("install", "query", "counts_download", "clinical_download", "geo_download")),
+  identical(trimws(readLines(logfile)), c("install", "query", "counts_download", "clinical_download", "matrix_https", "install", "matrix_https", "geo_download")),
   !dir.exists(file.path(proyecto, "resultados_replica_FMP")))
 huellas <- tools::md5sum(archivos)
 correr()

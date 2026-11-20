@@ -30,12 +30,24 @@
   "current_code": [
     {
       "name": "funciones_fmp_original.R",
-      "sha256": "da1303d18002e222fa600adb415b5ed9042707b6dc0a4cf828ae4550135571eb"
+      "sha256": "952b2d2f352066aed172ce13d949fae9d1f1ea9a095562a6d759760cfdcf9301"
     },
     {
       "name": "ejecutar_replica_fmp.R",
       "sha256": "5fca98d71ae9c5b198d66b01d31cea78733872efe6fbea5d434928d437104478"
     }
   ],
-  "publication": "Historial y estado de publicacion consultables en Git, rama entrega/fmp-final"
+  "publication": "Historial y estado de publicacion consultables en Git, rama entrega/fmp-final",
+  "geo_connection_fix": {
+    "date": "2026-11-20",
+    "transport": "HTTPS Series Matrix oficial; lectura local getGPL=FALSE; maximo 3 intentos",
+    "real_matrix_checked": {
+      "bytes": 85256104,
+      "samples": 300,
+      "probe_rows": 54675,
+      "md5": "be14c49340c65d7b16dfd072d178622c"
+    },
+    "scope": "Adquisicion GEO; instalador y metodos de modelado sin cambios",
+    "tests": "Recuperacion tras fallo GEO y transporte HTTPS PASS; parser/modelos reales no ejecutados aqui"
+  }
 }

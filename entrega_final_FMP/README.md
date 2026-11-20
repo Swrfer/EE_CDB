@@ -74,7 +74,7 @@ La cohorte principal contiene los estadios disponibles en TCGA; I–II es un sub
 |---|---|---|
 | TCGA-STAD / GDC | TCGAbiolinks: GDCquery, GDCdownload y GDCprepare; STAR - Counts abiertos | Conteos crudos del ensayo **unstranded** |
 | Clínica TCGA-STAD | GDCquery_clinic(project="TCGA-STAD", type="clinical") | Seguimiento, estado vital, estadio e identificadores |
-| ACRG, GSE62254 | GEOquery::getGEO(GSEMatrix=TRUE), selección de GPL570 | ExpressionSet procesado a nivel de sondas |
+| ACRG, GSE62254 | Descarga HTTPS de Series Matrix y GEOquery::getGEO(filename=..., getGPL=FALSE), GPL570 | ExpressionSet procesado a nivel de sondas |
 | Clínica ACRG | **CSV proporcionado por el usuario**, exportado del suplemento clínico ACRG | Tumor ID, OS (months), FU status y pStage; esquema alternativo documentado |
 | 216 candidatos | referencias/216_GED.csv | Lista fija del estudio previo |
 
@@ -83,6 +83,13 @@ script histórico, sin filtrar por supervivencia. El filtrado de tumores primari
 se realiza después en la preparación original. Se selecciona explícitamente
 `unstranded`; el nombre del ensayo del antiguo objeto sin metadatos no se considera
 recuperado retroactivamente.
+
+Para GEO se descarga directamente `GSE62254_series_matrix.txt.gz` desde el
+servidor HTTPS oficial de NCBI y se lee localmente con `getGPL=FALSE` y
+`AnnotGPL=FALSE`. La anotación de sondas sigue usando hgu133plus2.db. Se verifica
+gzip, identificación GSE62254/GPL570 y tabla completa; una respuesta HTML o una
+matriz incompleta no se acepta. Hay hasta tres intentos y se conserva un archivo
+anterior incompleto con otro nombre. Ver [recuperación de errores](docs/ERRORES_Y_REANUDACION.md).
 
 Las tres entradas descargadas se guardan en `data/raw/`. Solo se descargan objetos
 que falten. No se necesita abrir una sesión manual ni ejecutar un bloque antiguo.
@@ -534,9 +541,10 @@ Rscript --vanilla tests/test_rsf_real.R
 Rscript --vanilla tests/test_rsf_desde_archivo.R
 Rscript --vanilla tests/test_oob_sin_reentrenar.R
 Rscript --vanilla tests/test_descarga_y_csv.R
+Rscript --vanilla tests/test_geo_https_y_reanudacion.R
 ```
 
-Las seis pruebas pasaron en R 4.5.0/Linux, ranger 0.17.0 y survival 3.8-3, con datos
+Las seis pruebas originales pasaron en R 4.5.0/Linux, ranger 0.17.0 y survival 3.8-3, con datos
 sintéticos. Se comprueban predicciones individuales, orden de genes, cobertura,
 semillas, separación de folds, ejecución en sesión vacía y lectura OOB sin modificar
 el RDS ni entrenar. En las pruebas del maestro, gráficos y timeROC se sustituyen por
@@ -546,7 +554,11 @@ La nueva prueba de adquisición usa el maestro real en un proceso vacío, CSV re
 sintético y servicios remotos/instalación simulados; comprueba caché, retorno
 ExpressionSet explícito y reanudación parcial. No se descargó TCGA completo ni se
 volvieron a entrenar las cohortes reales en este entorno.
-Ver [VALIDACION_PROGRAMACION.md](VALIDACION_PROGRAMACION.md).
+Tras el primer fallo real en GEO se volvió a ejecutar la prueba de adquisición,
+ahora simulando ese fallo después de guardar TCGA, y se añadió la prueba HTTPS:
+ambas PASS. Se descargó además la matriz real NCBI y se verificó su gzip completo,
+300 muestras y 54,675 filas de sondas. Esto no equivale a ejecutar aquí GEOquery
+ni los modelos sobre esa matriz. Ver [VALIDACION_PROGRAMACION.md](VALIDACION_PROGRAMACION.md).
 
 ## Limitaciones y aciertos
 
