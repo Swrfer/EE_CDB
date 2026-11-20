@@ -1,0 +1,23 @@
+{
+  "purpose": "Fuentes para refactorizacion fiel; no se ejecutan con source por sus objetos sobrescritos.",
+  "source_scripts": [
+    {
+      "name": "Texto pegado(3).txt",
+      "sha256": "bb3f26a8936b46913586d68e4431826fcc3aef82795608189ccb492c5d034000"
+    },
+    {
+      "name": "Análisis de regresión LASSO-COX Subanálisis(1).R",
+      "sha256": "22e6824198b4741e88beaf42a8b8f287e67f42e6cfdf639a630bb89af53338f0"
+    },
+    {
+      "name": "Validación firma-GEO(1).R",
+      "sha256": "a79a987f482d112442b35aca934395d1681b978470ca2e323f369e99fe81871d"
+    }
+  ],
+  "current_reference": {
+    "genes": 8,
+    "confirmation": "Autor, salida manual del 18/11/2026: 378x210, 158 eventos, lambda.min 0.06438548 redondeada.",
+    "coefficient_precision_source": "comparacion_firma_original.csv, reestimated; cotejada con salida manual impresa a nueve decimales.",
+    "previous_10_gene_reference": "Antecedente, sin uso por defecto."
+  }
+}

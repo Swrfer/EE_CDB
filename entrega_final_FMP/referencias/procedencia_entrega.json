@@ -1,0 +1,41 @@
+{
+  "created": "2026-11-19",
+  "purpose": "Carpeta independiente para revisión de entrega final; sin nuevos ajustes científicos ni operaciones Git",
+  "author_uploads": [
+    {
+      "name": "README_Proyecto_FMP.md",
+      "sha256": "3caca016e85cbbc12edace58faedd3698c3a1f36f54491a4fbad492d69163d28"
+    },
+    {
+      "name": "funciones_fmp_original.R",
+      "sha256": "9a7615a542a9665b4f856b8a4c15b4a31ebefc738ac5a3a89c9618b3aeac5494"
+    },
+    {
+      "name": "ejecutar_replica_fmp.R",
+      "sha256": "157fd4667ffb4c4865da798b69ff664fd6f4c7f90e535da852fe204f893cd47e"
+    }
+  ],
+  "code_changed": true,
+  "previous_deliverables_overwritten": false,
+  "candidate_repository": "https://github.com/Swrfer/EE_CDB",
+  "repository_confirmed_by_author": true,
+  "proposed_branch": "entrega/fmp-final",
+  "evidence_scope": "Resultados agregados existentes; sin matrices originales ni RDS del autor",
+  "outstanding_confirmations": "docs/REVISION_README_AUTOR.md",
+  "change_scope": "Instalación y descarga inicial; CSV clínico ACRG; registro de ejecuciones. Métodos de ajuste y evaluación conservados.",
+  "real_download_end_to_end_verified": false,
+  "acquisition_test": "Servicios simulados; seis pruebas técnicas PASS",
+  "candidate_genes_source": "Tres GEO más TCGA-STAD; CG I-II vs TGC; filtrado por Hörtenhuber et al. 2017, btx225",
+  "runtime_inputs": "Solo CSV clínico ACRG; resto descargado o referencias incluidas",
+  "current_code": [
+    {
+      "name": "funciones_fmp_original.R",
+      "sha256": "da1303d18002e222fa600adb415b5ed9042707b6dc0a4cf828ae4550135571eb"
+    },
+    {
+      "name": "ejecutar_replica_fmp.R",
+      "sha256": "5fca98d71ae9c5b198d66b01d31cea78733872efe6fbea5d434928d437104478"
+    }
+  ],
+  "publication": "Historial y estado de publicacion consultables en Git, rama entrega/fmp-final"
+}

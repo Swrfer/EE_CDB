@@ -1,0 +1,3 @@
+"cohort","n","distinct_scores","min","max","mean","SD","score_type","median_ties"
+"TCGA",378,378,4.06699641314568,160.733687062572,55.7125892493669,34.3952940274931,"RSF rowSums(CHF); NOT probability",0
+"ACRG",300,11,115.987818193773,117.19365064554,116.714653795631,0.0833778050630637,"RSF rowSums(CHF); NOT probability",288

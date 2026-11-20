@@ -1,0 +1,2 @@
+source,assay,samples_before_positive_time,samples_model,patients_model,deaths,count_rows_input,rows_after_counts_filter,rows_after_annotation,candidate_genes_eligible,candidate_genes_requested
+data/raw/tcga_counts_metadata.rds,counts del RDS; confirmar ensayo de origen en sus metadatos,399,378,378,158,60660,28207,21094,210,216

@@ -1,0 +1,13 @@
+data/
+resultados_replica_FMP/
+*.rds
+.RData
+.Rhistory
+.Renviron
+.Rproj.user/
+
+evidencias_locales/
+comprobacion_OOB/
+.DS_Store
+
+.R-library/

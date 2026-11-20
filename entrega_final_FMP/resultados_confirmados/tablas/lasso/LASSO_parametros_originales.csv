@@ -1,0 +1,2 @@
+"lambda_min","lambda_1se","selected_genes","seed","nfolds","criterion","alpha"
+0.0643854763669058,0.135525255957141,8,123,10,"partial_likelihood_deviance",1
