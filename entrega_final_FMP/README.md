@@ -21,14 +21,80 @@ No depende de objetos de R ni de modelos creados durante las pruebas.
 Los resultados incluidos corresponden a la ejecución histórica confirmada:
 **LASSO de ocho genes y RSF de 20 genes**. La comprobación OOB de ese bosque dio
 AUC al año **0.6530** y C de Harrell **0.6197**, sin reentrenamiento.
-La nueva descarga y la ejecución completa con el CSV real todavía deben correrse
-en el equipo del autor; las pruebas de adquisición usaron servicios simulados.
-No se presenta esa prueba de programación como una reproducción científica completa.
+El autor informó una reproducción integral correcta en su Mac el 20/11/2026,
+antes de reorganizar las carpetas. La ejecución con la nueva organización está
+en curso según su último reporte; la validación en otro equipo sigue pendiente.
+Las pruebas de programación aquí documentadas se distinguen de esas ejecuciones
+con cohortes reales.
 
 Una consulta nueva puede cambiar datos, anotaciones u orden y, por tanto, el ajuste.
 Se conservan las entradas descargadas, la consulta, las huellas y sessionInfo.
 Si la firma LASSO no coincide con la referencia a tolerancia 1e-6, el flujo se detiene
 y guarda la comparación. No sustituye coeficientes para forzar coincidencia.
+
+## Inicio rápido en otra computadora: ejecutar en R o RStudio
+
+1. Descomprimir el ZIP actualizado en una **carpeta nueva** y disponer del CSV
+   clínico ACRG proporcionado por el autor. Tener R instalado, internet y espacio
+   para las descargas. El CSV puede estar en cualquier carpeta: se selecciona
+   explícitamente en el primer paso del código.
+2. Abrir una sesión nueva de R o RStudio y ejecutar **todo el bloque siguiente**.
+   El **primer selector** es para el CSV clínico ACRG. El **segundo selector** es
+   para `Script_maerstro_FMP.R` de la carpeta recién descomprimida. El maestro
+   resuelve su propia ubicación; no hay que copiar rutas del equipo del autor
+   ni configurar `setwd()` con su directorio de OneDrive.
+3. Esperar a que terminen todos los bloques. Las tablas, figuras e informes se
+   publican en `resultados/`; la finalización se registra en
+   `resultados/docs/ULTIMA_EJECUCION_COMPLETA.csv`.
+
+```r
+# 1. Seleccionar el CSV clinico ACRG
+message("Selecciona el CSV clinico de ACRG")
+archivo_acrg <- normalizePath(
+  file.choose(),
+  mustWork = TRUE
+)
+
+# 2. Usar la carpeta de datos del proyecto nuevo
+Sys.unsetenv(c("FMP_DATA_DIR", "FMP_LEGACY_RUN"))
+
+# 3. Ejecutar todo; instalar solamente dependencias faltantes
+Sys.setenv(
+  FMP_STAGE = "all",
+  FMP_DOWNLOAD = "missing",
+  FMP_INSTALL = "missing",
+  FMP_ACRG_CLINICAL = archivo_acrg
+)
+
+# 4. Seleccionar Script_maerstro_FMP.R de la carpeta nueva
+message("Selecciona Script_maerstro_FMP.R")
+source(file.choose(), encoding = "UTF-8")
+```
+
+**En el equipo del autor**, donde los paquetes ya están disponibles, puede
+cambiarse únicamente `FMP_INSTALL = "missing"` por `FMP_INSTALL = "never"` para
+impedir cualquier instalación. En otro equipo se recomienda `"missing"`:
+comprueba los paquetes y solicita instalar solo los faltantes o que no puedan
+cargarse. Las dependencias de una instalación se resuelven por el gestor.
+
+Si R ya tiene como directorio de trabajo la carpeta de entrega, la última línea
+puede ser `source("Script_maerstro_FMP.R", encoding = "UTF-8")` y se evita el
+segundo selector. El archivo `Funciones_fmp_comparacion.R` debe permanecer junto
+al maestro; este lo carga automáticamente.
+
+**Qué significa desde cero:** usar el ZIP limpio y el CSV clínico, sin copiar los
+RDS descargados ni los modelos de una ejecución anterior. `missing` descarga
+solo entradas ausentes; si se reutiliza una carpeta que ya tiene esos RDS,
+se reutilizan sus archivos y se está comprobando una reejecución con caché.
+Los resultados agregados incluidos en el ZIP no son entradas para entrenar.
+
+**Dos incidencias de configuración observadas:** el error `legacy-run` aparece
+cuando se selecciona `organize`, que requiere una ejecución anterior. El bloque
+anterior fija `all`. El error de CSV aparece si la ruta clínica configurada no
+existe: este bloque la establece a partir del archivo seleccionado. La búsqueda
+automática por nombre se limita a `data/raw/ACRG_clinical.csv` y a los nombres
+alternativos documentados; dejar el CSV junto a los scripts no lo coloca en
+esa ruta. Seleccionarlo explícitamente evita depender de su ubicación.
 
 ## Pregunta de investigación
 
@@ -479,23 +545,10 @@ los subgrupos I–II; su ausencia deja el estadio desconocido.
 La [plantilla](referencias/PLANTILLA_ACRG_clinical.csv) contiene solo encabezados.
 El Excel original sigue admitido por compatibilidad.
 
-Para una nueva reproducción, descomprimir en una carpeta nueva, colocar solamente
-el CSV como `data/raw/ACRG_clinical.csv` y abrir una sesión nueva de R. No copiar
-los RDS de entrada ni los estados de modelos si se quiere probar la descarga desde
-cero. Los resultados agregados incluidos no son entradas de los modelos y serán
-reemplazados solo cuando termine la ejecución.
-
-Desde R, con el directorio de trabajo en la carpeta de entrega:
-
-```r
-Sys.setenv(FMP_STAGE = "all", FMP_DOWNLOAD = "missing", FMP_INSTALL = "missing")
-source("Script_maerstro_FMP.R", encoding = "UTF-8")
-```
-
-También se admite `source(file.choose(), encoding = "UTF-8")`, seleccionando
-**Script_maerstro_FMP.R**. Si el CSV no está en la ruta convencional, el maestro
-pedirá seleccionarlo. Puede indicarse por `FMP_ACRG_CLINICAL`.
-En un equipo con todos los paquetes disponibles se usa `FMP_INSTALL = "never"`.
+Para ejecutar en R o RStudio, seguir el bloque de [inicio rápido](#inicio-rápido-en-otra-computadora-ejecutar-en-r-o-rstudio):
+primero seleccionar el CSV, después fijar la configuración y finalmente ejecutar
+el maestro. `FMP_ACRG_CLINICAL` establece su ubicación sin depender del nombre
+o de una ruta guardada anteriormente.
 
 Por terminal, desde la carpeta de entrega:
 
@@ -550,8 +603,9 @@ ejecutar el procedimiento, pero no fija retrospectivamente versiones, releases
 u orden de las entradas históricas. La coincidencia exacta requiere conservar los
 archivos y el entorno utilizados; el control de firma lo informa.
 El autor informó reproducción completa en su Mac el **20/11/2026** con la versión
-anterior a esta reorganización. La ejecución completa con estas rutas nuevas y
-la comprobación por una segunda persona quedan pendientes.
+anterior a esta reorganización. La ejecución con estas rutas nuevas está en curso,
+según su reporte; su finalización y la comprobación por una segunda persona
+quedan pendientes.
 
 ## Organización de la entrega — 20/11/2026
 
