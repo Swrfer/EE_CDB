@@ -125,3 +125,33 @@ el ZIP recibido: el ajuste, las semillas, las transformaciones y los cálculos
 OOB se mantienen. Las funciones de figuras/evaluación cambian solo sus rutas.
 
 Se verificaron además 44 tablas/figuras históricas conservadas byte a byte y los enlaces locales del README.
+
+## Instalador tras el primer intento externo — 20/11/2026
+
+La compañera del autor intentó reproducir con R 4.4.0/macOS ARM. El flujo se
+interrumpió durante las dependencias: statmod fuente 1.5.2 no pudo compilar por
+falta de gfortran; Deriv no disponible; GEOquery/limma no cargaban. Esa ejecución
+no llegó a completar los análisis ni valida todavía la reproducibilidad externa.
+
+Se refactorizó el instalador para ordenar dependencias, conservar paquetes que
+cargan, preferir binarios compatibles y separar fuentes R puras de fuentes que
+necesitan compilación. Se añadió la etapa install, sin CSV ni descargas de cohortes.
+Las versiones y errores de carga se registran completos.
+
+`test_instalador.R` comprueba, sin red ni instalaciones reales: prioridad binaria
+1.5.1 frente a fuente 1.5.2 para statmod; Deriv 4.2.0; reparación transitiva sin
+reinstalar GEOquery/limma; fuentes R puras; rechazo de requisitos incompatibles;
+conservación en segunda ejecución; install=never; informe de error y ciclo de
+paquetes; etapa install sin datos ni modelos.
+
+También se resolvió el flujo completo sobre catálogos CRAN/macOS ARM R4.4 y
+Bioconductor 3.20 consultados en línea. Con una biblioteca base simulada se
+planificaron 215 binarios, cinco fuentes R puras y once paquetes base existentes;
+no se seleccionaron fuentes compiladas. Esto verifica la selección, no sustituye
+una instalación real en la computadora de la compañera.
+
+Resultado de esta revisión: siete pruebas PASS (la nueva del instalador y las
+seis pruebas sin ajuste de la revisión anterior). Se verificó además que las
+65 funciones previas fuera de configuración, lista de dependencias, instalador
+y despacho de etapas mantienen cuerpos y argumentos idénticos. No se ajustaron
+modelos reales ni se descargaron cohortes en esta revisión.

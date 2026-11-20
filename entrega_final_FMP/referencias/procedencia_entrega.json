@@ -34,7 +34,7 @@
     },
     {
       "name": "Funciones_fmp_comparacion.R",
-      "sha256": "808fb6761b6d2efa32d6290b95166a6d9f9b9c09a38512df3632a7ecce8b5ec9"
+      "sha256": "f2269a02831d7ef29e7bf6c44e1f7c3144e8d2e2df5bd9b058600d56b727ecfa"
     }
   ],
   "publication": "Historial y estado de publicacion consultables en Git, rama entrega/fmp-final",
@@ -57,5 +57,20 @@
   "independent_computer_verified": false,
   "reorganization_checks": "Seis pruebas PASS sin ajustes ni red real y comparacion estructural 24 funciones identicas, 5 solo rutas",
   "author_latest_run": "replica_20261120_114731; RSF replica_20261120_114900; OOB OOB_20261120_115108_74a37b391f1",
-  "new_run_outputs_received": false
+  "new_run_outputs_received": false,
+  "dependency_installation_fix": {
+    "date": "2026-11-20",
+    "reported_environment": "R 4.4.0, macOS ARM; primer intento independiente",
+    "observed": "statmod fuente 1.5.2 falla por gfortran ausente; Deriv no disponible; GEOquery/limma no cargan",
+    "policy": "binarios compatibles primero; fuentes R puras; dependencias en orden; conservar utilizables y exigir versiones minimas; diagnostico completo; stage=install",
+    "metadata_plan": "R4.4/macOS ARM: 215 binarios, 5 fuentes R puras, 11 paquetes base simulados; sin instalar",
+    "deriv_archive_fallback": {
+      "version": "4.2.0",
+      "md5": "a6771b4d468d17d8faa0e516cd7427d9",
+      "url": "https://cran.r-project.org/src/contrib/Archive/Deriv/Deriv_4.2.0.tar.gz"
+    },
+    "tests": "7 pruebas PASS sin red real ni entrenamiento; 65 funciones conservadas",
+    "clean_macos_full_install_verified": false,
+    "independent_reproduction_completed": false
+  }
 }

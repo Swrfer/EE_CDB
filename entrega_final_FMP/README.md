@@ -23,7 +23,9 @@ Los resultados incluidos corresponden a la ejecución histórica confirmada:
 AUC al año **0.6530** y C de Harrell **0.6197**, sin reentrenamiento.
 El autor informó una reproducción integral correcta en su Mac el 20/11/2026,
 antes de reorganizar las carpetas. La ejecución con la nueva organización está
-en curso según su último reporte; la validación en otro equipo sigue pendiente.
+en curso según su último reporte. El primer intento en otro equipo, también con
+R 4.4.0/macOS ARM, se detuvo durante la instalación de dependencias. Esta versión
+corrige ese instalador; la réplica integral en ese equipo sigue pendiente.
 Las pruebas de programación aquí documentadas se distinguen de esas ejecuciones
 con cohortes reales.
 
@@ -74,8 +76,12 @@ source(file.choose(), encoding = "UTF-8")
 **En el equipo del autor**, donde los paquetes ya están disponibles, puede
 cambiarse únicamente `FMP_INSTALL = "missing"` por `FMP_INSTALL = "never"` para
 impedir cualquier instalación. En otro equipo se recomienda `"missing"`:
-comprueba los paquetes y solicita instalar solo los faltantes o que no puedan
-cargarse. Las dependencias de una instalación se resuelven por el gestor.
+comprueba los paquetes y sus dependencias obligatorias. Conserva los que cargan
+y cumplen los requisitos de versión. Si un paquete instalado falla por una
+dependencia ausente, repara primero esa dependencia. Solo se instala o actualiza
+un paquete cuando falta o no satisface un requisito; no hay actualización general.
+Los binarios compatibles tienen prioridad en macOS/Windows, sin preguntar por
+compilar versiones más recientes. [Detalles y prueba de instalación](docs/INSTALACION_R44.md).
 
 Si R ya tiene como directorio de trabajo la carpeta de entrega, la última línea
 puede ser `source("Script_maerstro_FMP.R", encoding = "UTF-8")` y se evita el
@@ -521,12 +527,18 @@ en `resultados/docs/migracion_origen.csv`.
 
 ## Ejecutar desde cero: CSV → descarga → modelos → evaluación
 
-Se necesita R y acceso a internet. El maestro comprueba `requireNamespace()` e
-instala únicamente paquetes faltantes o que no puedan cargarse; no solicita
-reinstalar los que ya cargan. `--install=never` impide cualquier instalación.
-Las dependencias transitivas de una instalación pueden resolverse por el gestor;
-no se fija aquí un entorno con lockfile. No se instala R ni herramientas del sistema.
-BiocManager usa `update=FALSE`, `ask=FALSE` y la versión compatible con R.
+Se necesita R y acceso a internet. El instalador comprueba las versiones y la
+carga real de los paquetes. Resuelve Depends, Imports y LinkingTo antes de
+instalar; no incluye Suggests. Conserva los paquetes utilizables y no realiza
+una actualización general. `--install=never` impide cualquier instalación.
+Para R 4.4 usa los repositorios de Bioconductor 3.20 y CRAN. En macOS/Windows da
+prioridad a binarios compatibles aunque exista una fuente más reciente; las
+fuentes de datos o R puro se permiten cuando no hay binario. No fuerza fuentes
+compiladas en esos sistemas ni instala R o compiladores del sistema operativo.
+La instalación por dependencias se hace sin preguntas interactivas. No se fija
+un lockfile completo: las versiones y errores se registran en `data/instalacion/`.
+Consultar [instalación con R 4.4](docs/INSTALACION_R44.md) para comprobar solo los
+paquetes antes de descargar las cohortes.
 
 **Única entrada del usuario:** un CSV clínico ACRG, sin expresión génica.
 Se admiten coma, punto y coma y tabulador. Mantener la unidad **meses** explícita.
@@ -575,6 +587,7 @@ Los modelos permanecen en `data/privados/` del proyecto.
 
 | Etapa | Acción |
 |---|---|
+| install | Instala/comprueba dependencias; no requiere CSV ni descarga cohortes o entrena |
 | download | Descarga entradas faltantes; no entrena |
 | all | Prepara datos y ejecuta LASSO, RSF, comparación y OOB |
 | lasso | Ejecuta LASSO; inicia un conjunto de salidas nuevo e invalida los estados RSF/OOB anteriores |
@@ -659,8 +672,8 @@ Cada nueva ejecución guarda automáticamente su versión efectiva en sessionInf
 
 Dependencias del flujo completo: DESeq2, SummarizedExperiment, AnnotationDbi,
 org.Hs.eg.db, glmnet, survival, ggplot2, survminer, GEOquery, Biobase, limma,
-hgu133plus2.db, readxl, timeROC y ranger. La etapa oob solo requiere survival y timeROC. La adquisición agrega TCGAbiolinks y BiocManager cuando hagan falta.
-El inicio instala únicamente dependencias faltantes y registra el entorno de cada
+hgu133plus2.db, readxl, timeROC y ranger. La etapa oob solo requiere survival y timeROC. La adquisición agrega TCGAbiolinks cuando haga falta; para R 4.4 se consultan directamente los repositorios Bioconductor 3.20.
+El inicio conserva paquetes utilizables, instala las dependencias necesarias y registra el entorno de cada
 ejecución. No representa un lockfile exacto del entorno histórico.
 
 ```bash

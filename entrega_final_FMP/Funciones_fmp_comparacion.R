@@ -5,7 +5,7 @@
 fmp_configuracion <- function(base, argumentos = character(), permitir_selector = interactive()) {
   reconocidos <- grepl("^--(data-dir|output-dir|stage|state|legacy-run|acrg-clinical|install|download)=", argumentos)
   fmp_exigir(!length(argumentos) || all(reconocidos),
-    "Usa --stage=all|download|lasso|rsf|oob|organize, --legacy-run=RUTA, --acrg-clinical=CSV, --data-dir=RUTA, --output-dir=RUTA, --state=RDS, --install=missing|never y --download=missing|never.")
+    "Usa --stage=all|install|download|lasso|rsf|oob|organize, --legacy-run=RUTA, --acrg-clinical=CSV, --data-dir=RUTA, --output-dir=RUTA, --state=RDS, --install=missing|never y --download=missing|never.")
   leer <- function(nombre, defecto) {
     z <- argumentos[startsWith(argumentos, paste0("--", nombre, "="))]
     fmp_exigir(length(z) <= 1L, paste("Argumento repetido:", nombre))
@@ -14,7 +14,7 @@ fmp_configuracion <- function(base, argumentos = character(), permitir_selector 
   etapa <- leer("stage", Sys.getenv("FMP_STAGE", "all"))
   instalar <- leer("install", Sys.getenv("FMP_INSTALL", "missing"))
   descargar <- leer("download", Sys.getenv("FMP_DOWNLOAD", "missing"))
-  fmp_exigir(etapa %in% c("all", "download", "lasso", "rsf", "oob", "organize"), "stage no valido.")
+  fmp_exigir(etapa %in% c("all", "install", "download", "lasso", "rsf", "oob", "organize"), "stage no valido.")
   fmp_exigir(instalar %in% c("missing", "never") && descargar %in% c("missing", "never"),
     "install y download admiten missing o never.")
   datos <- path.expand(leer("data-dir", Sys.getenv("FMP_DATA_DIR", file.path(base, "data", "raw"))))
@@ -24,6 +24,7 @@ fmp_configuracion <- function(base, argumentos = character(), permitir_selector 
     archivos_codigo = file.path(base, c("Script_maerstro_FMP.R", "Funciones_fmp_comparacion.R")),
     archivo_readme = file.path(base, "README.md"), rsf = fmp_rsf_configuracion())
   cfg$organizacion <- fmp_organizacion(base, salida)
+  if (etapa == "install") return(cfg) # comprobar dependencias sin CSV, datos ni modelos
   if (etapa == "organize") {
     cfg$legacy_run <- path.expand(leer("legacy-run", Sys.getenv("FMP_LEGACY_RUN", "")))
     fmp_exigir(nzchar(cfg$legacy_run) && dir.exists(cfg$legacy_run),
@@ -75,42 +76,237 @@ fmp_dependencias <- function(cfg) {
   if (cfg$stage == "rsf") return(list(cran = c("ranger", "survival", "ggplot2", "survminer", "timeROC"), bioc = character()))
   if (cfg$stage == "download") return(list(cran = "readxl", bioc = c("TCGAbiolinks", "SummarizedExperiment", "GEOquery", "Biobase")))
   list(cran = c("glmnet", "survival", "ggplot2", "survminer", "readxl", "timeROC",
-      if (cfg$stage == "all") "ranger"),
+      if (cfg$stage %in% c("all", "install")) "ranger"),
     bioc = c("TCGAbiolinks", "DESeq2", "SummarizedExperiment", "AnnotationDbi",
       "org.Hs.eg.db", "GEOquery", "Biobase", "limma", "hgu133plus2.db"))
 }
 
-fmp_instalar_dependencias <- function(cfg) {
-  if (identical(cfg$install, "never")) return(invisible(NULL))
-  deps <- fmp_dependencias(cfg)
-  falta <- function(p) p[!vapply(p, requireNamespace, logical(1), quietly = TRUE)]
-  cran <- falta(deps$cran); bioc <- falta(deps$bioc)
-  if (!length(c(cran, bioc))) return(invisible(NULL))
-  biblioteca <- .libPaths()[1L]
-  if (!dir.exists(biblioteca) || file.access(biblioteca, 2L) != 0L) {
-    biblioteca <- file.path(cfg$base, ".R-library", paste0(R.version$major, ".", strsplit(R.version$minor, ".", fixed = TRUE)[[1L]][1L]), R.version$platform)
-    dir.create(biblioteca, recursive = TRUE, showWarnings = FALSE)
-    .libPaths(c(biblioteca, .libPaths()))
+fmp_repos_instalacion <- function(cfg, version_r = getRversion()) {
+  # R 4.4 se mantiene en la misma release usada por el autor y su companera.
+  if (version_r >= "4.4" && version_r < "4.5") bioc <- "3.20" else {
+    fmp_exigir(requireNamespace("BiocManager", quietly = TRUE),
+      "Esta entrega se comprobo con R 4.4/Bioconductor 3.20. Para otro R instala BiocManager y reinicia R.")
+    bioc <- as.character(BiocManager::version())
   }
-  repos <- getOption("repos")
-  if (is.null(repos) || !length(repos) || !"CRAN" %in% names(repos) || repos[["CRAN"]] == "@CRAN@") {
-    repos <- c(CRAN = "https://cloud.r-project.org")
+  c(CRAN = "https://cloud.r-project.org",
+    BioCsoft = paste0("https://bioconductor.org/packages/", bioc, "/bioc"),
+    BioCann = paste0("https://bioconductor.org/packages/", bioc, "/data/annotation"),
+    BioCexp = paste0("https://bioconductor.org/packages/", bioc, "/data/experiment"))
+}
+
+fmp_deps_paquete <- function(d) {
+  texto <- unlist(d[intersect(c("Depends", "Imports", "LinkingTo"), names(d))])
+  texto <- texto[!is.na(texto) & nzchar(texto)]
+  piezas <- trimws(unlist(strsplit(paste(texto, collapse = ","), ",", fixed = TRUE)))
+  piezas <- piezas[nzchar(piezas)]
+  if (!length(piezas)) return(data.frame(package = character(), op = character(), version = character()))
+  patron <- "^([[:alnum:].]+)[[:space:]]*(\\(([><=!]+)[[:space:]]*([^()[:space:]]+)[[:space:]]*\\))?$"
+  z <- regmatches(piezas, regexec(patron, piezas))
+  fmp_exigir(all(lengths(z) == 5L), paste("Dependencia no reconocida:", paste(piezas[lengths(z) != 5L], collapse = ", ")))
+  data.frame(package = vapply(z, `[`, "", 2L), op = vapply(z, `[`, "", 4L),
+    version = vapply(z, `[`, "", 5L), stringsAsFactors = FALSE)
+}
+
+fmp_version_cumple <- function(version, requisitos) {
+  if (is.null(version) || is.na(version) || !nzchar(version)) return(FALSE)
+  if (is.null(requisitos) || !nrow(requisitos)) return(TRUE)
+  all(vapply(seq_len(nrow(requisitos)), function(i) {
+    op <- requisitos$op[i]
+    if (!nzchar(op)) return(TRUE)
+    c <- utils::compareVersion(as.character(version), requisitos$version[i])
+    switch(op, ">=" = c >= 0, ">" = c > 0, "<=" = c <= 0, "<" = c < 0,
+      "==" = c == 0, "=" = c == 0, "!=" = c != 0, FALSE)
+  }, logical(1)))
+}
+
+fmp_catalogo_instalacion <- function(repos, tipo_binario = .Platform$pkgType) {
+  leer <- function(tipo, fuentes = repos) {
+    m <- utils::available.packages(repos = fuentes, type = tipo,
+      fields = c("NeedsCompilation", "MD5sum", "File", "Path"),
+      filters = c("R_version", "OS_type", "subarch", "duplicates"))
+    d <- as.data.frame(m, stringsAsFactors = FALSE)
+    d$install_type <- rep(tipo, nrow(d)); d
   }
-  options(repos = repos, timeout = max(3600, getOption("timeout")))
-  if (length(cran)) {
-    message("Instalando dependencias CRAN faltantes: ", paste(cran, collapse = ", "))
-    utils::install.packages(cran, repos = repos, lib = biblioteca)
+  # Los repositorios de anotacion/experimentales distribuyen estos datos en fuente.
+  bin <- if (tipo_binario != "source") leer(tipo_binario,
+    repos[!names(repos) %in% c("BioCann", "BioCexp")]) else NULL
+  src <- leer("source")
+  juntar <- function(a, b) {
+    cols <- union(names(a), names(b))
+    for (n in setdiff(cols, names(a))) a[[n]] <- rep(NA_character_, nrow(a))
+    for (n in setdiff(cols, names(b))) b[[n]] <- rep(NA_character_, nrow(b))
+    rbind(a[, cols, drop = FALSE], b[, cols, drop = FALSE])
   }
-  if (length(bioc)) {
-    if (!requireNamespace("BiocManager", quietly = TRUE)) utils::install.packages("BiocManager", repos = repos, lib = biblioteca)
-    message("Instalando dependencias Bioconductor faltantes: ", paste(bioc, collapse = ", "))
-    BiocManager::install(bioc, update = FALSE, ask = FALSE, lib = biblioteca)
+  if (is.null(bin)) src else juntar(bin, src) # binarios tienen prioridad aunque sean anteriores
+}
+
+fmp_instalados <- function() {
+  d <- as.data.frame(utils::installed.packages(noCache = TRUE,
+    fields = c("NeedsCompilation", "Depends", "Imports", "LinkingTo")), stringsAsFactors = FALSE)
+  d[!duplicated(d$Package), , drop = FALSE]
+}
+
+fmp_estado_paquete <- function(p) {
+  error <- ""
+  ok <- tryCatch({suppressWarnings(loadNamespace(p)); TRUE},
+    error = function(e) {error <<- conditionMessage(e); FALSE})
+  ruta <- suppressWarnings(find.package(p, quiet = TRUE))
+  version <- if (length(ruta)) tryCatch(as.character(utils::packageVersion(p,
+    lib.loc = dirname(ruta[1L]))), error = function(e) "") else ""
+  data.frame(package = p, version = version, loadable = ok,
+    library = if (length(ruta)) dirname(ruta[1L]) else "", error = error,
+    stringsAsFactors = FALSE)
+}
+
+fmp_elegir_instalacion <- function(p, catalogo, requisitos, version_r = getRversion()) {
+  d <- catalogo[catalogo$Package == p, , drop = FALSE]
+  if (nrow(d)) {
+    ok <- vapply(d$Version, fmp_version_cumple, logical(1), requisitos = requisitos)
+    if (any(ok)) return(as.list(d[which(ok)[1L], , drop = FALSE]))
   }
-  pendientes <- falta(c(deps$cran, deps$bioc))
-  fmp_exigir(!length(pendientes), paste("No se pudieron instalar:", paste(pendientes, collapse = ", "),
-    ". Revisa la salida de instalacion y la compatibilidad de R/Bioconductor. No se actualizo R automaticamente."))
+  # Compatibilidad documentada: Deriv actual requiere R >= 4.5. El archivo
+  # 4.2.0 es R puro y se usa SOLO si no existe candidato compatible en catalogos.
+  if (p == "Deriv" && version_r >= "4.4" && version_r < "4.5" &&
+      fmp_version_cumple("4.2.0", requisitos)) return(list(Package = "Deriv", Version = "4.2.0",
+    Imports = "methods", NeedsCompilation = "no", install_type = "source",
+    archive_url = "https://cran.r-project.org/src/contrib/Archive/Deriv/Deriv_4.2.0.tar.gz",
+    MD5sum = "a6771b4d468d17d8faa0e516cd7427d9"))
+  stop(paste("No hay una version compatible de", p, "para R", getRversion(),
+    "en los repositorios consultados. Revisa data/instalacion/; no se cambia R automaticamente."), call. = FALSE)
+}
+
+fmp_plan_instalacion <- function(paquetes, catalogo, instalados, version_r = getRversion()) {
+  # Resolver TODA la clausura antes de cargar/instalar: Depends, Imports y LinkingTo.
+  # No se incluyen Suggests ni se actualiza el resto de la biblioteca.
+  requisitos <- list(); nodos <- list(); cola <- data.frame(package = paquetes,
+    op = rep("", length(paquetes)), version = rep("", length(paquetes)))
+  while (nrow(cola)) {
+    req <- cola[1L, , drop = FALSE]; cola <- cola[-1L, , drop = FALSE]; p <- req$package
+    if (p == "R") {
+      fmp_exigir(fmp_version_cumple(as.character(version_r), req),
+        paste("Se requiere R", req$op, req$version, "; esta sesion usa", version_r))
+      next
+    }
+    previo <- requisitos[[p]]
+    actual <- unique(rbind(previo, req))
+    if (!is.null(previo) && identical(previo, actual) && !is.null(nodos[[p]])) next
+    requisitos[[p]] <- actual
+    i <- which(instalados$Package == p)
+    if (length(i) && fmp_version_cumple(instalados$Version[i[1L]], actual)) {
+      nodo <- as.list(instalados[i[1L], , drop = FALSE]); nodo$install_type <- "installed"
+    } else nodo <- fmp_elegir_instalacion(p, catalogo, actual, version_r)
+    cambio <- is.null(nodos[[p]]) || !identical(nodos[[p]]$Version, nodo$Version) ||
+      !identical(nodos[[p]]$install_type, nodo$install_type)
+    nodos[[p]] <- nodo
+    if (cambio) cola <- rbind(cola, fmp_deps_paquete(nodo))
+  }
+  orden <- character(); visitados <- character(); activos <- character()
+  visitar <- function(p) {
+    if (p == "R" || p %in% visitados) return(invisible(NULL))
+    fmp_exigir(!p %in% activos, paste("Ciclo en las dependencias:", p))
+    activos <<- c(activos, p)
+    for (q in fmp_deps_paquete(nodos[[p]])$package) visitar(q)
+    activos <<- setdiff(activos, p); visitados <<- c(visitados, p); orden <<- c(orden, p)
+  }
+  for (p in paquetes) visitar(p)
+  list(nodes = nodos, requirements = requisitos, order = orden)
+}
+
+fmp_instalar_paquete <- function(nodo, biblioteca, directorio) {
+  tipo <- nodo$install_type
+  compilado <- identical(tolower(nodo$NeedsCompilation), "yes")
+  fmp_exigir(!(tipo == "source" && compilado && .Platform$pkgType != "source"),
+    paste("No hay binario compatible de", nodo$Package, "; su fuente requiere compilacion.",
+      "No se instala un compilador automaticamente. Consulta data/instalacion/ y las herramientas oficiales de R."))
+  if (!is.null(nodo$archive_url)) url <- nodo$archive_url else {
+    extension <- if (tipo == "source") ".tar.gz" else if (tipo == "win.binary") ".zip" else ".tgz"
+    archivo <- nodo$File
+    if (is.null(archivo) || is.na(archivo) || !nzchar(archivo)) archivo <- paste0(nodo$Package, "_", nodo$Version, extension)
+    url <- paste0(sub("/$", "", nodo$Repository), "/", archivo)
+  }
+  destino <- file.path(directorio, basename(url))
+  estado <- utils::download.file(url, destino, mode = "wb",
+    method = if (isTRUE(capabilities("libcurl"))) "libcurl" else "auto")
+  fmp_exigir(is.null(estado) || estado == 0L, paste("Fallo la descarga del paquete:", nodo$Package))
+  md5 <- nodo$MD5sum
+  if (!is.null(md5) && !is.na(md5) && nzchar(md5)) fmp_exigir(
+    identical(tolower(unname(tools::md5sum(destino))), tolower(md5)), paste("MD5 del paquete no coincide:", nodo$Package))
+  # Dependencias ya ordenadas y satisfechas; nunca usar type='both' ni preguntar por compilacion.
+  utils::install.packages(destino, repos = NULL, type = tipo, lib = biblioteca,
+    dependencies = FALSE, Ncpus = 1L)
   invisible(NULL)
 }
+
+fmp_instalar_dependencias <- function(cfg) {
+  local <- file.path(cfg$base, ".R-library", paste0(R.version$major, ".",
+    strsplit(R.version$minor, ".", fixed = TRUE)[[1L]][1L]), R.version$platform)
+  if (dir.exists(local)) .libPaths(c(local, .libPaths()))
+  if (identical(cfg$install, "never")) return(invisible(NULL))
+  deps <- fmp_dependencias(cfg); paquetes <- unique(c(deps$cran, deps$bioc))
+  existentes <- fmp_instalados()
+  # Si ya estan todos, comprobar carga real sin consultar repositorios ni reinstalar.
+  if (all(paquetes %in% existentes$Package)) {
+    estados <- do.call(rbind, lapply(paquetes, fmp_estado_paquete))
+    if (all(estados$loadable)) return(invisible(NULL))
+  }
+  biblioteca <- .libPaths()[1L]
+  if (!dir.exists(biblioteca) || file.access(biblioteca, 2L) != 0L) {
+    biblioteca <- local; dir.create(biblioteca, recursive = TRUE, showWarnings = FALSE)
+    .libPaths(c(biblioteca, .libPaths()))
+  }
+  options(timeout = max(3600, getOption("timeout")))
+  opciones <- options(install.packages.check.source = "no", install.packages.compile.from.source = "never")
+  on.exit(options(opciones), add = TRUE)
+  directorio <- file.path(cfg$base, "data", "instalacion")
+  dir.create(directorio, recursive = TRUE, showWarnings = FALSE)
+  registro <- list()
+  anotar <- function(p, accion, detalle = "", version = "") {
+    registro[[length(registro) + 1L]] <<- data.frame(package = p, action = accion,
+      version = version, detail = detalle, time_UTC = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"))
+    fmp_csv(do.call(rbind, registro), file.path(directorio, "acciones.csv"))
+  }
+  on.exit({
+    fmp_csv(do.call(rbind, lapply(paquetes, fmp_estado_paquete)), file.path(directorio, "estado_paquetes.csv"))
+    writeLines(capture.output(utils::sessionInfo()), file.path(directorio, "sessionInfo.txt"))
+  }, add = TRUE)
+  tryCatch({
+    repos <- fmp_repos_instalacion(cfg)
+    fmp_csv(data.frame(repository = names(repos), url = unname(repos)), file.path(directorio, "repositorios.csv"))
+    catalogo <- fmp_catalogo_instalacion(repos)
+    plan <- fmp_plan_instalacion(paquetes, catalogo, existentes)
+    fmp_csv(do.call(rbind, lapply(plan$order, function(p) {
+      n <- plan$nodes[[p]]
+      data.frame(package = p, version = n$Version, type = n$install_type,
+        repository = if (is.null(n$Repository)) "installed" else n$Repository)
+    })), file.path(directorio, "plan_paquetes.csv"))
+    fmp_csv(do.call(rbind, lapply(paquetes, fmp_estado_paquete)),
+      file.path(directorio, "estado_inicial.csv"))
+    for (p in plan$order) {
+      n <- plan$nodes[[p]]; estado <- fmp_estado_paquete(p)
+      if (estado$loadable && fmp_version_cumple(estado$version, plan$requirements[[p]])) {
+        anotar(p, "conservado", version = estado$version); next
+      }
+      anotar(p, "carga_previa", estado$error, estado$version)
+      fmp_exigir(n$install_type != "installed", paste("El paquete", p,
+        "sigue sin cargar despues de comprobar sus dependencias:", estado$error,
+        ". Reinicia R y consulta estado_paquetes.csv; no se reinstala silenciosamente un paquete existente."))
+      fmp_exigir(!p %in% loadedNamespaces(), paste("Reinicia R: el paquete", p,
+        "esta cargado con una version que no cumple el requisito; no se reemplaza en uso."))
+      message("Instalando ", p, " ", n$Version, " [", n$install_type, "]...")
+      fmp_instalar_paquete(n, biblioteca, directorio)
+      estado <- fmp_estado_paquete(p)
+      fmp_exigir(estado$loadable && fmp_version_cumple(estado$version, plan$requirements[[p]]),
+        paste("No se pudo cargar", p, "tras instalar:", estado$error))
+      anotar(p, "instalado", version = estado$version)
+    }
+  }, error = function(e) {
+    anotar("INSTALLER", "error", conditionMessage(e))
+    stop(paste0(conditionMessage(e), "\nDiagnostico completo: ", directorio,
+      ". La descarga TCGA/GEO y los modelos no se iniciaron."), call. = FALSE)
+  })
+  invisible(NULL)
+}
+
 
 fmp_leer_clinica_acrg <- function(archivo) {
   # CSV del suplemento o esquema explicito patient_id, OS_months, OS_event, stage.
@@ -1713,6 +1909,14 @@ ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL,
 ejecutar_proyecto_fmp <- function(cfg) {
   # organize solo copia resultados ya existentes: no instalador, red ni ajustes.
   if (cfg$stage != "organize") fmp_preparar_ejecucion(cfg)
+  if (cfg$stage == "install") {
+    deps <- fmp_dependencias(cfg)
+    estados <- do.call(rbind, lapply(unique(c(deps$cran, deps$bioc)), fmp_estado_paquete))
+    fmp_exigir(all(estados$loadable), paste("Aun faltan paquetes que cargar:",
+      paste(estados$package[!estados$loadable], collapse = ", ")))
+    message("Comprobacion de dependencias terminada; sin descargar cohortes ni entrenar modelos.")
+    return(invisible(list(status = "DEPENDENCIAS_COMPROBADAS", config = cfg)))
+  }
   if (cfg$stage == "download") {
     message("Entradas descargadas y guardadas. No se entrenaron modelos.")
     return(invisible(list(status = "DESCARGA_COMPLETADA", config = cfg)))
