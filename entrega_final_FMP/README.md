@@ -6,7 +6,7 @@ Curso: **Ciencia de datos aplicada en biomedicina y en la industria farmacéutic
 la salud: de la academia a la industria**, Doctorado en Ciencias Biomédicas,
 **Universidad Nacional Autónoma de México (UNAM)**.
 Profesor: **Dr. Antonio Daniel Martínez Gutiérrez**.
-Documentación consolidada el **19 de noviembre de 2026**.
+Documentación actualizada el **20 de noviembre de 2026**.
 
 ## Estado de esta entrega
 
@@ -105,7 +105,7 @@ se incorpora a las huellas de la ejecución del modelo.
 
 `referencias/procedencia_scripts.json` conserva las huellas de los scripts históricos.
 `referencias/procedencia_entrega.json` describe esta entrega.
-`resultados_confirmados/PROCEDENCIA_RESULTADOS.csv` identifica las tablas y figuras
+`resultados/PROCEDENCIA_RESULTADOS.csv` identifica las tablas y figuras
 históricas recibidas, con SHA256. No se modificaron estimaciones; únicamente se
 sustituyó una ruta personal por una relativa en el resumen de preparación TCGA.
 
@@ -386,43 +386,81 @@ La CV previa (C medio=0.5159) repitió la selección dentro de los folds. OOB de
 bosque final (C=0.6197) condiciona en el panel elegido con toda la cohorte; por eso
 responden preguntas diferentes y no tienen que coincidir.
 
-[Tabla OOB](resultados_confirmados/tablas/oob/RSF_COMPROBACION_OOB_metricas.csv),
-[comprobaciones](resultados_confirmados/tablas/oob/RSF_COMPROBACION_OOB_checks.csv)
-y [figura aparente/OOB](resultados_confirmados/figuras/rsf/RSF_ROC_aparente_vs_OOB_1anio.png).
+[Tabla OOB](resultados/tablas/oob/RSF_COMPROBACION_OOB_metricas.csv),
+[comprobaciones](resultados/tablas/oob/RSF_COMPROBACION_OOB_checks.csv)
+y [figura aparente/OOB](resultados/figuras/oob/RSF_ROC_aparente_vs_OOB_1anio.png).
 <!-- FIN_RESULTADOS_OOB -->
 
 ## Reproducir la comprobación OOB ya realizada
 
-Descomprime esta carpeta completa y abre una sesión nueva de R:
+Después de una ejecución completa, el estado RSF queda en
+`data/privados/rsf/RSF_resultados_para_comparacion.rds`. El maestro lo encuentra
+sin objetos precargados. Desde R:
 
 ```r
-Sys.setenv(FMP_STAGE = "oob")
-source(file.choose(), encoding = "UTF-8")
+Sys.setenv(FMP_STAGE = "oob", FMP_INSTALL = "never", FMP_DOWNLOAD = "never")
+source("Script_maerstro_FMP.R", encoding = "UTF-8")
 ```
 
-Selecciona **ejecutar_replica_fmp.R** y después
-**RSF_resultados_para_comparacion.rds** de la ejecución RSF terminada.
-El archivo está en su subcarpeta `data_privada/`. No requiere una sesión con objetos precargados.
-
-Alternativa por terminal:
+Por terminal, desde la carpeta de entrega:
 
 ```bash
-Rscript --vanilla ejecutar_replica_fmp.R --stage=oob --state="/ruta/data_privada/RSF_resultados_para_comparacion.rds"
+Rscript --vanilla Script_maerstro_FMP.R --stage=oob --install=never --download=never
 ```
 
-La comprobación crea una carpeta nueva `comprobacion_OOB/OOB_.../` dentro de la
-carpeta RSF original. Guarda tabla aparente/OOB, diferencias descriptivas,
-comprobaciones, ROC superpuesta PDF/PNG, procedencia y README propio.
-Los puntajes individuales quedan en data_privada/. Este README principal se actualiza
-únicamente entre sus marcadores OOB; las tablas de resultados confirmados permanecen intactas.
+Un estado ubicado en otra carpeta se indica con `--state="/ruta/RSF_resultados_para_comparacion.rds"`
+o `FMP_RSF_STATE`. Se leen las predicciones CHF OOB ya guardadas; no se ajusta el
+bosque. Figuras PDF/PNG: `resultados/figuras/oob/`; métricas y comprobaciones:
+`resultados/tablas/oob/`; informe: `resultados/docs/README_oob.md`.
+El README principal mantiene el resumen histórico y enlaza las salidas de la
+última ejecución publicada. Los valores de esa ejecución se consultan en las tablas.
+
+## Organizar una ejecución anterior sin recalcular
+
+La etapa `organize` copia tablas, figuras, informes y estados RDS del formato
+anterior al nuevo. **No instala paquetes, no descarga datos y no entrena modelos.**
+Verifica por MD5 las copias de matrices/modelos y figuras; mantiene intactas las
+carpetas originales. Incluye tanto el PDF como el PNG OOB cuando existen en origen.
+No crea un PDF si solamente se recibió un PNG.
+
+Desde R, con los dos scripts nuevos en la carpeta de entrega:
+
+```r
+Sys.setenv(
+  FMP_STAGE = "organize",
+  FMP_LEGACY_RUN = "resultados_replica_FMP/replica_20261120_114731",
+  FMP_INSTALL = "never",
+  FMP_DOWNLOAD = "never"
+)
+source("Script_maerstro_FMP.R", encoding = "UTF-8")
+```
+
+Por terminal:
+
+```bash
+Rscript --vanilla Script_maerstro_FMP.R --stage=organize --legacy-run="resultados_replica_FMP/replica_20261120_114731" --install=never --download=never
+```
+
+También se acepta `--legacy-run="resultados_replica_FMP"` si su
+`ULTIMA_EJECUCION_COMPLETA.csv` apunta a carpetas existentes. Al trasladar la
+entrega a otro equipo, las rutas absolutas del registro viejo pueden dejar de
+existir; en ese caso se indica directamente la réplica LASSO completa, con su
+RSF y OOB anidados. Si hay varias salidas posibles se solicita una ruta inequívoca,
+sin seleccionar automáticamente una por fecha.
+
+Los RDS originales se copian sin alterar sus bytes. Para que RSF pueda leer un
+estado LASSO antiguo ya organizado se añade un índice adyacente con sus tablas
+agregadas; no se sustituyen genes ni coeficientes. La procedencia de la copia queda
+en `resultados/docs/migracion_origen.csv`.
 
 ## Ejecutar desde cero: CSV → descarga → modelos → evaluación
 
-Se necesita R y acceso a internet. El maestro instala los paquetes R que falten;
-no instala R ni herramientas del sistema operativo y no actualiza deliberadamente
-los paquetes ya instalados. BiocManager selecciona una versión compatible con R.
-Si hay que compilar un paquete y falta un compilador del sistema, la instalación
-informa el error; eso no se considera una ejecución completa del análisis.
+Se necesita R y acceso a internet. El maestro comprueba `requireNamespace()` e
+instala únicamente paquetes faltantes o que no puedan cargarse; no solicita
+reinstalar los que ya cargan. `--install=never` impide cualquier instalación.
+Las dependencias transitivas de una instalación pueden resolverse por el gestor;
+no se fija aquí un entorno con lockfile. No se instala R ni herramientas del sistema.
+BiocManager usa `update=FALSE`, `ask=FALSE` y la versión compatible con R.
 
 **Única entrada del usuario:** un CSV clínico ACRG, sin expresión génica.
 Se admiten coma, punto y coma y tabulador. Mantener la unidad **meses** explícita.
@@ -438,85 +476,122 @@ No mezclar FU status con OS_event en el mismo CSV. Los códigos FU 0/1 son censu
 2/3/4 muerte y 5 queda excluido como en el original. No se infieren unidades de
 una columna llamada solamente OS_time. pStage/stage es necesario para interpretar
 los subgrupos I–II; su ausencia deja el estadio desconocido.
-La [plantilla](referencias/PLANTILLA_ACRG_clinical.csv) contiene solo encabezados,
-no pacientes ni datos de ejemplo. El Excel original sigue admitido por compatibilidad.
+La [plantilla](referencias/PLANTILLA_ACRG_clinical.csv) contiene solo encabezados.
+El Excel original sigue admitido por compatibilidad.
 
-Desde una sesión nueva de R, sin cargar objetos:
+Para una nueva reproducción, descomprimir en una carpeta nueva, colocar solamente
+el CSV como `data/raw/ACRG_clinical.csv` y abrir una sesión nueva de R. No copiar
+los RDS de entrada ni los estados de modelos si se quiere probar la descarga desde
+cero. Los resultados agregados incluidos no son entradas de los modelos y serán
+reemplazados solo cuando termine la ejecución.
+
+Desde R, con el directorio de trabajo en la carpeta de entrega:
 
 ```r
-Sys.setenv(FMP_STAGE = "all")
-source(file.choose(), encoding = "UTF-8")
+Sys.setenv(FMP_STAGE = "all", FMP_DOWNLOAD = "missing", FMP_INSTALL = "missing")
+source("Script_maerstro_FMP.R", encoding = "UTF-8")
 ```
 
-Elegir `ejecutar_replica_fmp.R`; si no se localiza automáticamente, el maestro
-pedirá **solo el CSV clínico ACRG**. También puede colocarse como
-`data/raw/ACRG_clinical.csv` o indicarse mediante FMP_ACRG_CLINICAL.
+También se admite `source(file.choose(), encoding = "UTF-8")`, seleccionando
+**Script_maerstro_FMP.R**. Si el CSV no está en la ruta convencional, el maestro
+pedirá seleccionarlo. Puede indicarse por `FMP_ACRG_CLINICAL`.
+En un equipo con todos los paquetes disponibles se usa `FMP_INSTALL = "never"`.
 
 Por terminal, desde la carpeta de entrega:
 
 ```bash
-Rscript --vanilla ejecutar_replica_fmp.R --stage=all --acrg-clinical="/ruta/ACRG.csv"
+Rscript --vanilla Script_maerstro_FMP.R --stage=all --acrg-clinical="/ruta/ACRG.csv"
 ```
 
-El maestro instala faltantes, descarga conteos y clínica TCGA y expresión GEO,
-guarda las entradas y ejecuta preparación → LASSO → RSF → comparación → OOB.
-Los objetos cvfit, x, y y los modelos se crean dentro del flujo. El código de
-producción nunca carga fixtures, scripts de tests ni resultados sintéticos.
+Los comandos que empiezan por **Rscript** se ejecutan en la terminal, no en la
+consola de R. El maestro adquiere conteos y clínica TCGA y expresión GEO, guarda
+las entradas y ejecuta preparación → LASSO → RSF → comparación → OOB.
+Los objetos cvfit, x, y y los modelos se crean dentro del flujo.
+El código de producción no carga pruebas ni resultados sintéticos.
 
-Para guardar primero las descargas, sin entrenar:
+Para guardar primero las descargas sin entrenar:
 
 ```bash
-Rscript --vanilla ejecutar_replica_fmp.R --stage=download --acrg-clinical="/ruta/ACRG.csv"
+Rscript --vanilla Script_maerstro_FMP.R --stage=download --acrg-clinical="/ruta/ACRG.csv"
 ```
 
-Después se ejecuta `--stage=all` con el mismo CSV; se reutilizan los RDS descargados.
-La ejecución posterior totalmente local puede indicarse con `--download=never --install=never`.
-`--data-dir` cambia la caché y `--output-dir` el directorio de resultados.
-`--stage=lasso`, `--stage=rsf --state=RDS_LASSO` y `--stage=oob --state=RDS_RSF`
-permiten bloques separados. Los RDS de esos bloques son productos del maestro,
-no objetos temporales de una sesión de pruebas.
+Después se ejecuta `--stage=all` con el mismo CSV: reutiliza los RDS descargados.
+Una ejecución local con esas entradas se indica con `--download=never --install=never`.
+`--data-dir` cambia la caché; `--output-dir` cambia la raíz pública de resultados.
+Los modelos permanecen en `data/privados/` del proyecto.
 
-Cada ajuste crea una carpeta nueva sin sobrescribir ejecuciones anteriores.
-Al completar **all** se escribe `resultados_replica_FMP/ULTIMA_EJECUCION_COMPLETA.csv`
-con las rutas exactas de LASSO, RSF y OOB. Ese registro define cuál es la última
-corrida completa; no el número de una antigua carpeta de réplica. Una ejecución
-fallida no reemplaza el registro de la última completa.
-Los resultados históricos publicados permanecen en `resultados_confirmados/`;
-una nueva ejecución all no sobrescribe sus tablas ni la sección histórica OOB del README.
+| Etapa | Acción |
+|---|---|
+| download | Descarga entradas faltantes; no entrena |
+| all | Prepara datos y ejecuta LASSO, RSF, comparación y OOB |
+| lasso | Ejecuta LASSO; inicia un conjunto de salidas nuevo e invalida los estados RSF/OOB anteriores |
+| rsf | Lee el estado LASSO existente; entrena RSF y ejecuta comparación/OOB |
+| oob | Lee el estado RSF existente; comprueba OOB sin entrenar |
+| organize | Copia una ejecución anterior al nuevo orden; no calcula modelos ni métricas |
 
-**Límite de reproducibilidad:** instalar faltantes y volver a consultar repositorios
-permite ejecutar el procedimiento, pero no fija retrospectivamente versiones,
-releases u orden de las entradas históricas. La coincidencia exacta requiere
-conservar los archivos y el entorno utilizados; el control de firma lo informa.
+En `rsf` y `oob`, los estados se buscan automáticamente en `data/privados/lasso/`
+y `data/privados/rsf/`. `--state=RDS` permite indicar otro archivo. Para RSF se
+conservan las tablas y figuras LASSO asociadas al estado; no se vuelve a ajustar
+LASSO. No se usan objetos temporales de una sesión de pruebas.
 
-## Organización actual
+La ejecución se prepara temporalmente dentro de `data/`. Al terminar todos los
+bloques solicitados, se publica en `resultados/` y se escribe
+`resultados/docs/ULTIMA_EJECUCION_COMPLETA.csv`. Un fallo previo a la publicación
+conserva los resultados anteriores. Si falla el reemplazo de carpetas se intenta
+restaurar inmediatamente el conjunto anterior; el error informa si alguna
+restauración requiere atención manual. Se conserva **un único respaldo anterior**
+en `data/respaldos/ultima_ejecucion/`; el siguiente reemplazo correcto rota ese
+respaldo. Una ejecución `lasso` aislada deja solo sus resultados activos para no
+mezclar ajustes de fechas distintas. `oob` conserva las salidas LASSO/RSF y cambia
+solo su comprobación. Usar `data/` y `resultados/` en el mismo volumen.
 
-- ejecutar_replica_fmp.R: único punto de entrada, con comentarios de cada bloque.
-- funciones_fmp_original.R: preparación, LASSO, RSF, evaluación y comprobación OOB.
-- referencias/: 216 genes, coeficientes confirmados de ocho genes y procedencia histórica.
-- resultados_confirmados/tablas/: resultados LASSO, RSF y comparación, separados por carpeta.
-- resultados_confirmados/figuras/: figuras recibidas, renombradas por modelo/cohorte, sin editarlas.
-- docs/: diccionario, métodos de la comprobación, interpretación y confirmaciones del autor.
-- tests/: pruebas automáticas de programación.
+**Límite de reproducibilidad:** instalar faltantes y consultar repositorios permite
+ejecutar el procedimiento, pero no fija retrospectivamente versiones, releases
+u orden de las entradas históricas. La coincidencia exacta requiere conservar los
+archivos y el entorno utilizados; el control de firma lo informa.
+El autor informó reproducción completa en su Mac el **20/11/2026** con la versión
+anterior a esta reorganización. La ejecución completa con estas rutas nuevas y
+la comprobación por una segunda persona quedan pendientes.
 
-Las ejecuciones producen carpetas propias de tablas, figuras, documentación y datos
-privados. Esta carpeta separa la entrega de los prototipos y las réplicas anteriores.
-Las funciones de ajuste y evaluación se conservan; se añadió el inicio de
-instalación/descarga, la lectura CSV y el registro de la ejecución. Los resultados
-históricos no se modificaron. El código se entrega en una rama separada de main.
+## Organización de la entrega — 20/11/2026
+
+| Ruta | Contenido |
+|---|---|
+| Script_maerstro_FMP.R | Único punto de entrada; nombre solicitado por el autor |
+| Funciones_fmp_comparacion.R | Preparación, adquisición, LASSO, RSF, evaluación y organización |
+| data/raw/ | Descargas y CSV clínico ACRG; local, excluido de Git |
+| data/privados/lasso/, rsf/, oob/ | Matrices, modelos, folds y puntajes individuales; excluidos de Git |
+| data/respaldos/ultima_ejecucion/ | Un respaldo de la salida reemplazada; excluido de Git |
+| resultados/figuras/lasso/, rsf/, comparacion/, oob/ | Figuras PDF/PNG de cada bloque |
+| resultados/tablas/lasso/, rsf/, comparacion/, oob/ | Resultados agregados |
+| resultados/docs/ | Configuraciones, informes, registro y una copia del código ejecutado |
+| referencias/ | 216 genes, coeficientes confirmados y procedencia histórica |
+| docs/ | Métodos, diccionario e instrucciones generales |
+| tests/ | Pruebas de programación; no forman parte del análisis científico |
+
+Se eliminan las subcarpetas fechadas de LASSO, RSF y OOB. Las fechas reales UTC
+quedan en registros; la **fecha de esta versión es 2026-11-20**. Se mantienen las
+fechas históricas y las semillas originales, que son parámetros numéricos.
+Los dos scripts permanecen en la raíz. Esta reorganización no cambia el
+preprocesamiento, la selección de genes, las semillas ni las fórmulas de evaluación;
+los cambios de evaluación se limitan a nombres/rutas de archivos.
+Los resultados agregados incluidos son los recibidos previamente, con sus bytes
+conservados; el PNG OOB se reubicó en `figuras/oob/`. El PDF OOB de la ejecución
+nueva del autor se incorporará con `organize` o en la próxima ejecución completa.
+El código se mantiene en una rama separada de main.
 
 ## Figuras útiles para presentar
 
-1. [LASSO: coeficientes](resultados_confirmados/figuras/lasso/LASSO_coeficientes.png)
-   e [importancia del panel RSF](resultados_confirmados/figuras/rsf/RSF_importancia_panel.png): describen firmas con medidas distintas.
-2. [ROC global ACRG](resultados_confirmados/figuras/comparacion/ACRG_ROC_global_1anio.png):
+1. [LASSO: coeficientes](resultados/figuras/lasso/LASSO_coeficientes.png)
+   e [importancia del panel RSF](resultados/figuras/rsf/RSF_importancia_panel.png): describen firmas con medidas distintas.
+2. [ROC global ACRG](resultados/figuras/comparacion/ACRG_ROC_global_1anio.png):
    evidencia externa principal; acompañar de AUC e incertidumbre, sin declarar una diferencia significativa no probada.
-3. KM global [LASSO ACRG](resultados_confirmados/figuras/lasso/ACRG_KM_global.png)
-   y [RSF ACRG](resultados_confirmados/figuras/rsf/ACRG_KM_global.png): mostrar el desequilibrio de grupos RSF.
-4. [ROC aparente/OOB de RSF](resultados_confirmados/figuras/rsf/RSF_ROC_aparente_vs_OOB_1anio.png):
+3. KM global [LASSO ACRG](resultados/figuras/lasso/ACRG_KM_global.png)
+   y [RSF ACRG](resultados/figuras/rsf/ACRG_KM_global.png): mostrar el desequilibrio de grupos RSF.
+4. [ROC aparente/OOB de RSF](resultados/figuras/oob/RSF_ROC_aparente_vs_OOB_1anio.png):
    figura clave para explicar el optimismo, sin afirmar que la selección de genes quedó validada.
 
-La [ROC global TCGA](resultados_confirmados/figuras/comparacion/TCGA_ROC_global_1anio.png)
+La [ROC global TCGA](resultados/figuras/comparacion/TCGA_ROC_global_1anio.png)
 y los KM de desarrollo se etiquetan como aparentes. Trayectorias, CV y subgrupos I–II
 pueden ir a material complementario. Las figuras originales conservan el formato de p
 con muchos decimales; las tablas de este README los redondean solo para lectura.

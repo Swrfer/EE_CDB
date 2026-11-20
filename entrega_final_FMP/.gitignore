@@ -11,3 +11,6 @@ comprobacion_OOB/
 .DS_Store
 
 .R-library/
+
+# Formato anterior, conservado localmente para organizar sus salidas
+resultados_confirmados/

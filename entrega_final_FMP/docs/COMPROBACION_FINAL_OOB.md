@@ -1,33 +1,28 @@
-# Última comprobación: OOB sin reentrenar
+# Comprobación final OOB — entrega 20/11/2026
 
-1. Descomprimir completa la carpeta del proyecto.
-2. En una sesión nueva de R, ejecutar:
+Esta etapa usa el bosque ya guardado y sus predicciones CHF OOB. No vuelve a
+entrenar ni cambia el panel. Su rendimiento sigue condicionado por la selección
+previa de genes y parámetros; no valida de forma independiente toda la firma.
+
+Desde una sesión nueva de R en la carpeta del proyecto:
 
 ```r
-Sys.setenv(FMP_STAGE = "oob")
-source(file.choose(), encoding = "UTF-8")
+Sys.setenv(FMP_STAGE="oob", FMP_INSTALL="never", FMP_DOWNLOAD="never")
+source("Script_maerstro_FMP.R", encoding="UTF-8")
 ```
 
-3. Elegir ejecutar_replica_fmp.R; el archivo de funciones se carga automáticamente.
-4. Elegir RSF_resultados_para_comparacion.rds, de data_privada/ de la ejecución RSF.
-5. Revisar la tabla aparente/OOB y las comprobaciones impresas. Un REVISAR_EMPATES
-   requiere revisión antes de interpretar ese C; no se oculta ni fuerza una coincidencia.
-6. El maestro crea tablas, ROC PDF/PNG y README propio en comprobacion_OOB/OOB_.../.
-   También reemplaza solo la sección OOB del README del proyecto.
+Se localiza automáticamente
+`data/privados/rsf/RSF_resultados_para_comparacion.rds`. Si está en otra ruta,
+indicarla con `FMP_RSF_STATE` o con `--state=RDS` por terminal.
+No ejecutar `all` para esta comprobación: esa etapa sí construye ambos modelos.
 
-No usar RSF_modelo_final.rds: ese objeto aislado no incluye la clínica alineada.
-No usar FMP_original_replicada_para_comparacion.rds: es el resultado LASSO.
-No ejecutar stage=all en esta comprobación: all sí vuelve a construir ambos modelos.
+Salidas:
 
-El marcador es rowSums(CHF), como el del análisis principal. No se cambia a una
-probabilidad al año, no se eligen genes ni se ajustan parámetros. La comprobación
-lee bosque$chf, no predict(bosque, datos_TCGA), que volvería a producir el marcador
-aparente con todos los árboles.
+- `resultados/figuras/oob/`: ROC aparente/OOB en PDF y PNG.
+- `resultados/tablas/oob/`: métricas, diferencias y comprobaciones.
+- `resultados/docs/README_oob.md`: interpretación de esta ejecución.
+- `data/privados/oob/`: predicciones y objetos ROC; no publicar.
 
-OOB evalúa internamente el bosque condicionado al panel ya seleccionado con TCGA.
-No valida de forma independiente la selección de genes ni corrige retrospectivamente
-el sobreajuste. Tampoco resuelve el cambio de escala entre RNA-seq y microarreglos.
-
-Para revisar la salida y cerrar la entrega basta compartir la tabla agregada
-RSF_COMPROBACION_OOB_metricas.csv y RSF_COMPROBACION_OOB_checks.csv. No hace falta
-publicar el RDS, los identificadores ni los puntajes individuales.
+Se verifica el MD5 del estado RSF antes y después. Se conserva un único respaldo
+de los archivos reemplazados al publicar. La sección histórica del README principal
+mantiene sus valores recibidos; las tablas enlazadas muestran la última ejecución.

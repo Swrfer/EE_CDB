@@ -1,6 +1,6 @@
 {
   "created": "2026-11-19",
-  "purpose": "Carpeta independiente para revisión de entrega final; sin nuevos ajustes científicos ni operaciones Git",
+  "purpose": "Entrega final con organizacion compartida, nombres de scripts solicitados y migracion sin recalcular",
   "author_uploads": [
     {
       "name": "README_Proyecto_FMP.md",
@@ -22,19 +22,19 @@
   "proposed_branch": "entrega/fmp-final",
   "evidence_scope": "Resultados agregados existentes; sin matrices originales ni RDS del autor",
   "outstanding_confirmations": "docs/REVISION_README_AUTOR.md",
-  "change_scope": "Instalación y descarga inicial; CSV clínico ACRG; registro de ejecuciones. Métodos de ajuste y evaluación conservados.",
-  "real_download_end_to_end_verified": false,
+  "change_scope": "Rutas, nombres de archivos, transacciones y documentacion. Metodos cientificos conservados.",
+  "real_download_end_to_end_verified": true,
   "acquisition_test": "Servicios simulados; seis pruebas técnicas PASS",
   "candidate_genes_source": "Tres GEO más TCGA-STAD; CG I-II vs TGC; filtrado por Hörtenhuber et al. 2017, btx225",
   "runtime_inputs": "Solo CSV clínico ACRG; resto descargado o referencias incluidas",
   "current_code": [
     {
-      "name": "funciones_fmp_original.R",
-      "sha256": "952b2d2f352066aed172ce13d949fae9d1f1ea9a095562a6d759760cfdcf9301"
+      "name": "Script_maerstro_FMP.R",
+      "sha256": "e64e57558260c1562b12bce1aa1fa480e76b488177a1eecac37632cbe94eb940"
     },
     {
-      "name": "ejecutar_replica_fmp.R",
-      "sha256": "5fca98d71ae9c5b198d66b01d31cea78733872efe6fbea5d434928d437104478"
+      "name": "Funciones_fmp_comparacion.R",
+      "sha256": "808fb6761b6d2efa32d6290b95166a6d9f9b9c09a38512df3632a7ecce8b5ec9"
     }
   ],
   "publication": "Historial y estado de publicacion consultables en Git, rama entrega/fmp-final",
@@ -49,5 +49,13 @@
     },
     "scope": "Adquisicion GEO; instalador y metodos de modelado sin cambios",
     "tests": "Recuperacion tras fallo GEO y transporte HTTPS PASS; parser/modelos reales no ejecutados aqui"
-  }
+  },
+  "updated": "2026-11-20",
+  "delivery_date": "2026-11-20",
+  "real_download_verification_source": "Reporte del autor el 2026-11-20 sobre la version anterior a la reorganizacion",
+  "reorganized_end_to_end_verified": false,
+  "independent_computer_verified": false,
+  "reorganization_checks": "Seis pruebas PASS sin ajustes ni red real y comparacion estructural 24 funciones identicas, 5 solo rutas",
+  "author_latest_run": "replica_20261120_114731; RSF replica_20261120_114900; OOB OOB_20261120_115108_74a37b391f1",
+  "new_run_outputs_received": false
 }

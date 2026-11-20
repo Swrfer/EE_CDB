@@ -2,7 +2,7 @@
 args <- commandArgs(trailingOnly = FALSE)
 script <- sub("^--file=", "", args[grepl("^--file=", args)])[1L]
 root <- dirname(dirname(normalizePath(script)))
-source(file.path(root, "funciones_fmp_original.R"), encoding = "UTF-8")
+source(file.path(root, "Funciones_fmp_comparacion.R"), encoding = "UTF-8")
 temporal <- tempfile("geo_https_"); dir.create(temporal)
 on.exit(unlink(temporal, recursive = TRUE), add = TRUE)
 crear <- function(archivo, completo = TRUE) {

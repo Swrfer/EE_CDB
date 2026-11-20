@@ -3,7 +3,7 @@
 args <- commandArgs(trailingOnly = FALSE)
 script <- sub("^--file=", "", args[grepl("^--file=", args)])[1L]
 root <- dirname(dirname(normalizePath(script)))
-source(file.path(root, "funciones_fmp_original.R"), encoding = "UTF-8")
+source(file.path(root, "Funciones_fmp_comparacion.R"), encoding = "UTF-8")
 temporal <- tempfile("fmp_descarga_"); dir.create(temporal)
 on.exit(unlink(temporal, recursive = TRUE), add = TRUE)
 falla <- function(expr) inherits(tryCatch({force(expr); NULL}, error = identity), "error")
@@ -40,7 +40,7 @@ stopifnot(falla(fmp_cache_rds(cache, crear, is.list)), llamadas == 1L)
 
 # Un proceso aislado entra al maestro con SOLO el CSV clinico local.
 proyecto <- file.path(temporal, "proyecto"); dir.create(proyecto)
-for (f in c("ejecutar_replica_fmp.R", "funciones_fmp_original.R")) {
+for (f in c("Script_maerstro_FMP.R", "Funciones_fmp_comparacion.R")) {
   stopifnot(file.copy(file.path(root, f), file.path(proyecto, f)))
 }
 logfile <- file.path(proyecto, "pasos.txt")
@@ -69,10 +69,10 @@ dobles <- c(
   '.txt <- gsub("TCGAbiolinks::|SummarizedExperiment::|Biobase::|GEOquery::",".servicio$",.txt)',
   'body(fmp_descargar_entradas) <- parse(text=.txt)[[1L]]'
 )
-cat("\n", paste(dobles, collapse = "\n"), "\n", file = file.path(proyecto, "funciones_fmp_original.R"), append = TRUE)
+cat("\n", paste(dobles, collapse = "\n"), "\n", file = file.path(proyecto, "Funciones_fmp_comparacion.R"), append = TRUE)
 rscript <- file.path(R.home("bin"), "Rscript")
 correr <- function(exito = TRUE) {
-  out <- system2(rscript, c("--vanilla", shQuote(file.path(proyecto, "ejecutar_replica_fmp.R")),
+  out <- system2(rscript, c("--vanilla", shQuote(file.path(proyecto, "Script_maerstro_FMP.R")),
     "--stage=download", shQuote(paste0("--acrg-clinical=", csv))), stdout = TRUE, stderr = TRUE)
   code <- attr(out, "status")
   if (!exito) {stopifnot(!is.null(code),code!=0L);return(invisible(out))}
@@ -88,7 +88,7 @@ stopifnot(identical(md5_tcga,tools::md5sum(tcga_guardado)))
 archivos <- file.path(raw, c("tcga_counts_metadata.rds", "tcga_clinical_original.rds", "GSE62254_eset.rds"))
 stopifnot(all(file.exists(archivos)), identical(readRDS(archivos[1L])$provenance$assay, "unstranded"),
   identical(trimws(readLines(logfile)), c("install", "query", "counts_download", "clinical_download", "matrix_https", "install", "matrix_https", "geo_download")),
-  !dir.exists(file.path(proyecto, "resultados_replica_FMP")))
+  !dir.exists(file.path(proyecto, "resultados")))
 huellas <- tools::md5sum(archivos)
 correr()
 stopifnot(identical(huellas, tools::md5sum(archivos)), sum(trimws(readLines(logfile)) == "geo_download") == 1L)

@@ -34,7 +34,7 @@ de ejecutar el maestro con los archivos originales del autor.
 
 El procedimiento LASSO se conserva. RSF parte del RDS creado automáticamente por
 ese procedimiento, no de cvfit/x/y globales ni de la ejecución manual del usuario.
-No se realizaron operaciones Git.
+La publicación de esta entrega se mantiene en la rama entrega/fmp-final.
 
 ## Ampliación OOB — 19/11/2026
 
@@ -101,3 +101,27 @@ Las funciones de instalación, VST, LASSO, RSF y evaluación permanecen iguales.
 
 El nuevo transporte evita el listado automático de GEO y la descarga GPL. No
 prueba que esas fueran necesariamente las causas del mensaje original.
+
+## Organización compartida — 20/11/2026
+
+El autor informó ejecución integral correcta en su Mac tras la corrección GEO.
+Esta versión cambia la organización y los nombres de los dos scripts. No se han
+vuelto a descargar cohortes, instalado paquetes ni entrenado modelos en esta revisión.
+La reproducción completa de la versión reorganizada y la réplica independiente
+por una compañera del laboratorio quedan pendientes.
+
+Resultado: **seis pruebas PASS**, más comprobación de sintaxis y estructura.
+
+Pruebas de esta revisión: funciones puras; maestro LASSO por Rscript/source en
+sesión vacía; descarga/CSV y GEO con servicios simulados; organización/transacciones;
+RSF desde RDS y flujo all con FMP_TEST_NO_FIT=true. Los pasos de ajuste se sustituyen
+por dobles exclusivamente en las copias temporales de las pruebas.
+No se ejecutan las pruebas que ajustan bosques reales en esta revisión.
+La prueba de organización verifica copia MD5 de figuras OOB PDF/PNG, conservación
+de los estados originales, ausencia de anidamientos, respaldo único, fallo antes
+de publicar y restauración tras un fallo durante la publicación.
+La comprobación estructural compara los cuerpos de las funciones científicas con
+el ZIP recibido: el ajuste, las semillas, las transformaciones y los cálculos
+OOB se mantienen. Las funciones de figuras/evaluación cambian solo sus rutas.
+
+Se verificaron además 44 tablas/figuras históricas conservadas byte a byte y los enlaces locales del README.

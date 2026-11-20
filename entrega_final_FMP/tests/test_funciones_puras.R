@@ -2,7 +2,7 @@
 args <- commandArgs(trailingOnly = FALSE)
 f <- sub("^--file=", "", args[grepl("^--file=", args)])
 if (length(f)) root <- dirname(dirname(normalizePath(f))) else root <- normalizePath(".")
-source(file.path(root, "funciones_fmp_original.R"), encoding = "UTF-8")
+source(file.path(root, "Funciones_fmp_comparacion.R"), encoding = "UTF-8")
 
 debe_fallar <- function(expr) inherits(tryCatch({force(expr); NULL}, error = identity), "error")
 ref <- data.frame(Gene = c("A", "B"), Coefficient = c(.2, -.1))

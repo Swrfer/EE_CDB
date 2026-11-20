@@ -17,13 +17,13 @@ como en el análisis confirmado. La matriz y su procedencia se guardan en data/r
 
 ## Continuar después de actualizar el código
 
-Actualizar `funciones_fmp_original.R` dentro de la misma carpeta de entrega y
+Actualizar `Funciones_fmp_comparacion.R` dentro de la misma carpeta de entrega y
 conservar `data/raw/` en su ubicación actual. No hace falta abrir los RDS ni crear
 objetos manuales. En R, después del setwd habitual:
 
 ```r
 Sys.setenv(FMP_STAGE = "all", FMP_INSTALL = "never", FMP_DOWNLOAD = "missing")
-source("ejecutar_replica_fmp.R", encoding = "UTF-8")
+source("Script_maerstro_FMP.R", encoding = "UTF-8")
 ```
 
 Si se solicita una entrada, seleccionar únicamente el CSV clínico ACRG.
@@ -43,3 +43,6 @@ después del error permite diagnosticarlo sin volver a descargar TCGA.
 
 Esta corrección no instala paquetes. `FMP_INSTALL="never"` mantiene desactivado
 todo el bloque de instalación del maestro.
+
+En esta entrega los nombres vigentes son Script_maerstro_FMP.R y Funciones_fmp_comparacion.R.
+La reproducción integral tras la corrección fue informada por el autor el 20/11/2026.

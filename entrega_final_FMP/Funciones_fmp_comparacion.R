@@ -3,9 +3,9 @@
 
 # CONFIGURACION Y ADQUISICION. Las funciones cientificas se conservan debajo.
 fmp_configuracion <- function(base, argumentos = character(), permitir_selector = interactive()) {
-  reconocidos <- grepl("^--(data-dir|output-dir|stage|state|acrg-clinical|install|download)=", argumentos)
+  reconocidos <- grepl("^--(data-dir|output-dir|stage|state|legacy-run|acrg-clinical|install|download)=", argumentos)
   fmp_exigir(!length(argumentos) || all(reconocidos),
-    "Usa --stage=all|download|lasso|rsf|oob, --acrg-clinical=CSV, --data-dir=RUTA, --output-dir=RUTA, --state=RDS, --install=missing|never y --download=missing|never.")
+    "Usa --stage=all|download|lasso|rsf|oob|organize, --legacy-run=RUTA, --acrg-clinical=CSV, --data-dir=RUTA, --output-dir=RUTA, --state=RDS, --install=missing|never y --download=missing|never.")
   leer <- function(nombre, defecto) {
     z <- argumentos[startsWith(argumentos, paste0("--", nombre, "="))]
     fmp_exigir(length(z) <= 1L, paste("Argumento repetido:", nombre))
@@ -14,25 +14,33 @@ fmp_configuracion <- function(base, argumentos = character(), permitir_selector 
   etapa <- leer("stage", Sys.getenv("FMP_STAGE", "all"))
   instalar <- leer("install", Sys.getenv("FMP_INSTALL", "missing"))
   descargar <- leer("download", Sys.getenv("FMP_DOWNLOAD", "missing"))
-  fmp_exigir(etapa %in% c("all", "download", "lasso", "rsf", "oob"), "stage no valido.")
+  fmp_exigir(etapa %in% c("all", "download", "lasso", "rsf", "oob", "organize"), "stage no valido.")
   fmp_exigir(instalar %in% c("missing", "never") && descargar %in% c("missing", "never"),
     "install y download admiten missing o never.")
   datos <- path.expand(leer("data-dir", Sys.getenv("FMP_DATA_DIR", file.path(base, "data", "raw"))))
-  salida <- path.expand(leer("output-dir", file.path(base, "resultados_replica_FMP")))
+  salida <- path.expand(leer("output-dir", file.path(base, "resultados")))
   cfg <- list(base = base, stage = etapa, install = instalar, download = descargar,
     data_dir = datos, carpeta_salida = salida,
-    archivos_codigo = file.path(base, c("ejecutar_replica_fmp.R", "funciones_fmp_original.R")),
+    archivos_codigo = file.path(base, c("Script_maerstro_FMP.R", "Funciones_fmp_comparacion.R")),
     archivo_readme = file.path(base, "README.md"), rsf = fmp_rsf_configuracion())
+  cfg$organizacion <- fmp_organizacion(base, salida)
+  if (etapa == "organize") {
+    cfg$legacy_run <- path.expand(leer("legacy-run", Sys.getenv("FMP_LEGACY_RUN", "")))
+    fmp_exigir(nzchar(cfg$legacy_run) && dir.exists(cfg$legacy_run),
+      "Indica --legacy-run=RUTA a resultados_replica_FMP o a su replica LASSO completa.")
+    return(cfg)
+  }
   if (etapa %in% c("rsf", "oob")) {
     variable <- if (etapa == "rsf") "FMP_LASSO_STATE" else "FMP_RSF_STATE"
-    estado <- path.expand(leer("state", Sys.getenv(variable, "")))
+    defecto <- file.path(cfg$organizacion$privados, if (etapa == "rsf") "lasso" else "rsf",
+      if (etapa == "rsf") "FMP_original_replicada_para_comparacion.rds" else "RSF_resultados_para_comparacion.rds")
+    estado <- path.expand(leer("state", Sys.getenv(variable, defecto)))
     if (!nzchar(estado) && isTRUE(permitir_selector)) {
       message("Selecciona el RDS final del bloque ", if (etapa == "rsf") "LASSO." else "RSF.")
       estado <- file.choose()
     }
     fmp_exigir(nzchar(estado) && file.exists(estado), paste("Para", etapa, "indica --state=RUTA al RDS final correspondiente."))
     cfg$archivo_estado <- normalizePath(estado)
-    if (!any(startsWith(argumentos, "--output-dir="))) cfg$carpeta_salida <- NULL
     return(cfg)
   }
   clinica <- path.expand(leer("acrg-clinical", Sys.getenv("FMP_ACRG_CLINICAL", "")))
@@ -339,15 +347,6 @@ fmp_preparar_ejecucion <- function(cfg) {
   invisible(NULL)
 }
 
-fmp_registrar_ejecucion <- function(cfg, resultado) {
-  if (cfg$stage != "all") return(invisible(NULL))
-  registros <- data.frame(stage = c("LASSO", "RSF", "OOB"),
-    output_directory = c(resultado$folders$root, resultado$rsf$folders$root, resultado$oob$folders$root),
-    completed_UTC = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"))
-  fmp_csv(registros, file.path(cfg$carpeta_salida, "ULTIMA_EJECUCION_COMPLETA.csv"))
-  fmp_csv(registros, file.path(resultado$folders$docs, "ejecucion_completa.csv"))
-  invisible(registros)
-}
 
 
 fmp_exigir <- function(condicion, mensaje) {
@@ -381,23 +380,221 @@ fmp_rds <- function(x, archivo) {
   invisible(archivo)
 }
 
-fmp_carpetas <- function(raiz) {
-  # Cada ejecucion tiene su carpeta: no se mezclan ajustes diferentes.
-  raiz <- path.expand(raiz)
-  dir.create(raiz, recursive = TRUE, showWarnings = FALSE)
-  id <- format(Sys.time(), "%Y%m%d_%H%M%S")
-  salida <- file.path(raiz, paste0("replica_", id))
-  if (dir.exists(salida)) salida <- tempfile(paste0("replica_", id, "_"), tmpdir = raiz)
-  carpetas <- list(root = salida, tablas = file.path(salida, "tablas"),
-    docs = file.path(salida, "docs"), privados = file.path(salida, "data_privada"),
-    lasso = file.path(salida, "figuras", "01_LASSO"),
-    tcga = file.path(salida, "figuras", "02_TCGA"),
-    acrg = file.path(salida, "figuras", "03_ACRG"))
-  for (d in carpetas) dir.create(d, recursive = TRUE, showWarnings = FALSE)
-  writeLines(c("data_privada/", ".RData", ".Rhistory", ".Renviron"),
-    file.path(salida, ".gitignore"))
+# Estructura de entrega del 2026-11-20. Las fechas reales van en el registro.
+fmp_organizacion <- function(base, salida = file.path(base, "resultados"),
+    privados = file.path(base, "data", "privados")) {
+  absoluto <- function(p) normalizePath(path.expand(p), mustWork = FALSE)
+  list(base = absoluto(base), root = absoluto(salida), privados = absoluto(privados))
+}
+
+fmp_carpetas <- function(organizacion, bloque = "lasso") {
+  if (is.character(organizacion)) organizacion <- fmp_organizacion(dirname(organizacion), organizacion)
+  fmp_exigir(bloque %in% c("lasso", "rsf", "oob"), "Bloque de salida no valido.")
+  root <- organizacion$root
+  fig <- file.path(root, "figuras", bloque)
+  carpetas <- list(root = root, tablas = file.path(root, "tablas", bloque),
+    docs = file.path(root, "docs"), privados = file.path(organizacion$privados, bloque),
+    figuras = fig, lasso = fig, rsf = fig, tcga = fig, acrg = fig,
+    comparacion = file.path(root, "figuras", "comparacion"),
+    tablas_comparacion = file.path(root, "tablas", "comparacion"))
+  for (d in unique(unlist(carpetas))) dir.create(d, recursive = TRUE, showWarnings = FALSE)
   carpetas
 }
+
+fmp_copiar_arbol <- function(origen, destino) {
+  fmp_exigir(dir.exists(origen), paste("No existe el directorio:", origen))
+  ficheros <- list.files(origen, recursive = TRUE, full.names = TRUE, all.files = TRUE,
+    no.. = TRUE, include.dirs = FALSE)
+  # Normalizar antes de calcular los relativos (tambien admite rutas relativas).
+  relativos <- substring(normalizePath(ficheros), nchar(normalizePath(origen)) + 2L)
+  for (i in seq_along(ficheros)) {
+    destino_i <- file.path(destino, relativos[i])
+    dir.create(dirname(destino_i), recursive = TRUE, showWarnings = FALSE)
+    fmp_exigir(file.copy(ficheros[i], destino_i, overwrite = TRUE, copy.date = TRUE),
+      paste("No se pudo copiar:", ficheros[i]))
+    fmp_exigir(identical(unname(tools::md5sum(ficheros[i])), unname(tools::md5sum(destino_i))),
+      paste("La copia difiere del original:", relativos[i]))
+  }
+  dir.create(destino, recursive = TRUE, showWarnings = FALSE)
+  invisible(relativos)
+}
+
+fmp_fuentes_lasso <- function(archivo_estado) {
+  z <- readRDS(archivo_estado)
+  privado <- dirname(normalizePath(archivo_estado))
+  if (all(c("KM_Cindex", "timeROC") %in% names(z))) {
+    return(list(KM_Cindex = z$KM_Cindex, timeROC = z$timeROC, privados = privado))
+  }
+  # Un indice adyacente permite usar RDS antiguos sin modificar sus bytes.
+  indice <- file.path(privado, "indice_salidas_lasso.rds")
+  if (file.exists(indice)) {
+    fuentes <- readRDS(indice); fuentes$privados <- privado
+    return(fuentes)
+  }
+  tablas <- file.path(dirname(privado), "tablas") # formato anterior de la entrega
+  nombres <- c("TABLA_MAESTRA_KM_Cindex.csv", "TABLA_MAESTRA_timeROC.csv")
+  fmp_exigir(all(file.exists(file.path(tablas, nombres))),
+    "Faltan las tablas del estado LASSO antiguo. Conserva su carpeta completa o usa --stage=organize.")
+  list(KM_Cindex = utils::read.csv(file.path(tablas, nombres[1L])),
+    timeROC = utils::read.csv(file.path(tablas, nombres[2L])), privados = privado)
+}
+
+fmp_importar_bloque_anterior <- function(raiz, organizacion, bloque) {
+  dest <- fmp_carpetas(organizacion, bloque)
+  fmp_copiar_arbol(file.path(raiz, "tablas"), dest$tablas)
+  fmp_copiar_arbol(file.path(raiz, "data_privada"), dest$privados)
+  # Los nombres de cohorte evitan colisiones al reunir TCGA y ACRG.
+  figs <- list.files(file.path(raiz, "figuras"), recursive = TRUE, full.names = TRUE)
+  for (f in figs) {
+    nombre <- basename(f)
+    carpeta <- if (grepl("ROC_comparativa", nombre)) dest$comparacion else dest$figuras
+    if (grepl("/02_TCGA/", f)) nombre <- paste0("TCGA_", nombre)
+    if (grepl("/03_ACRG/", f)) nombre <- paste0("ACRG_", nombre)
+    nombre <- sub("KM_Todos", "KM_global", nombre, fixed = TRUE)
+    nombre <- sub("timeROC_Todos_", "ROC_global_", nombre, fixed = TRUE)
+    nombre <- sub("timeROC_I_II_", "ROC_I_II_", nombre, fixed = TRUE)
+    nombre <- sub("Todos_ROC_comparativa", "ROC_global", nombre, fixed = TRUE)
+    nombre <- sub("I_II_ROC_comparativa", "ROC_I_II", nombre, fixed = TRUE)
+    mapa <- c(LASSO_Coefficient_Path_lambda_min = "LASSO_trayectorias", LASSO_CV_plot = "LASSO_CV",
+      ForestPlot_genes_seleccionados = "LASSO_forest_univariado", RSF_importancia_genes_panel = "RSF_importancia_panel")
+    for (antiguo in names(mapa)) nombre <- sub(antiguo, mapa[[antiguo]], nombre, fixed = TRUE)
+    destino <- file.path(carpeta, nombre)
+    fmp_exigir(!file.exists(destino), paste("Dos figuras tendrian el mismo destino:", nombre))
+    fmp_exigir(file.copy(f, destino, copy.date = TRUE), paste("No se pudo copiar:", f))
+    fmp_exigir(identical(unname(tools::md5sum(f)), unname(tools::md5sum(destino))), "Figura copiada diferente.")
+  }
+  docs <- list.files(file.path(raiz, "docs"), recursive = TRUE, full.names = TRUE)
+  for (f in docs) {
+    destino <- file.path(dest$docs, paste0(toupper(bloque), "_", basename(f)))
+    fmp_exigir(!file.exists(destino), paste("Documento repetido:", destino))
+    fmp_exigir(file.copy(f, destino, copy.date = TRUE), "No se pudo copiar un documento.")
+  }
+  if (file.exists(file.path(raiz, "README.md"))) file.copy(file.path(raiz, "README.md"),
+    file.path(dest$docs, paste0("README_", bloque, "_original.md")))
+  if (bloque == "rsf") {
+    comparativas <- list.files(dest$tablas, pattern = "^COMPARACION_", full.names = TRUE)
+    for (f in comparativas) {
+      fmp_exigir(file.rename(f, file.path(dest$tablas_comparacion, basename(f))), "No se pudo organizar la tabla comparativa.")
+    }
+  }
+  if (bloque == "lasso") {
+    fmp_rds(list(KM_Cindex = utils::read.csv(file.path(dest$tablas, "TABLA_MAESTRA_KM_Cindex.csv")),
+      timeROC = utils::read.csv(file.path(dest$tablas, "TABLA_MAESTRA_timeROC.csv"))),
+      file.path(dest$privados, "indice_salidas_lasso.rds"))
+  }
+  invisible(dest)
+}
+
+fmp_reunir_lasso <- function(archivo_estado, cfg, organizacion) {
+  fuentes <- fmp_fuentes_lasso(archivo_estado)
+  destino <- fmp_carpetas(organizacion)
+  # Formato nuevo: estado en data/privados/lasso; figuras/tablas en resultados.
+  if (basename(dirname(archivo_estado)) == "lasso") {
+    fmp_copiar_arbol(fuentes$privados, destino$privados)
+    for (tipo in c("figuras", "tablas")) {
+      origen <- file.path(cfg$organizacion$root, tipo, "lasso")
+      fmp_exigir(dir.exists(origen), "Para RSF desde un estado nuevo conserva resultados/ del mismo proyecto; --output-dir indica esa raiz.")
+      fmp_copiar_arbol(origen, file.path(organizacion$root, tipo, "lasso"))
+    }
+    docs <- list.files(file.path(cfg$organizacion$root, "docs"), pattern = "^(LASSO_|README_lasso)", full.names = TRUE)
+    for (f in docs) file.copy(f, destino$docs)
+  } else fmp_importar_bloque_anterior(dirname(fuentes$privados), organizacion, "lasso")
+  destino
+}
+
+fmp_publicar <- function(cfg, trabajo, bloques) {
+  # Solo promover despues de terminar. Un respaldo completo, sin fechas en rutas.
+  finales <- c(cfg$organizacion$root, file.path(cfg$organizacion$privados, bloques))
+  nuevos <- c(trabajo$root, file.path(trabajo$privados, bloques))
+  fmp_exigir(!anyDuplicated(finales), "Destinos de publicacion repetidos.")
+  for (d in nuevos) dir.create(d, recursive = TRUE, showWarnings = FALSE)
+  respaldo <- file.path(cfg$base, "data", "respaldos", "ultima_ejecucion")
+  dir.create(dirname(respaldo), recursive = TRUE, showWarnings = FALSE)
+  anterior <- NULL
+  if (dir.exists(respaldo)) {
+    fmp_exigir(file.exists(file.path(respaldo, "RESPALDO_FMP.txt")), "La carpeta de respaldo no pertenece al flujo FMP; no se reemplazo.")
+    anterior <- tempfile("respaldo_anterior_", tmpdir = dirname(respaldo))
+    fmp_exigir(file.rename(respaldo, anterior), "No se pudo rotar el respaldo anterior.")
+  }
+  dir.create(respaldo)
+  writeLines("Respaldo automatico FMP; sustituido solo tras una publicacion correcta.", file.path(respaldo, "RESPALDO_FMP.txt"))
+  guardados <- rep(FALSE, length(finales)); publicados <- guardados
+  backup <- file.path(respaldo, c("resultados", paste0("privados_", bloques)))
+  correcto <- FALSE
+  on.exit({
+    if (!correcto) {
+      for (i in rev(seq_along(finales))) {
+        if (publicados[i]) unlink(finales[i], recursive = TRUE)
+        if (guardados[i]) fmp_exigir(file.rename(backup[i], finales[i]), paste("Restaurar manualmente desde:", backup[i]))
+      }
+      unlink(respaldo, recursive = TRUE)
+      if (!is.null(anterior)) fmp_exigir(file.rename(anterior, respaldo), "No se pudo restaurar el respaldo previo.")
+    }
+  }, add = TRUE)
+  for (i in seq_along(finales)) {
+    dir.create(dirname(finales[i]), recursive = TRUE, showWarnings = FALSE)
+    if (dir.exists(finales[i])) {
+      fmp_exigir(file.rename(finales[i], backup[i]), paste("No se pudo respaldar:", finales[i]))
+      guardados[i] <- TRUE
+    }
+    fmp_exigir(file.rename(nuevos[i], finales[i]), paste("No se pudo publicar:", finales[i], "; usa data y resultados en el mismo volumen."))
+    publicados[i] <- TRUE
+  }
+  correcto <- TRUE
+  if (!is.null(anterior)) unlink(anterior, recursive = TRUE)
+  message("Resultados publicados en: ", cfg$organizacion$root)
+  invisible(NULL)
+}
+
+fmp_registrar_ejecucion <- function(cfg, trabajo, bloques, modo = cfg$stage) {
+  docs <- file.path(trabajo$root, "docs"); dir.create(docs, recursive = TRUE, showWarnings = FALSE)
+  if (length(cfg$archivos_codigo)) {
+    codigo <- file.path(docs, "codigo_ejecutado"); dir.create(codigo, showWarnings = FALSE)
+    for (f in cfg$archivos_codigo) fmp_exigir(file.copy(f, codigo, overwrite = TRUE), "No se pudo guardar el codigo ejecutado.")
+  }
+  registros <- data.frame(delivery_date = "2026-11-20", stage = bloques,
+    action = modo, completed_UTC = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+    output_directory = file.path(cfg$organizacion$root, "tablas", bloques),
+    private_directory = file.path(cfg$organizacion$privados, bloques))
+  fmp_csv(registros, file.path(docs, "ULTIMA_EJECUCION_COMPLETA.csv"))
+  fmp_csv(data.frame(file = basename(cfg$archivos_codigo), md5 = unname(tools::md5sum(cfg$archivos_codigo))),
+    file.path(docs, "codigo_md5.csv"))
+  writeLines(c("# Resultados FMP", "", "Version de entrega: 2026-11-20.",
+    "figuras/ y tablas/: lasso, rsf, comparacion y oob.",
+    "docs/: informes, configuraciones y registro de la ejecucion publicada.",
+    "Los modelos y datos individuales se guardan fuera de esta carpeta, en data/privados/.",
+    "El contenido se sustituye solo cuando terminan todos los bloques solicitados.",
+    "La fecha y la accion de publicacion se consultan en docs/ULTIMA_EJECUCION_COMPLETA.csv."),
+    file.path(trabajo$root, "README.md"))
+  invisible(registros)
+}
+
+fmp_organizar_legacy <- function(cfg, trabajo) {
+  raiz <- normalizePath(cfg$legacy_run)
+  registro <- file.path(raiz, "ULTIMA_EJECUCION_COMPLETA.csv")
+  if (file.exists(registro)) {
+    z <- utils::read.csv(registro, stringsAsFactors = FALSE)
+    fmp_exigir(all(c("stage", "output_directory") %in% names(z)) && all(c("LASSO", "RSF", "OOB") %in% z$stage),
+      "El registro de la ejecucion anterior esta incompleto.")
+    raices <- setNames(path.expand(z$output_directory), tolower(z$stage))
+  } else {
+    unico <- function(nombre) {
+      f <- list.files(raiz, pattern = paste0("^", nombre, "$"), recursive = TRUE, full.names = TRUE)
+      fmp_exigir(length(f) == 1L, paste("Debe haber un unico", nombre, "en --legacy-run; selecciona una replica completa concreta."))
+      f
+    }
+    raices <- c(lasso = raiz,
+      rsf = dirname(dirname(unico("RSF_resultados_para_comparacion.rds"))),
+      oob = dirname(dirname(unico("RSF_COMPROBACION_OOB_metricas.csv"))))
+  }
+  fmp_exigir(all(dir.exists(raices)), "Las rutas del registro anterior no existen en este equipo; indica la replica LASSO concreta con --legacy-run.")
+  for (b in c("lasso", "rsf", "oob")) fmp_importar_bloque_anterior(raices[[b]], trabajo, b)
+  # Registrar tambien los originales: las carpetas antiguas nunca se mueven ni borran.
+  fmp_csv(data.frame(stage = names(raices), source_directory = unname(raices),
+    action = "copia_verificada_MD5_sin_recalcular"), file.path(trabajo$root, "docs", "migracion_origen.csv"))
+  invisible(NULL)
+}
+
 
 fmp_estadio <- function(x) {
   z <- tolower(trimws(as.character(x)))
@@ -545,7 +742,7 @@ fmp_preparar_tcga <- function(entrada, genes, carpetas) {
     rows_after_annotation = nrow(expr), candidate_genes_eligible = ncol(x),
     candidate_genes_requested = length(genes))
   fmp_csv(resumen, file.path(carpetas$tablas, "TCGA_preparacion_resumen.csv"))
-  # IDs y matrices se guardan unicamente en data_privada/.
+  # IDs y matrices se guardan unicamente en data/privados/.
   fmp_rds(list(x = x, clinical = clinica, y = y, gene_annotation = mapa,
     vst = vsd, normalization_dataset = dds, input_summary = resumen),
     file.path(carpetas$privados, "TCGA_preparado_original.rds"))
@@ -665,7 +862,7 @@ fmp_trayectorias_lasso <- function(ajuste, carpetas) {
     ggplot2::theme(legend.position = "right", legend.text = ggplot2::element_text(size = 10),
       plot.caption = ggplot2::element_text(size = 9, hjust = 0),
       plot.title = ggplot2::element_text(size = 14))
-  fmp_dispositivo(file.path(carpetas$lasso, "LASSO_Coefficient_Path_lambda_min"),
+  fmp_dispositivo(file.path(carpetas$lasso, "LASSO_trayectorias"),
     function() print(p), 10, 6.5)
   fmp_csv(datos, file.path(carpetas$tablas, "LASSO_trayectorias_coeficientes.csv"))
   invisible(p)
@@ -674,7 +871,7 @@ fmp_trayectorias_lasso <- function(ajuste, carpetas) {
 fmp_figuras_lasso <- function(ajuste, carpetas) {
   fit <- ajuste$cvfit; firma <- ajuste$signature
   # Estos son los metodos de plot utilizados en el script original.
-  fmp_dispositivo(file.path(carpetas$lasso, "LASSO_CV_plot"), function() plot(fit), 7, 6)
+  fmp_dispositivo(file.path(carpetas$lasso, "LASSO_CV"), function() plot(fit), 7, 6)
   fmp_trayectorias_lasso(ajuste, carpetas)
   d <- firma[order(firma$Coefficient), , drop = FALSE]
   d$Gene <- factor(d$Gene, levels = d$Gene)
@@ -714,7 +911,7 @@ fmp_forest_genes <- function(datos, ajuste, carpetas) {
     ggplot2::labs(x = "Hazard ratio (univariate Cox)", y = NULL) +
     ggplot2::theme_classic(base_size = 14) + ggplot2::theme(
       axis.line.y = ggplot2::element_blank(), axis.ticks.y = ggplot2::element_blank())
-  fmp_dispositivo(file.path(carpetas$lasso, "ForestPlot_genes_seleccionados"), function() print(p), 8, 5)
+  fmp_dispositivo(file.path(carpetas$lasso, "LASSO_forest_univariado"), function() print(p), 8, 5)
   invisible(d)
 }
 
@@ -756,9 +953,9 @@ fmp_evaluar <- function(clinica, cohort, population, carpeta_figuras, carpetas,
     title = paste(cohort, population, sep = " | "), break.time.by = 1,
     surv.median.line = "hv", risk.table.height = .25,
     ggtheme = ggplot2::theme_classic(base_size = 14))
-  fmp_dispositivo(file.path(carpeta_figuras, paste0("KM_", population)),
+  fmp_dispositivo(file.path(carpeta_figuras, paste0(cohort, "_KM_", if (population == "Todos") "global" else population)),
     function() print(km, newpage = TRUE), 8, 7)
-  fmp_dispositivo(file.path(carpeta_figuras, paste0("KM_", population, "_solo_curva")),
+  fmp_dispositivo(file.path(carpeta_figuras, paste0(cohort, "_KM_", if (population == "Todos") "global" else population, "_solo_curva")),
     function() print(km$plot), 8, 6)
   fmp_rds(list(clinical_scored = d, KM = fit_km),
     file.path(carpetas$privados, paste0(etiqueta, "_KM_y_puntajes.rds")))
@@ -819,7 +1016,7 @@ fmp_evaluar <- function(clinica, cohort, population, carpeta_figuras, carpetas,
           }
         }
         objetos[[as.character(t)]] <- roc
-        fmp_dispositivo(file.path(carpeta_figuras, paste0("timeROC_", population, "_", t, "anio")),
+        fmp_dispositivo(file.path(carpeta_figuras, paste0(cohort, "_ROC_", if (population == "Todos") "global" else population, "_", t, "anio")),
           function() {
             plot(roc, time = t, col = "#1B9E77", lwd = 2, title = FALSE)
             graphics::legend("bottomright", legend = paste0(t, "-year AUC = ", round(auc, 3)),
@@ -1006,42 +1203,34 @@ fmp_documentar <- function(cfg, carpetas, coincidencia, estado, advertencias) {
     "Este directorio corresponde al bloque LASSO. RSF usa este resultado sin modificarlo.",
     "La etapa all ejecuta despues RSF; la etapa rsf permite ejecutar solo ese bloque.", "",
     "## Archivos", "tablas/: resultados agregados y comparacion con la referencia.",
-    "figuras/01_LASSO, 02_TCGA y 03_ACRG: PDF y PNG; KM incluye tabla de riesgo.",
-    "data_privada/: matrices, IDs, objetos de modelos y folds; excluir del repositorio.",
+    "figuras/lasso/: PDF y PNG; KM incluye tabla de riesgo.",
+    "data/privados/lasso/: matrices, IDs, objetos de modelos y folds; excluir del repositorio.",
     "TCGA_modelo_y_entradas.rds se genera automaticamente antes de las figuras.",
     "docs/: configuracion, advertencias, procedencia y sessionInfo.", "",
     "## Uso de IA", "Funciones y organizacion tecnica elaboradas con asistencia de ChatGPT/Codex.",
     "La formulacion cientifica y revision de resultados corresponden al autor del proyecto.")
-  writeLines(texto, file.path(carpetas$root, "README.md"))
-  writeLines(capture.output(str(cfg)), file.path(carpetas$docs, "configuracion.txt"))
-  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "sessionInfo.txt"))
+  writeLines(texto, file.path(carpetas$docs, "README_lasso.md"))
+  writeLines(capture.output(str(cfg)), file.path(carpetas$docs, "LASSO_configuracion.txt"))
+  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "LASSO_sessionInfo.txt"))
   paquetes <- c("R", "DESeq2", "org.Hs.eg.db", "glmnet", "survival", "timeROC", "hgu133plus2.db")
   versiones <- vapply(paquetes, function(p) if (p == "R") as.character(getRversion()) else
     as.character(utils::packageVersion(p)), character(1))
   fmp_csv(data.frame(package = paquetes, version = versiones),
     file.path(carpetas$tablas, "versiones_paquetes.csv"))
   if (length(advertencias)) fmp_csv(do.call(rbind, advertencias),
-    file.path(carpetas$docs, "advertencias.csv"))
+    file.path(carpetas$docs, "LASSO_advertencias.csv"))
   archivos <- c(cfg$archivo_tcga, cfg$archivo_clinico_tcga, cfg$archivo_acrg,
     cfg$archivo_clinico_acrg, cfg$archivo_genes, cfg$archivo_firma_referencia)
   archivos <- archivos[nzchar(archivos) & file.exists(archivos)]
   fmp_csv(data.frame(file = basename(archivos), md5 = unname(tools::md5sum(archivos))),
-    file.path(carpetas$docs, "entradas_md5.csv"))
+    file.path(carpetas$docs, "LASSO_entradas_md5.csv"))
 }
 
-ejecutar_replica_fmp <- function(cfg) {
+ejecutar_replica_fmp <- function(cfg, carpetas = NULL) {
   fmp_paquetes()
   fmp_exigir(is.numeric(cfg$tiempos_roc) && length(cfg$tiempos_roc) > 0 &&
     all(is.finite(cfg$tiempos_roc) & cfg$tiempos_roc > 0), "Horizontes ROC no validos.")
-  carpetas <- fmp_carpetas(cfg$carpeta_salida)
-  if (!is.null(cfg$archivos_codigo)) {
-    dir_codigo <- file.path(carpetas$docs, "codigo_ejecutado")
-    dir.create(dir_codigo, recursive = TRUE, showWarnings = FALSE)
-    for (archivo in cfg$archivos_codigo) {
-      fmp_exigir(file.copy(archivo, file.path(dir_codigo, basename(archivo)), overwrite = FALSE),
-        "No se pudo guardar una copia del codigo ejecutado.")
-    }
-  }
+  if (is.null(carpetas)) carpetas <- fmp_carpetas(cfg$organizacion, "lasso")
   estado <- "INICIADO"; coincidencia <- FALSE; advertencias <- list()
   on.exit(fmp_documentar(cfg, carpetas, coincidencia, estado, advertencias), add = TRUE)
   withCallingHandlers({
@@ -1110,7 +1299,8 @@ ejecutar_replica_fmp <- function(cfg) {
     fmp_rds(list(signature = ajuste$signature, cvfit = ajuste$cvfit,
       TCGA_x = tcga$x, TCGA_clinical = tcga$clinical,
       ACRG_x = acrg$x, ACRG_clinical = acrg$clinical, ACRG_expression = acrg$expression, config = cfg,
-      status = estado, signature_matches = coincidencia, reference_metrics_match = metricas_ok),
+      status = estado, signature_matches = coincidencia, reference_metrics_match = metricas_ok,
+      KM_Cindex = resumen, timeROC = roc),
       file.path(carpetas$privados, "FMP_original_replicada_para_comparacion.rds"))
     cat("\nFASE 1 LASSO TERMINADA\n", estado, "\n\n", sep = "")
     print(comp$table, row.names = FALSE); print(resumen, row.names = FALSE)
@@ -1316,7 +1506,7 @@ fmp_rsf_figuras <- function(ajuste, carpetas) {
     ggplot2::geom_col(fill = "#1B9E77") + ggplot2::geom_vline(xintercept = 0, linetype = "dashed") +
     ggplot2::labs(x = "Permutation importance (selection forest; TCGA only)", y = NULL) +
     ggplot2::theme_classic(base_size = 14)
-  fmp_dispositivo(file.path(carpetas$rsf, "RSF_importancia_genes_panel"),
+  fmp_dispositivo(file.path(carpetas$rsf, "RSF_importancia_panel"),
     function() print(p), 8, max(5, .25 * nrow(d) + 2))
   d <- ajuste$tuning$summary
   p <- ggplot2::ggplot(d, ggplot2::aes(x = factor(panel_size), y = C_Harrell_mean,
@@ -1330,11 +1520,9 @@ fmp_rsf_figuras <- function(ajuste, carpetas) {
   fmp_dispositivo(file.path(carpetas$rsf, "RSF_ajuste_parametros"), function() print(p), 8, 5)
 }
 
-fmp_rsf_comparar <- function(raiz_lasso, carpetas, km_rsf, roc_rsf) {
-  km_lasso <- utils::read.csv(file.path(raiz_lasso, "tablas", "TABLA_MAESTRA_KM_Cindex.csv"),
-    stringsAsFactors = FALSE)
-  roc_lasso <- utils::read.csv(file.path(raiz_lasso, "tablas", "TABLA_MAESTRA_timeROC.csv"),
-    stringsAsFactors = FALSE)
+fmp_rsf_comparar <- function(fuentes_lasso, carpetas, km_rsf, roc_rsf) {
+  km_lasso <- fuentes_lasso$KM_Cindex
+  roc_lasso <- fuentes_lasso$timeROC
   km_lasso$model <- roc_lasso$model <- "LASSO-Cox"
   km_rsf$model <- roc_rsf$model <- "RSF"
   juntar <- function(a, b) {
@@ -1346,18 +1534,18 @@ fmp_rsf_comparar <- function(raiz_lasso, carpetas, km_rsf, roc_rsf) {
   km <- juntar(km_lasso, km_rsf); roc <- juntar(roc_lasso, roc_rsf)
   km$evaluation <- ifelse(km$cohort == "TCGA", "apparent_training", "exploratory_external")
   roc$evaluation <- ifelse(roc$cohort == "TCGA", "apparent_training", "exploratory_external")
-  fmp_csv(km, file.path(carpetas$tablas, "COMPARACION_MAESTRA_KM_Cindex.csv"))
-  fmp_csv(roc, file.path(carpetas$tablas, "COMPARACION_MAESTRA_timeROC.csv"))
+  fmp_csv(km, file.path(carpetas$tablas_comparacion, "COMPARACION_MAESTRA_KM_Cindex.csv"))
+  fmp_csv(roc, file.path(carpetas$tablas_comparacion, "COMPARACION_MAESTRA_timeROC.csv"))
   for (cohorte in intersect(unique(roc$cohort), c("TCGA", "ACRG"))) {
     for (pop in c("Todos", "I_II")) {
       nombre <- paste0(cohorte, "_", pop, "_timeROC.rds")
-      archivos <- c(file.path(raiz_lasso, "data_privada", nombre),
+      archivos <- c(file.path(fuentes_lasso$privados, nombre),
         file.path(carpetas$privados, nombre))
       if (!all(file.exists(archivos))) next
       objetos <- lapply(archivos, readRDS)
       if (!all(vapply(objetos, function(z) !is.null(z[["1"]]), logical(1)))) next
       a <- objetos[[1L]][["1"]]; b <- objetos[[2L]][["1"]]
-      fmp_dispositivo(file.path(carpetas$comparacion, paste0(cohorte, "_", pop, "_ROC_comparativa_1anio")),
+      fmp_dispositivo(file.path(carpetas$comparacion, paste0(cohorte, "_ROC_", if (pop == "Todos") "global" else pop, "_1anio")),
         function() {
           plot(a, time = 1, col = "#C0392B", lwd = 2, title = FALSE)
           plot(b, time = 1, add = TRUE, col = "#1B9E77", lwd = 2, title = FALSE)
@@ -1398,22 +1586,22 @@ fmp_rsf_documentar <- function(carpetas, cfg, archivo_estado, advertencias, esta
     "No se compara significacion de p KM para declarar un ganador; usar rendimiento externo e incertidumbre.",
     "El C de Harrell usa todo el seguimiento y no es el C de Uno truncado del enfoque previo.",
     "ACRG ya fue explorada. Evaluacion externa exploratoria; sin afirmar utilidad clinica ni causalidad.", "",
-    "## Salidas", "tablas/: panel RSF, importancia, CV, parametros, diagnosticos y tablas maestras comparativas.",
+    "## Salidas", "tablas/rsf/: panel, CV y diagnosticos; tablas/comparacion/: tablas conjuntas.",
     "figuras/: importancia, ajuste, KM global/I-II, ROC individuales y ROC superpuestas de ambos modelos.",
-    "data_privada/: bosque, matrices, folds y predicciones. No publicar en GitHub.",
+    "data/privados/rsf/: bosque, matrices, folds y predicciones. No publicar en GitHub.",
     "La carpeta LASSO anterior permanece intacta. El bloque no vuelve a entrenar LASSO.", "",
     "## Uso de IA", "ChatGPT/Codex apoyo la programacion, refactorizacion y pruebas tecnicas.",
     "El autor define la pregunta, revisa datos y resultados y asume su interpretacion cientifica."),
-    file.path(carpetas$root, "README.md"))
-  writeLines(capture.output(str(cfg)), file.path(carpetas$docs, "configuracion_RSF.txt"))
-  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "sessionInfo.txt"))
+    file.path(carpetas$docs, "README_rsf.md"))
+  writeLines(capture.output(str(cfg)), file.path(carpetas$docs, "RSF_configuracion.txt"))
+  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "RSF_sessionInfo.txt"))
   fmp_csv(data.frame(file = basename(archivo_estado), md5 = unname(tools::md5sum(archivo_estado))),
-    file.path(carpetas$docs, "entrada_LASSO_md5.csv"))
+    file.path(carpetas$docs, "RSF_entrada_LASSO_md5.csv"))
   if (length(advertencias)) fmp_csv(do.call(rbind, advertencias),
-    file.path(carpetas$docs, "advertencias_RSF.csv"))
+    file.path(carpetas$docs, "RSF_advertencias.csv"))
 }
 
-ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL, carpeta_salida = NULL) {
+ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL, carpeta_salida = NULL, carpetas = NULL) {
   fmp_rsf_paquetes()
   entrada <- readRDS(archivo_estado)
   fmp_exigir(is.list(entrada) && all(c("TCGA_x", "TCGA_clinical", "cvfit",
@@ -1422,18 +1610,10 @@ ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL,
   x <- entrada$TCGA_x; clin <- entrada$TCGA_clinical; folds <- entrada$cvfit$foldid
   fmp_exigir(!is.null(folds), "Faltan folds en el modelo guardado. Usa el RDS final del maestro LASSO con keep=TRUE.")
   fmp_rsf_validar(x, clin, folds)
-  raiz_lasso <- dirname(dirname(normalizePath(archivo_estado)))
-  tablas_lasso <- file.path(raiz_lasso, "tablas", c("TABLA_MAESTRA_KM_Cindex.csv", "TABLA_MAESTRA_timeROC.csv"))
-  fmp_exigir(all(file.exists(tablas_lasso)), "Conserva la carpeta completa del bloque LASSO, incluidas sus tablas maestras.")
-  if (is.null(carpeta_salida)) carpeta_salida <- file.path(raiz_lasso, "resultados_RSF")
-  carpetas <- fmp_carpetas(carpeta_salida)
-  carpetas$rsf <- file.path(carpetas$root, "figuras", "01_RSF_importancia")
-  carpetas$comparacion <- file.path(carpetas$root, "figuras", "04_Comparacion")
-  dir.create(carpetas$rsf, recursive = TRUE); dir.create(carpetas$comparacion, recursive = TRUE)
-  if (length(archivos_codigo)) {
-    destino <- file.path(carpetas$docs, "codigo_ejecutado"); dir.create(destino)
-    for (archivo in archivos_codigo) fmp_exigir(file.copy(archivo, destino),
-      "No se pudo guardar el codigo ejecutado en RSF.")
+  fuentes_lasso <- fmp_fuentes_lasso(archivo_estado)
+  if (is.null(carpetas)) {
+    fmp_exigir(!is.null(carpeta_salida), "Indica la raiz compartida de resultados.")
+    carpetas <- fmp_carpetas(carpeta_salida, "rsf")
   }
   estado <- "INICIADO"; advertencias <- list()
   on.exit(fmp_rsf_documentar(carpetas, cfg_rsf, archivo_estado, advertencias, estado), add = TRUE)
@@ -1511,10 +1691,10 @@ ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL,
     roc <- do.call(rbind, lapply(evaluaciones, function(e) e$timeROC))
     fmp_csv(km, file.path(carpetas$tablas, "TABLA_MAESTRA_KM_Cindex.csv"))
     fmp_csv(roc, file.path(carpetas$tablas, "TABLA_MAESTRA_timeROC.csv"))
-    comparacion <- fmp_rsf_comparar(raiz_lasso, carpetas, km, roc)
+    comparacion <- fmp_rsf_comparar(fuentes_lasso, carpetas, km, roc)
     estado <- if (cobertura_ok) "COMPLETADO_RSF_Y_COMPARACION" else "COMPLETADO_RSF_SIN_COBERTURA_EXTERNA"
     fmp_rds(list(model = ajuste, TCGA_clinical = clin, ACRG_clinical = clin_acrg,
-      ACRG_x = xa, lasso_state = normalizePath(archivo_estado), coverage = cobertura,
+      ACRG_x = xa, lasso_state = "data/privados/lasso/FMP_original_replicada_para_comparacion.rds", coverage = cobertura,
       KM_Cindex = km, timeROC = roc, comparison = comparacion, status = estado),
       file.path(carpetas$privados, "RSF_resultados_para_comparacion.rds"))
     cat("\nBLOQUE RSF COMPLETADO\n\n")
@@ -1531,32 +1711,68 @@ ejecutar_bloque_rsf <- function(archivo_estado, cfg_rsf, archivos_codigo = NULL,
 }
 
 ejecutar_proyecto_fmp <- function(cfg) {
-  fmp_preparar_ejecucion(cfg)
+  # organize solo copia resultados ya existentes: no instalador, red ni ajustes.
+  if (cfg$stage != "organize") fmp_preparar_ejecucion(cfg)
   if (cfg$stage == "download") {
     message("Entradas descargadas y guardadas. No se entrenaron modelos.")
     return(invisible(list(status = "DESCARGA_COMPLETADA", config = cfg)))
   }
-  if (cfg$stage == "oob") return(invisible(list(oob = ejecutar_comprobacion_oob(
-    cfg$archivo_estado, cfg$carpeta_salida, cfg$archivo_readme, cfg$archivos_codigo))))
-  if (cfg$stage == "rsf") {
-    rsf <- ejecutar_bloque_rsf(cfg$archivo_estado, cfg$rsf, cfg$archivos_codigo, cfg$carpeta_salida)
-    archivo_rsf <- file.path(rsf$folders$privados, "RSF_resultados_para_comparacion.rds")
-    oob <- ejecutar_comprobacion_oob(archivo_rsf, archivo_readme = cfg$archivo_readme,
-      archivos_codigo = cfg$archivos_codigo)
-    return(invisible(list(rsf = rsf, oob = oob)))
+  if (cfg$stage == "all") fmp_rsf_paquetes()
+  dir.create(file.path(cfg$base, "data"), recursive = TRUE, showWarnings = FALSE)
+  temporal <- tempfile(".fmp_en_curso_", tmpdir = file.path(cfg$base, "data"))
+  trabajo <- fmp_organizacion(cfg$base, file.path(temporal, "resultados"), file.path(temporal, "privados"))
+  on.exit(unlink(temporal, recursive = TRUE), add = TRUE)
+  # Solo OOB conserva los otros resultados; lasso inicia un conjunto nuevo para
+  # impedir mezclar su nuevo ajuste con RSF de una ejecucion anterior.
+  if (cfg$stage == "oob" && dir.exists(cfg$organizacion$root)) {
+    fmp_copiar_arbol(cfg$organizacion$root, trabajo$root)
+    for (tipo in c("figuras", "tablas")) unlink(file.path(trabajo$root, tipo, "oob"), recursive = TRUE)
+    docs_oob <- list.files(file.path(trabajo$root, "docs"), pattern = "^(OOB_|README_oob)", full.names = TRUE)
+    unlink(docs_oob)
   }
-  if (cfg$stage == "all") fmp_rsf_paquetes() # comprobar ANTES del entrenamiento largo.
-  resultado <- ejecutar_replica_fmp(cfg)
-  if (cfg$stage == "all") {
-    archivo <- file.path(resultado$folders$privados, "FMP_original_replicada_para_comparacion.rds")
-    resultado$rsf <- ejecutar_bloque_rsf(archivo, cfg$rsf, cfg$archivos_codigo)
-    archivo_rsf <- file.path(resultado$rsf$folders$privados, "RSF_resultados_para_comparacion.rds")
-    resultado$oob <- ejecutar_comprobacion_oob(archivo_rsf, archivo_readme = NULL,
-      archivos_codigo = cfg$archivos_codigo)
-  }
-  fmp_registrar_ejecucion(cfg, resultado)
-  invisible(resultado)
+  tryCatch({
+    if (cfg$stage == "organize") {
+      fmp_organizar_legacy(cfg, trabajo)
+      resultado <- list(status = "ORGANIZADO_SIN_RECALCULAR")
+    } else if (cfg$stage == "oob") {
+      resultado <- list(oob = ejecutar_comprobacion_oob(cfg$archivo_estado,
+        archivos_codigo = NULL, carpetas = fmp_carpetas(trabajo, "oob")))
+    } else {
+      if (cfg$stage == "rsf") {
+        fmp_reunir_lasso(cfg$archivo_estado, cfg, trabajo)
+        archivo_lasso <- file.path(trabajo$privados, "lasso", "FMP_original_replicada_para_comparacion.rds")
+        resultado <- list()
+      } else {
+        resultado <- ejecutar_replica_fmp(cfg, carpetas = fmp_carpetas(trabajo, "lasso"))
+        archivo_lasso <- file.path(trabajo$privados, "lasso", "FMP_original_replicada_para_comparacion.rds")
+      }
+      if (cfg$stage %in% c("all", "rsf")) {
+        resultado$rsf <- ejecutar_bloque_rsf(archivo_lasso, cfg$rsf,
+          carpetas = fmp_carpetas(trabajo, "rsf"))
+        archivo_rsf <- file.path(trabajo$privados, "rsf", "RSF_resultados_para_comparacion.rds")
+        resultado$oob <- ejecutar_comprobacion_oob(archivo_rsf,
+          carpetas = fmp_carpetas(trabajo, "oob"))
+      }
+    }
+    bloques <- if (cfg$stage == "oob") "oob" else c("lasso", "rsf", "oob")
+    # Las carpetas privadas RSF/OOB quedan vacias tras lasso solo, invalidando
+    # expresamente estados antiguos. Sus bytes anteriores permanecen en respaldo.
+    fmp_registrar_ejecucion(cfg, trabajo,
+      if (cfg$stage == "lasso") "lasso" else bloques)
+    fmp_publicar(cfg, trabajo, bloques)
+    if (cfg$stage == "lasso") resultado$folders <- fmp_carpetas(cfg$organizacion, "lasso")
+    if (cfg$stage == "all") resultado$folders <- fmp_carpetas(cfg$organizacion, "lasso")
+    if (!is.null(resultado$rsf)) resultado$rsf$folders <- fmp_carpetas(cfg$organizacion, "rsf")
+    if (!is.null(resultado$oob)) resultado$oob$folders <- fmp_carpetas(cfg$organizacion, "oob")
+    invisible(resultado)
+  }, error = function(e) {
+    dir.create(file.path(cfg$base, "data", "privados"), recursive = TRUE, showWarnings = FALSE)
+    writeLines(c(format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+      paste("Etapa:", cfg$stage), conditionMessage(e)), file.path(cfg$base, "data", "privados", "ULTIMO_ERROR.txt"))
+    stop(e)
+  })
 }
+
 
 # COMPROBACION FINAL: leer OOB del bosque existente. Ninguna llamada de ajuste.
 fmp_oob_extraer <- function(resultado) {
@@ -1680,18 +1896,15 @@ fmp_oob_paquetes <- function() {
 }
 
 ejecutar_comprobacion_oob <- function(archivo_estado, carpeta_salida = NULL,
-    archivo_readme = NULL, archivos_codigo = NULL) {
+    archivo_readme = NULL, archivos_codigo = NULL, carpetas = NULL) {
   fmp_oob_paquetes()
   md5_antes <- unname(tools::md5sum(archivo_estado))
   entrada <- fmp_oob_extraer(readRDS(archivo_estado))
-  if (is.null(carpeta_salida)) carpeta_salida <- file.path(dirname(dirname(archivo_estado)), "comprobacion_OOB")
-  dir.create(carpeta_salida, recursive = TRUE, showWarnings = FALSE)
-  raiz <- tempfile(paste0("OOB_", format(Sys.time(), "%Y%m%d_%H%M%S"), "_"), tmpdir = carpeta_salida)
-  dir.create(raiz)
-  carpetas <- list(root = raiz, tablas = file.path(raiz, "tablas"),
-    figuras = file.path(raiz, "figuras"), docs = file.path(raiz, "docs"), privados = file.path(raiz, "data_privada"))
-  for (d in carpetas[-1L]) dir.create(d)
-  writeLines("data_privada/", file.path(raiz, ".gitignore"))
+  if (is.null(carpetas)) {
+    fmp_exigir(!is.null(carpeta_salida), "Indica la raiz compartida de resultados.")
+    carpetas <- fmp_carpetas(carpeta_salida, "oob")
+  }
+  raiz <- carpetas$root
   message("OOB 1/3: leyendo CHF ya guardado; no se ajusta ningun modelo...")
   res <- fmp_oob_calcular(entrada)
   message("OOB 2/3: calculando AUC al anio y C de Harrell global...")
@@ -1704,18 +1917,14 @@ ejecutar_comprobacion_oob <- function(archivo_estado, carpeta_salida = NULL,
     status = "PASS", detail = md5_antes))
   fmp_csv(res$checks, file.path(carpetas$tablas, "RSF_COMPROBACION_OOB_checks.csv"))
   texto <- fmp_oob_texto(res)
-  writeLines(c("# Comprobacion OOB del RSF congelado", "", texto), file.path(raiz, "README.md"))
+  writeLines(c("# Comprobacion OOB del RSF congelado", "", texto), file.path(carpetas$docs, "README_oob.md"))
   fmp_rds(list(patient_ids = rownames(entrada$clinical), oob_scores = entrada$oob,
     apparent_scores = entrada$apparent, metrics = res$metrics, rocs = res$rocs),
     file.path(carpetas$privados, "RSF_OOB_predicciones_y_ROC.rds"))
   fmp_csv(data.frame(file = basename(archivo_estado), md5 = md5_antes, refit = FALSE),
-    file.path(carpetas$docs, "procedencia_OOB.csv"))
-  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "sessionInfo.txt"))
-  if (length(archivos_codigo)) {
-    codigo <- file.path(carpetas$docs, "codigo_ejecutado"); dir.create(codigo)
-    for (f in archivos_codigo) fmp_exigir(file.copy(f, codigo), "No se pudo guardar el codigo OOB ejecutado.")
-  }
-  message("OOB 3/3: guardando informe y actualizando la seccion OOB del README...")
+    file.path(carpetas$docs, "OOB_procedencia.csv"))
+  writeLines(capture.output(utils::sessionInfo()), file.path(carpetas$docs, "OOB_sessionInfo.txt"))
+  message("OOB 3/3: guardando informe de la ejecucion...")
   actualizado <- fmp_oob_actualizar_readme(archivo_readme, texto)
   if (!actualizado) message("README principal sin marcadores OOB; el informe completo esta en ", raiz)
   cat("\nCOMPROBACION OOB COMPLETADA; SIN REENTRENAMIENTO\n")

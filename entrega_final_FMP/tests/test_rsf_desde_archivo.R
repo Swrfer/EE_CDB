@@ -7,7 +7,7 @@ stopifnot(requireNamespace("ranger", quietly = TRUE), requireNamespace("survival
 temporal <- tempfile("fmp_rsf_entrada_"); dir.create(temporal)
 on.exit(unlink(temporal, recursive = TRUE), add = TRUE)
 proyecto <- file.path(temporal, "proyecto"); dir.create(proyecto)
-for (f in c("funciones_fmp_original.R", "ejecutar_replica_fmp.R")) {
+for (f in c("Funciones_fmp_comparacion.R", "Script_maerstro_FMP.R")) {
   stopifnot(file.copy(file.path(root, f), file.path(proyecto, f)))
 }
 base_lasso <- file.path(temporal, "LASSO_prev"); dir.create(base_lasso)
@@ -51,16 +51,27 @@ dobles <- c(
   ' timeROC=data.frame(cohort=cohort,population=population,horizon_years=1,n=nrow(clinica),deaths_by_horizon=sum(clinica$OS.event==1 & clinica$OS.time_years<=1),observed_beyond_horizon=sum(clinica$OS.time_years>1),censored_by_horizon=sum(clinica$OS.event==0 & clinica$OS.time_years<=1),AUC=NA_real_,lower_95=NA_real_,upper_95=NA_real_,status="TEST_ONLY"))',
   '}'
 )
-cat("\n", paste(dobles, collapse="\n"), "\n", file=file.path(proyecto,"funciones_fmp_original.R"),append=TRUE)
+# Modo de comprobacion de rutas: ningun bosque se ajusta. Solo se fabrican
+# estructuras minimas dentro de la copia temporal de esta prueba.
+# Activar con FMP_TEST_NO_FIT=true; no afecta al codigo de produccion.
+if (identical(Sys.getenv("FMP_TEST_NO_FIT"), "true")) dobles <- c(dobles,
+  'fmp_rsf_entrenar <- function(x,clinica,folds,cfg,carpetas) {',
+  ' genes<-colnames(x)[1:5]; score<-exp(x[,1]); chf<-matrix(score,ncol=1,dimnames=list(rownames(x),NULL))',
+  ' bosque<-structure(list(treetype="survival",chf=chf,unique.death.times=1,num.samples=nrow(x),num.trees=0L,forest=list(independent.variable.names=genes),prediction.error=1-fmp_rsf_concordancia(clinica,score)),class="ranger")',
+  ' list(forest=bosque,signature=data.frame(Gene=genes),config=cfg)',
+  '}',
+  'fmp_rsf_predecir <- function(bosque,x,num.threads=1L) exp(x[,bosque$forest$independent.variable.names[1L]])'
+)
+cat("\n", paste(dobles, collapse="\n"), "\n", file=file.path(proyecto,"Funciones_fmp_comparacion.R"),append=TRUE)
 rscript <- file.path(R.home("bin"), "Rscript")
 salida <- file.path(temporal, "salida_rsf")
 correr <- function() {
-  log <- suppressWarnings(system2(rscript, c("--vanilla", shQuote(file.path(proyecto, "ejecutar_replica_fmp.R")),
+  log <- suppressWarnings(system2(rscript, c("--vanilla", shQuote(file.path(proyecto, "Script_maerstro_FMP.R")),
     "--stage=rsf", shQuote(paste0("--state=", estado)), shQuote(paste0("--output-dir=", salida))),
     stdout=TRUE,stderr=TRUE))
   codigo <- attr(log,"status")
   if(!is.null(codigo) && codigo!=0L) stop(paste(log,collapse="\n"))
-  resultados <- list.files(salida, pattern="RSF_resultados_para_comparacion.rds", recursive=TRUE, full.names=TRUE)
+  resultados <- file.path(proyecto,"data","privados","rsf","RSF_resultados_para_comparacion.rds")
   readRDS(tail(sort(resultados),1L))
 }
 res <- correr()
@@ -108,16 +119,16 @@ dobles_all <- c(
   'fmp_documentar <- function(...) invisible(NULL)',
   'fmp_importar_acrg <- function(...) {dd <- .fixture_all$ACRG_clinical; dd$risk_score<-fmp_puntuar(.fixture_all$ACRG_x,.firma_all,TRUE); list(x=.fixture_all$ACRG_x,clinical=dd,expression=.fixture_all$ACRG_expression)}'
 )
-cat("\n",paste(dobles_all,collapse="\n"),"\n",file=file.path(proyecto,"funciones_fmp_original.R"),append=TRUE)
+cat("\n",paste(dobles_all,collapse="\n"),"\n",file=file.path(proyecto,"Funciones_fmp_comparacion.R"),append=TRUE)
 salida_all <- file.path(temporal,"salida_all")
-log_all <- system2(rscript,c("--vanilla",shQuote(file.path(proyecto,"ejecutar_replica_fmp.R")),
+log_all <- system2(rscript,c("--vanilla",shQuote(file.path(proyecto,"Script_maerstro_FMP.R")),
   "--stage=all",shQuote(paste0("--output-dir=",salida_all))),stdout=TRUE,stderr=TRUE)
 codigo_all <- attr(log_all,"status")
 if(!is.null(codigo_all) && codigo_all!=0L) stop(paste(log_all,collapse="\n"))
-f_lasso <- list.files(salida_all,pattern="FMP_original_replicada_para_comparacion.rds",recursive=TRUE,full.names=TRUE)
-f_rsf <- list.files(salida_all,pattern="RSF_resultados_para_comparacion.rds",recursive=TRUE,full.names=TRUE)
+f_lasso <- file.path(proyecto,"data","privados","lasso","FMP_original_replicada_para_comparacion.rds")
+f_rsf <- file.path(proyecto,"data","privados","rsf","RSF_resultados_para_comparacion.rds")
 stopifnot(length(f_lasso)==1L,length(f_rsf)==1L,
   readRDS(f_lasso)$cvfit$test_training_calls==1L,
   readRDS(f_rsf)$status=="COMPLETADO_RSF_Y_COMPARACION")
-cat("Maestro RSF desde RDS, sin LASSO ni objetos previos; cobertura externa ausente: PASS\n")
+cat("Maestro RSF desde RDS y cobertura externa ausente: PASS; modo sin ajuste = ", Sys.getenv("FMP_TEST_NO_FIT", "false"), "\n",sep="")
 cat("Maestro completo all: bloques LASSO y RSF encadenados desde disco: PASS\n")

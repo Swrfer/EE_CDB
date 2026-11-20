@@ -35,7 +35,7 @@
 | status | OK, soporte insuficiente, panel incompleto u otra razón explícita de no estimación |
 
 Las matrices, los identificadores y los puntajes individuales se guardan únicamente
-en data_privada/. Las tablas maestras contienen resultados agregados.
+en data/privados/. Las tablas maestras contienen resultados agregados.
 
 ## Comprobación OOB
 
@@ -48,4 +48,4 @@ en data_privada/. Las tablas maestras contienen resultados agregados.
 | REVISAR_EMPATES | C recalculado difiere de 1-prediction.error; revisar antes de concluir |
 
 AUC OOB se calcula con timeROC al año e iid=FALSE. No se reporta un IC convencional
-para OOB. Los identificadores y puntajes individuales permanecen en data_privada/.
+para OOB. Los identificadores y puntajes individuales permanecen en data/privados/.

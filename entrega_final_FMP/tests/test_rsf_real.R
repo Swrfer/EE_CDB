@@ -3,7 +3,7 @@
 args <- commandArgs(trailingOnly = FALSE)
 script <- sub("^--file=", "", args[grepl("^--file=", args)])[1L]
 root <- dirname(dirname(normalizePath(script)))
-source(file.path(root, "funciones_fmp_original.R"))
+source(file.path(root, "Funciones_fmp_comparacion.R"))
 stopifnot(requireNamespace("ranger", quietly = TRUE), requireNamespace("survival", quietly = TRUE))
 
 set.seed(49)
