@@ -7,7 +7,8 @@ ejecución que se realizará al descomprimir la entrega.
 |---|---|
 | `216_GED.csv` | Lista fija de genes candidatos para ambos modelos |
 | `LASSO_Cox_signature_lambda_min_confirmada_8genes.csv` | Genes y coeficientes para verificar la reconstrucción LASSO |
-| `PLANTILLA_ACRG_clinical.csv` | Encabezados para preparar la entrada clínica; sin datos de pacientes |
+| `ACRG_clinical.xls` | Suplemento clínico ACRG incluido; seleccionar manualmente al ejecutar |
+| `PLANTILLA_ACRG_clinical.csv` | Encabezados para un CSV alternativo; no es el archivo clínico completo |
 
 ## Origen de los candidatos
 
@@ -35,7 +36,11 @@ se calculan con los datos de cada ejecución.
 
 ## Entrada clínica
 
-La plantilla contiene solo encabezados. Debe completarse con el suplemento
-clínico real de ACRG y respetar las unidades y la codificación del estado vital
-descritas en el README principal. El archivo clínico real se proporciona por
-separado y no debe incorporarse al repositorio de código.
+El archivo completo `ACRG_clinical.xls` está incluido en esta carpeta. En el
+primer selector del bloque de R del README principal debe elegirse manualmente
+ese Excel. No es necesario convertirlo a CSV ni descargarlo por separado.
+
+La plantilla CSV contiene solo encabezados y se conserva para preparar entradas
+alternativas. No debe seleccionarse como si contuviera la clínica completa.
+Las unidades y la codificación del estado vital se describen en el README principal.
+

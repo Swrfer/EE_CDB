@@ -22,7 +22,8 @@ no se restringe a I–II: utiliza la cohorte TCGA elegible completa.
 - ACRG: descarga HTTPS de `GSE62254_series_matrix.txt.gz`, plataforma GPL570.
   Se comprueban compresión, identificación y fin de tabla. GEOquery lee el
   archivo local con `getGPL = FALSE` y `AnnotGPL = FALSE`.
-- Clínica ACRG: CSV o suplemento Excel local proporcionado por separado.
+- Clínica ACRG: suplemento Excel incluido en `referencias/ACRG_clinical.xls`,
+  seleccionado manualmente; también se admite un CSV alternativo.
 
 La adquisición conserva consultas, archivos y huellas de procedencia. Los RDS
 válidos existentes se reutilizan. No se reciben como entradas modelos ajustados
@@ -250,3 +251,4 @@ de probabilidades, beneficio para decisiones clínicas ni evaluación formal de
 riesgos proporcionales. Los subgrupos y las asociaciones posteriores a selección
 se interpretan como exploratorios. ACRG ya ha sido examinada durante el proyecto
 y no se presenta como validación externa ciega.
+

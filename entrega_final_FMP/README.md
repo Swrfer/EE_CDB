@@ -23,7 +23,7 @@ I–II se consideran exploratorios.
 ## 2. Alcance y contenido de la entrega
 
 La entrega contiene código, documentación, pruebas técnicas y referencias de
-entrada. **No contiene tablas de resultados, figuras, datos descargados, modelos,
+entrada. **No contiene tablas de resultados, figuras, matrices de expresión descargadas, modelos,
 predicciones ni objetos de sesiones anteriores.** Las carpetas `data/raw/` y
 `resultados/` están vacías al descomprimir. El maestro genera sus archivos al
 ejecutarse; no requiere objetos como `cvfit`, `x` o `y` en la sesión de R.
@@ -51,9 +51,11 @@ de referencia es **R 4.4.0, macOS ARM y Bioconductor 3.20**. El instalador conse
 los paquetes que cargan y cumplen los requisitos; instala o actualiza únicamente
 los necesarios. No instala R ni compiladores del sistema.
 
-La única entrada local externa es el **archivo clínico ACRG**. Se recomienda CSV;
-también se admite el suplemento original en Excel (`.xls` o `.xlsx`). El archivo
-no se distribuye en este ZIP. Debe contener una de estas estructuras:
+El **archivo clínico ACRG está incluido** en
+[`referencias/ACRG_clinical.xls`](referencias/ACRG_clinical.xls).
+**Debe seleccionarse manualmente en el primer selector del bloque de R**;
+no es necesario descargarlo por separado ni convertirlo a CSV.
+El código admite ese Excel original y, como alternativa, CSV con una de estas estructuras:
 
 | Información | Encabezado del suplemento | Encabezado alternativo |
 |---|---|---|
@@ -70,20 +72,23 @@ El estadio se requiere para los subanálisis; si falta se registra como desconoc
 
 El CSV puede usar coma, punto y coma o tabulador como separador. La
 [plantilla clínica](referencias/PLANTILLA_ACRG_clinical.csv) contiene únicamente
-encabezados: debe completarse con la información clínica real. No basta con
-cambiar la extensión de un Excel a `.csv`; debe exportarse al formato elegido.
+encabezados y no es el archivo que debe seleccionarse para esta reproducción.
+Se utiliza `ACRG_clinical.xls`, ya incluido. Si se opta por un CSV alternativo,
+debe exportarse correctamente; cambiar la extensión de un Excel no lo convierte a CSV.
 
 ## 4. Ejecución completa desde R o RStudio
 
 1. Descomprimir el ZIP en una carpeta nueva y conservar juntos
-   `Script_maerstro_FMP.R`, `Funciones_fmp_comparacion.R` y `referencias/`.
+   `Script_maerstro_FMP.R`, `Funciones_fmp_comparacion.R` y `referencias/`, que
+   contiene el archivo clínico `ACRG_clinical.xls`.
 2. Abrir una sesión nueva de R o RStudio, sin restaurar `.RData`.
-3. Ejecutar **todo el bloque siguiente**. En el primer selector, elegir el archivo
-   clínico ACRG. En el segundo, elegir `Script_maerstro_FMP.R` de la carpeta nueva.
+3. Ejecutar **todo el bloque siguiente**. En el **primer selector**, abrir la
+   carpeta `referencias/` de la entrega y elegir **`ACRG_clinical.xls`**.
+   En el **segundo selector**, elegir `Script_maerstro_FMP.R` de la carpeta nueva.
 
 ```r
-# 1. Seleccionar el archivo clinico ACRG: CSV o suplemento Excel
-message("Selecciona el archivo clinico ACRG")
+# 1. Seleccionar referencias/ACRG_clinical.xls, incluido en la entrega
+message("Selecciona ACRG_clinical.xls dentro de referencias/")
 archivo_acrg <- normalizePath(file.choose(), mustWork = TRUE)
 
 # 2. Evitar rutas y estados de otros proyectos
@@ -130,10 +135,11 @@ Rscript --vanilla Script_maerstro_FMP.R \
   --stage=all \
   --install=missing \
   --download=missing \
-  --acrg-clinical="/ruta/ACRG_clinical.csv"
+  --acrg-clinical="referencias/ACRG_clinical.xls"
 ```
 
-Para usar el suplemento Excel, indicar su ruta en `--acrg-clinical`.
+El argumento indica el Excel incluido en `referencias/`; ejecutar el comando
+desde la carpeta del proyecto, como muestra `cd`.
 `--vanilla` evita restaurar una sesión anterior. Los argumentos explícitos de la
 terminal tienen prioridad sobre las variables `FMP_*` del entorno.
 
@@ -148,7 +154,7 @@ a ejecutar sobre la misma carpeta comprueba una reejecución con caché.
 | Expresión TCGA-STAD | GDC, `STAR - Counts`, acceso abierto; ensayo `unstranded` | `tcga_counts_metadata.rds` |
 | Clínica TCGA-STAD | `GDCquery_clinic` | `tcga_clinical_original.rds` |
 | Expresión ACRG | GSE62254/GPL570, Series Matrix oficial por HTTPS | `GSE62254_eset.rds` |
-| Clínica ACRG | Archivo local seleccionado o indicado por argumento | Se lee desde la ruta proporcionada |
+| Clínica ACRG | `referencias/ACRG_clinical.xls`, incluido; selección manual o argumento | Se lee desde la ruta proporcionada |
 
 La descarga TCGA se divide en bloques de 20 archivos. GEO se descarga como matriz
 comprimida, se valida y se lee localmente sin descargar la anotación GPL; las
@@ -213,7 +219,7 @@ describen en [Metodología](docs/METODOLOGIA.md).
 |---|---|
 | `Script_maerstro_FMP.R` | Punto único de entrada |
 | `Funciones_fmp_comparacion.R` | Funciones de adquisición, preparación, modelos y evaluación |
-| `referencias/` | Lista de candidatos, referencia LASSO y plantilla clínica |
+| `referencias/` | Lista de candidatos, referencia LASSO, clínica `ACRG_clinical.xls` y plantilla CSV |
 | `docs/` | Documentación del proyecto |
 | `tests/` | Pruebas técnicas separadas del análisis |
 | `data/raw/` | Datos descargados y procedencia; inicialmente vacía |
@@ -265,7 +271,7 @@ Rscript --vanilla Script_maerstro_FMP.R --stage=install --install=missing
 
 Rscript --vanilla Script_maerstro_FMP.R \
   --stage=download --install=missing --download=missing \
-  --acrg-clinical="/ruta/ACRG_clinical.csv"
+  --acrg-clinical="referencias/ACRG_clinical.xls"
 ```
 
 Después se ejecuta `all` para completar el análisis. `--install=never` impide
@@ -299,9 +305,10 @@ Para OOB y recuperación consultar los documentos enlazados abajo.
   Cambios de repositorios, anotaciones, entradas u orden pueden modificar el
   ajuste. La coincidencia exacta requiere entradas y entorno equivalentes.
 
-Los datos descargados, modelos e identificadores se mantienen fuera del
-repositorio mediante `.gitignore`. Este ZIP no incorpora archivos clínicos reales
-ni resultados previos. Las referencias fijas se explican en
+Las matrices descargadas, modelos y predicciones individuales generados se
+mantienen fuera del repositorio mediante `.gitignore`. La entrega incluye el
+suplemento clínico ACRG `referencias/ACRG_clinical.xls` como entrada, sin resultados
+previos del análisis. Las referencias fijas se explican en
 [referencias/README.md](referencias/README.md).
 
 ## 11. Documentación complementaria
@@ -330,3 +337,4 @@ decisiones científicas y la interpretación del trabajo corresponden al autor.
 - [glmnet, modelos Cox](https://glmnet.stanford.edu/articles/Coxnet.html).
 - [ranger](https://imbs-hl.github.io/ranger/reference/ranger.html).
 - [timeROC](https://cran.r-project.org/package=timeROC).
+

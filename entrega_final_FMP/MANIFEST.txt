@@ -2,14 +2,17 @@
 
 Distribucion limpia para reproduccion desde las entradas de repositorios.
 
-Incluye: dos scripts de R, documentacion, pruebas tecnicas y referencias fijas.
-No incluye: resultados, figuras, modelos RDS, matrices descargadas, clinica real,
+Incluye: dos scripts de R, documentacion, pruebas tecnicas, referencias fijas
+y el suplemento clinico ACRG original en referencias/ACRG_clinical.xls.
+No incluye: resultados, figuras, modelos RDS, matrices de expresion descargadas,
 predicciones individuales, registros de sesiones o paquetes instalados.
 
 Carpetas inicialmente vacias: data/raw/ y resultados/.
 Las referencias de genes/coeficientes son entradas para definir y comprobar el
 analisis; no reemplazan su entrenamiento. La plantilla ACRG solo tiene encabezados.
 
-Ejecutar segun README.md. El archivo clinico ACRG se proporciona por separado.
+Ejecutar segun README.md. En el primer selector de R elegir manualmente
+referencias/ACRG_clinical.xls, incluido en esta entrega.
 Las huellas SHA256 de los archivos distribuidos estan en MANIFEST_SHA256.csv.
 Ese CSV excluye su propia huella y no describe las salidas futuras del analisis.
+
