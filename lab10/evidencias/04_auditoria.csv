@@ -1,0 +1,5 @@
+metric,result,unit
+duplicate_patient_ids,0.0,groups
+encounters_before_birth,0.0,rows
+null_observations,0.0,percent
+orphan_encounters,0.0,rows

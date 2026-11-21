@@ -1,0 +1,226 @@
+===== CONSULTA 1 =====
+total_patients | living_patients | deceased_patients
+5745 | 5000 | 745
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_01.csv
+
+===== CONSULTA 2 =====
+gender | patients | percentage
+M | 2919 | 50.81
+F | 2826 | 49.19
+Filas: 2
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_02.csv
+
+===== CONSULTA 3 =====
+code | description | diagnosis_records | distinct_patients
+314529007 | Medication review due (situation) | 41818 | 5745
+73595000 | Stress (finding) | 16658 | 4543
+160903007 | Full-time employment (finding) | 15277 | 4520
+66383009 | Gingivitis (disorder) | 10343 | 4680
+160904001 | Part-time employment (finding) | 9541 | 3670
+444814009 | Viral sinusitis (disorder) | 5960 | 3684
+423315002 | Limited social contact (finding) | 5931 | 3111
+422650009 | Social isolation (finding) | 5857 | 3115
+741062008 | Not in labor force (finding) | 5282 | 2727
+706893006 | Victim of intimate partner abuse (finding) | 3802 | 2462
+Filas: 10
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_03.csv
+
+===== CONSULTA 4 =====
+patients_born_before_1960
+1152
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_04.csv
+
+===== CONSULTA 5 =====
+encounter_year | encounters
+1918 | 1
+1919 | 3
+1920 | 3
+1921 | 9
+1922 | 14
+1923 | 10
+1924 | 11
+1925 | 11
+1926 | 7
+1927 | 12
+1928 | 7
+1929 | 16
+1930 | 12
+1931 | 16
+1932 | 19
+1933 | 13
+1934 | 29
+1935 | 34
+1936 | 48
+1937 | 29
+... 89 filas adicionales guardadas en CSV ...
+Filas: 109
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_05.csv
+
+===== CONSULTA 6 =====
+mean_encounters | median_encounters | minimum_encounters | maximum_encounters
+61.48 | 37.0 | 1 | 905
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_06.csv
+
+===== CONSULTA 7 =====
+condition | patients | mean_age_at_first_diagnosis
+Viral sinusitis (disorder) | 3684 | 38.38
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_07.csv
+
+===== CONSULTA 8 =====
+code | description | distinct_patients | diagnosis_records
+314529007 | Medication review due (situation) | 5745 | 41818
+66383009 | Gingivitis (disorder) | 4680 | 10343
+73595000 | Stress (finding) | 4543 | 16658
+160903007 | Full-time employment (finding) | 4520 | 15277
+444814009 | Viral sinusitis (disorder) | 3684 | 5960
+160904001 | Part-time employment (finding) | 3670 | 9541
+422650009 | Social isolation (finding) | 3115 | 5857
+423315002 | Limited social contact (finding) | 3111 | 5931
+162864005 | Body mass index 30+ - obesity (finding) | 2800 | 2800
+741062008 | Not in labor force (finding) | 2727 | 5282
+224299000 | Received higher education (finding) | 2723 | 2723
+195662009 | Acute viral pharyngitis (disorder) | 2580 | 3399
+706893006 | Victim of intimate partner abuse (finding) | 2462 | 3802
+80967001 | Dental caries | 2430 | 3073
+10509002 | Acute bronchitis (disorder) | 2224 | 2789
+714628002 | Prediabetes (finding) | 2175 | 2175
+271737000 | Anemia (disorder) | 2127 | 2127
+424393004 | Reports of violence in the environment (finding) | 1935 | 3190
+73438004 | Unemployed (finding) | 1746 | 2146
+473461003 | Educated to high school level (finding) | 1390 | 1390
+... 168 filas adicionales guardadas en CSV ...
+Filas: 188
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_08.csv
+
+===== CONSULTA 9 =====
+measurements | mean_hba1c | median_hba1c | p10_hba1c | p90_hba1c
+46481 | 4.59 | 4.2 | 2.9 | 6.3
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_09.csv
+
+===== CONSULTA 10 =====
+age_group | gender | patients
+00–17 | F | 535
+00–17 | M | 562
+18–39 | F | 824
+18–39 | M | 735
+40–64 | F | 1001
+40–64 | M | 1048
+65+ | F | 466
+65+ | M | 574
+Filas: 8
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_10.csv
+
+===== CONSULTA 11 =====
+patient_id | gender | birth_date
+000a469b-6f4e-ac7b-136d-2ef0f0a06af4 | F | 1959-08-07
+0023625d-3f20-9299-6984-eba91647d66b | F | 1973-09-20
+004aba66-9515-921d-7109-7f5443d5bbbd | F | 1960-07-02
+00798f0f-faad-89ef-b638-ae5a57227972 | F | 1968-08-14
+0132eb1f-303e-0d77-2f2f-737fe66bbcf6 | M | 1962-03-22
+017dcf3c-5366-df40-9643-2f67b0fe49a4 | M | 1978-07-29
+01bab1f3-0b9b-a9ed-343e-610c2ffcba51 | F | 1969-07-17
+01ece1a2-5e11-8ffa-9662-8e48dc394136 | M | 1939-03-30
+01eecdfa-4794-1f55-f737-c31e4e88f8c8 | M | 1986-10-14
+02122fbe-dc08-5879-47a3-20485dc2e67b | F | 1999-05-01
+0216d66a-651c-df9d-0f57-fd05105ede70 | M | 1969-01-26
+022346cc-0f44-d024-d75b-2f4039f12f28 | M | 1948-12-28
+028d2a2e-26ce-89cc-d6ec-1d6f2fe5a664 | M | 1948-06-03
+02de5b98-6d6a-1d49-8ffa-94e0da4362a6 | M | 1935-08-19
+02fb5983-0a67-1b8f-0c87-d63a6a30f066 | M | 1972-07-10
+031f545c-ed22-59a5-b5e9-00ac69082408 | F | 1947-08-23
+0341f341-9d46-4f5b-34b3-644c611bfad9 | M | 1975-03-27
+035f412e-ca0b-58b0-2641-5d5b7728eda9 | M | 1978-01-03
+036f22b3-1611-954d-3662-f723ad3a1eef | M | 1918-03-12
+038c0d00-57ca-3072-c180-07bad387f712 | F | 1952-06-15
+... 1043 filas adicionales guardadas en CSV ...
+Filas: 1063
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_11.csv
+
+===== CONSULTA 12 =====
+patient_id | gender | birth_date
+031f545c-ed22-59a5-b5e9-00ac69082408 | F | 1947-08-23
+040056fa-3bef-0051-b167-426f81a507d2 | F | 1993-03-31
+0671fdc0-2d24-59fe-4f14-216c942c5f1e | M | 1971-11-27
+0674d1f5-d1a2-f57d-3f4e-301bab3192d1 | M | 1972-09-13
+077e03ec-a9e1-8923-d2a9-e28db20ba6f4 | M | 1958-06-30
+07b6a744-cade-002a-ad70-3bfa8873aa42 | M | 1969-08-28
+09be8301-7f67-3e55-8eeb-51dbd3f7a194 | F | 1947-03-28
+0c5906de-baab-2bae-6494-431678d3bd77 | F | 1952-03-30
+120b83b6-4cee-cb85-b09c-15ebfcb50c5a | M | 1965-08-05
+13efedc9-6bcd-d173-e165-192a13c3d096 | M | 1922-03-23
+14287afe-8d85-a2e6-cb3e-62d130696f21 | M | 1941-11-27
+1478383d-32a9-e310-95b1-26f32d2562e6 | F | 1957-11-08
+1783aa97-f600-013e-e2d6-8f2d140a9d56 | M | 1952-10-17
+17ca0da3-628b-1e9c-ea1e-f23a1bdd40c5 | M | 1974-03-27
+192de6b5-f8ac-2980-9504-b69f80b0d913 | M | 1987-08-27
+1f3c00b8-939e-62b7-22bb-116904ed286f | F | 1955-03-29
+201891b3-b95b-ba27-75e2-f1653062bf27 | M | 1954-07-05
+23c4713c-f13f-a726-5281-757dc0d006c7 | F | 1951-09-20
+2802cc01-518a-9c25-2efd-504beb3cbf9a | M | 1931-05-19
+2a4eb71c-643d-2751-d5ea-df2b253e1e29 | M | 1922-03-23
+... 123 filas adicionales guardadas en CSV ...
+Filas: 143
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_12.csv
+
+===== CONSULTA 13 =====
+patient_id | first_encounter | last_encounter | encounter_count
+0002414f-84c1-f978-9506-b60f53c6da5e | 1963-04-14 03:25:15-06:00 | 2013-07-28 04:25:15-05:00 | 64
+000a469b-6f4e-ac7b-136d-2ef0f0a06af4 | 1976-10-08 18:45:27-06:00 | 2025-11-07 18:45:27-06:00 | 61
+001a85d1-2278-b281-ab52-2980fea29ae6 | 1992-12-12 03:43:39-06:00 | 2026-07-31 10:43:39-06:00 | 16
+001db56e-2ff0-976b-ddda-491daef9d579 | 1960-04-07 03:38:46-06:00 | 2026-10-26 09:39:06-06:00 | 46
+0023625d-3f20-9299-6984-eba91647d66b | 1981-09-24 14:43:39-06:00 | 2025-12-18 14:43:39-06:00 | 62
+002768cb-367d-3cac-0e3a-fe48efbea1c2 | 1996-09-13 23:35:23-05:00 | 2025-10-17 22:35:23-06:00 | 48
+0038c477-b36a-6d63-bedb-963ae6154cae | 2016-03-05 07:46:34-06:00 | 2026-05-16 07:46:34-06:00 | 28
+004aba66-9515-921d-7109-7f5443d5bbbd | 1978-08-26 05:34:54-06:00 | 2026-10-17 05:34:54-06:00 | 76
+0053b4ba-4d6c-0a1c-0b63-2dd7ab1bf663 | 1988-08-29 02:53:28-06:00 | 2026-05-08 02:38:11-06:00 | 31
+006290ef-3568-8637-b608-a11b6c02f032 | 2004-03-23 17:36:53-06:00 | 2026-06-04 14:19:53-06:00 | 83
+006a2cde-0fc4-3e17-dcbd-4c9f8975cd47 | 2021-12-19 03:10:03-06:00 | 2025-11-23 03:10:03-06:00 | 16
+0078b5ed-d037-7099-e777-05fc4c0b31f0 | 2011-02-11 06:13:40-06:00 | 2026-10-14 11:28:32-06:00 | 82
+00798f0f-faad-89ef-b638-ae5a57227972 | 1982-09-29 20:52:07-06:00 | 2025-10-29 20:52:07-06:00 | 31
+00b73a3d-5e55-54b1-0771-051024064ee0 | 1959-08-09 08:22:14-06:00 | 2026-06-21 08:22:14-06:00 | 136
+00be42bf-1a48-1ea8-9a85-08b949e2baae | 2017-07-27 05:37:55-05:00 | 2026-10-01 04:37:55-06:00 | 19
+00c4c4b8-a67b-d9cc-2e3b-9d18652ba5c0 | 1963-04-11 12:25:20-06:00 | 1996-03-14 12:25:20-06:00 | 34
+00c9dc0c-6218-bb81-a0c5-c859ee036c98 | 2017-03-05 02:33:21-06:00 | 2026-10-11 02:33:21-06:00 | 35
+00cdbc28-b9e8-1429-4c8c-19d6a0b8258c | 2017-05-09 00:42:26-05:00 | 2026-07-23 05:42:26-06:00 | 27
+00d00e98-69d4-c5f0-788d-19f92a9b5ae9 | 2000-06-24 23:49:52-05:00 | 2026-09-22 01:54:52-06:00 | 18
+00eb15dc-42c7-9478-d552-fbb30e9b477c | 2016-04-13 19:02:21-05:00 | 2026-10-21 18:02:21-06:00 | 26
+... 5725 filas adicionales guardadas en CSV ...
+Filas: 5745
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_13.csv
+
+===== CONSULTA 14 =====
+code | description | medication_records | distinct_patients
+205923 | 1 ML Epoetin Alfa 4000 UNT/ML Injection [Epogen] | 47250 | 161
+Filas: 1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_14.csv
+
+===== CONSULTA 15 =====
+encounter_id | patient_id | start_time | description
+4b4820c7-2560-2180-fbfa-60558f50a458 | 4b4820c7-2560-2180-69a0-8aa95277a61d | 1925-08-26 23:01:56-07:00 | Emergency hospital admission for asthma (procedure)
+4b4820c7-2560-2180-46c9-9fa84685b072 | 4b4820c7-2560-2180-69a0-8aa95277a61d | 1927-02-18 23:01:56-07:00 | Emergency hospital admission for asthma (procedure)
+32da5400-42fd-5a92-8051-05a4b49462be | 32da5400-42fd-5a92-1ed2-0f4a904df29f | 1932-01-12 21:46:00-07:00 | Emergency room admission (procedure)
+f1d7e1f3-7245-4eb9-aa55-40c71a74fe64 | f1d7e1f3-7245-4eb9-f51c-c63af88bbde8 | 1932-08-06 21:00:43-06:00 | Emergency room admission (procedure)
+8b8962c1-94cd-57fa-3a34-33c8e7efa491 | 8b8962c1-94cd-57fa-e78f-2704c5d8fba8 | 1933-04-03 01:31:33-06:00 | Emergency room admission (procedure)
+fcad30a3-0421-9298-cd8a-43df6233b594 | fcad30a3-0421-9298-6b74-46b6b75987d5 | 1935-09-03 21:06:52-06:00 | Emergency room admission (procedure)
+17b164e0-677a-b346-abc0-d0bc62da364a | 17b164e0-677a-b346-f0fd-7da3604a3e44 | 1936-10-21 22:02:29-06:00 | Emergency room admission (procedure)
+17b164e0-677a-b346-3985-6ed6ab04ab66 | 17b164e0-677a-b346-f0fd-7da3604a3e44 | 1937-02-01 23:57:08-06:00 | Emergency room admission (procedure)
+8c79d33d-50de-5657-a1b2-01980d328826 | 8c79d33d-50de-5657-457e-ffc375272d75 | 1937-06-15 09:34:51-06:00 | Emergency room admission (procedure)
+40fec05a-e8c7-b220-d496-0c6d225ef7a9 | 40fec05a-e8c7-b220-a6f6-26e03ae36584 | 1942-09-17 21:06:52-06:00 | Emergency room admission (procedure)
+f11291a2-a73f-3ad6-0143-ff66e2af6fae | f11291a2-a73f-3ad6-974e-486a8c6f2faf | 1944-09-15 22:40:29-06:00 | Emergency room admission (procedure)
+d7f311a3-d05a-bc6c-8486-fb35ececd8ec | d7f311a3-d05a-bc6c-1139-18d22ebc6c22 | 1946-02-03 07:33:15-06:00 | Obstetric emergency hospital admission (procedure)
+e6b22fb1-ad4b-f576-eca3-ce3a3e6f46a8 | e6b22fb1-ad4b-f576-4f36-4c99b47f824b | 1948-04-17 11:00:50-06:00 | Emergency room admission (procedure)
+47875a0b-b5c7-f5f6-df61-aa7cb1ec5ba5 | 47875a0b-b5c7-f5f6-d5d9-6fd0bbcf3ef7 | 1948-11-30 10:49:24-06:00 | Emergency room admission (procedure)
+4d4fc05c-563f-d367-9834-769649b1ed5c | 4d4fc05c-563f-d367-7741-8347d3041f98 | 1950-01-27 07:18:20-06:00 | Emergency room admission (procedure)
+e8d8b3e2-b8b3-de12-3721-c73db1751f7f | e8d8b3e2-b8b3-de12-1b63-6c8a54dba3cb | 1950-05-03 20:44:57-05:00 | Emergency room admission (procedure)
+5add4819-885a-76ad-5ef2-e7b5577c8a4f | 5add4819-885a-76ad-b500-dd83854a2270 | 1952-12-06 04:25:05-06:00 | Emergency room admission (procedure)
+3e5849a9-6226-8fc9-eea8-85b7272d3182 | 3e5849a9-6226-8fc9-634f-bbbc3f971e56 | 1954-03-17 05:23:20-06:00 | Obstetric emergency hospital admission (procedure)
+b5fa3e99-c8ae-e24d-e240-ed5f99806a7b | b5fa3e99-c8ae-e24d-b767-df0d959d56df | 1954-05-06 10:42:37-06:00 | Emergency room admission (procedure)
+c56013e0-5865-515d-5dfc-20fd1d809cb4 | c56013e0-5865-515d-6b7d-bedb0080c195 | 1956-02-24 15:52:42-06:00 | Emergency room admission (procedure)
+... 4414 filas adicionales guardadas en CSV ...
+Filas: 4434
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/consultas/consulta_15.csv

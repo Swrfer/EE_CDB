@@ -1,0 +1,8 @@
+===== JOIN QUE MULTIPLICA =====
+stage | row_count | mean_cost
+correct | 353175 | 111.8689
+inflated | 423684 | 114.3003
+corrected | 353175 | 111.8689
+
+Incremento de filas: 19.96%
+Validación del experimento: correcta

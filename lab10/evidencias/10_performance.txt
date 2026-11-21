@@ -1,0 +1,10 @@
+===== MEDICIÓN DE RENDIMIENTO =====
+
+Resultado clínico: 143 pacientes
+Tiempo mediano original: 3.751 ms
+Tiempo mediano optimizado: 3.321 ms
+Razón original/optimizada: 1.130
+
+La versión optimizada fue más rápida porque filtró temprano y conservó solamente patient_id.
+
+Cada versión se midió siete veces.

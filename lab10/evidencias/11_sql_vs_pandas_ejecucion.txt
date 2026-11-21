@@ -1,0 +1,15 @@
+===== SQL CONTRA PANDAS =====
+
+query_id | sql_lines | pandas_lines | sql_ms | pandas_ms | same_result
+query_01 | 9 | 6 | 0.523 | 1.025 | True
+query_02 | 10 | 10 | 0.999 | 1.420 | True
+query_05 | 6 | 12 | 9.368 | 26.268 | True
+
+Las tres comparaciones produjeron
+resultados equivalentes.
+
+Métricas: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/11_sql_vs_pandas.csv
+Evidencia: /Users/alejandrogarciacolorado/EE_CDB/lab10/evidencias/11_sql_vs_pandas.txt
+Documento: /Users/alejandrogarciacolorado/EE_CDB/lab10/docs/sql_vs_pandas.md
+
+Validación SQL contra pandas: correcta
