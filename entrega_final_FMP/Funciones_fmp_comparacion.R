@@ -82,7 +82,7 @@ fmp_dependencias <- function(cfg) {
 }
 
 fmp_repos_instalacion <- function(cfg, version_r = getRversion()) {
-  # R 4.4 se mantiene en la misma release usada por el autor y su companera.
+  # Compatibilidad del entorno de referencia: R 4.4 y Bioconductor 3.20.
   if (version_r >= "4.4" && version_r < "4.5") bioc <- "3.20" else {
     fmp_exigir(requireNamespace("BiocManager", quietly = TRUE),
       "Esta entrega se comprobo con R 4.4/Bioconductor 3.20. Para otro R instala BiocManager y reinicia R.")
@@ -1391,10 +1391,10 @@ fmp_documentar <- function(cfg, carpetas, coincidencia, estado, advertencias) {
     "No se garantiza equivalencia de unidades VST y microarreglos RMA log10; una AUC favorable no demuestra calibracion.",
     "Se registra la presencia de muestras repetidas por paciente sin cambiar silenciosamente el original.", "",
     "## Reproduccion", "La coincidencia numerica requiere datos, orden de muestras/genes, anotacion y versiones equivalentes.",
-    "La referencia actual contiene ocho genes confirmados con la ejecucion manual del autor.",
-    "La tabla previa de diez genes queda como antecedente y no es la referencia activa.",
+    "La referencia distribuida contiene ocho genes y sus coeficientes para comprobar la reconstruccion.",
+    "El modelo se estima con los datos TCGA; la referencia no reemplaza el ajuste.",
     "No se sustituyen coeficientes reestimados por los historicos para forzar coincidencia.",
-    "Sin metricas historicas no se declara reproduccion de todos los KM/AUC/C-index.",
+    "El control de referencia verifica la firma; las metricas se calculan en cada ejecucion.",
     "Un solo maestro genera todas las entradas intermedias y los resultados de esta fase.",
     "Este directorio corresponde al bloque LASSO. RSF usa este resultado sin modificarlo.",
     "La etapa all ejecuta despues RSF; la etapa rsf permite ejecutar solo ese bloque.", "",
@@ -1780,7 +1780,7 @@ fmp_rsf_documentar <- function(carpetas, cfg, archivo_estado, advertencias, esta
     "Mismas reglas de medianas que LASSO: TCGA global y subgrupo propias; ACRG global conservada en I-II.",
     "Las medianas son descriptivas y dependen de la cohorte; no son umbrales clinicos transportables.",
     "No se compara significacion de p KM para declarar un ganador; usar rendimiento externo e incertidumbre.",
-    "El C de Harrell usa todo el seguimiento y no es el C de Uno truncado del enfoque previo.",
+    "El C de Harrell usa todo el seguimiento; no se calcula C de Uno en este flujo.",
     "ACRG ya fue explorada. Evaluacion externa exploratoria; sin afirmar utilidad clinica ni causalidad.", "",
     "## Salidas", "tablas/rsf/: panel, CV y diagnosticos; tablas/comparacion/: tablas conjuntas.",
     "figuras/: importancia, ajuste, KM global/I-II, ROC individuales y ROC superpuestas de ambos modelos.",

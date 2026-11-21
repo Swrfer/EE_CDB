@@ -1,84 +1,79 @@
-# Instalación de dependencias con R 4.4 — 20/11/2026
+# Instalación de dependencias y entorno
 
-El primer intento independiente se realizó con R 4.4.0 en macOS ARM. El registro
-mostró instalación de numerosos binarios CRAN, seguida de una pregunta sobre
-compilar statmod 1.5.2 en lugar de usar el binario 1.5.1 disponible. Al aceptar,
-faltó `/opt/gfortran/bin/gfortran` y la compilación falló. El mensaje agregado
-indicó que GEOquery y limma no cargaban. La dependencia declarada
-GEOquery → limma → statmod explica esa propagación; el registro original no
-incluye el error completo de loadNamespace de cada uno.
+## Entorno de referencia
 
-También apareció «Deriv is not available». La versión actual 4.3.6 requiere
-R >= 4.5 y compilación. Para R 4.4/macOS ARM el índice CRAN consultado ofrece
-Deriv 4.2.0, que no necesita compilación. Se conserva esa compatibilidad sin
-cambiar la versión de R. Los avisos de paquetes construidos con R 4.4.1/4.4.2
-se distinguen del error explícito de compilador ausente.
+El flujo completo se ha ejecutado con R 4.4.0 en macOS ARM. Para R 4.4, el
+instalador utiliza CRAN y los repositorios de Bioconductor 3.20. Para otro R se
+requiere `BiocManager` disponible para resolver la versión correspondiente de
+Bioconductor; ese entorno no debe asumirse idéntico al de referencia.
 
-## Cambio del instalador
+| Paquetes principales | Versiones del entorno de referencia |
+|---|---|
+| `glmnet`, `survival`, `timeROC`, `ranger` | 4.1-10; 3.8-6; 0.4; 0.18.0 |
+| `ggplot2`, `survminer`, `readxl` | 4.0.2; 0.5.2; 1.4.5 |
+| `TCGAbiolinks`, `DESeq2`, `SummarizedExperiment` | 2.34.1; 1.46.0; 1.36.0 |
+| `AnnotationDbi`, `org.Hs.eg.db` | 1.68.0; 3.20.0 |
+| `GEOquery`, `Biobase`, `limma`, `hgu133plus2.db` | 2.74.0; 2.66.0; 3.62.2; 3.13.0 |
 
-- Se consultan los repositorios CRAN y Bioconductor 3.20 para R 4.4.
-- Se resuelven las dependencias obligatorias, sus requisitos de versión y el
-  orden de instalación antes de descargar los paquetes. No se incluyen Suggests.
-- Se conservan paquetes existentes que cargan y cumplen los requisitos.
-  Primero se reparan sus dependencias ausentes; no se reinstala GEOquery o
-  limma simplemente por no poder cargar statmod.
-- En macOS/Windows se prefieren binarios compatibles, aunque exista una versión
-  fuente más reciente. No se usa type="both" ni se pregunta por compilación.
-- Las fuentes R puras/de datos se instalan cuando no hay binario, por ejemplo
-  TCGAbiolinksGUI.data y hgu133plus2.db. No necesitan gfortran.
-- Si Deriv no tiene candidato compatible en los catálogos, para R 4.4 se admite
-  el archivo CRAN 4.2.0, con MD5 verificado, como excepción documentada.
-- Si falta un binario y se necesita compilar en macOS/Windows, se detiene con
-  el paquete concreto. No se instalan compiladores del sistema automáticamente.
-  En Linux, los paquetes fuente compilados requieren las herramientas del sistema.
-- Un paquete existente que siga fallando después de reparar dependencias deja
-  el error de carga completo. No se sustituye silenciosamente un paquete en uso.
-- Una biblioteca local .R-library existente se incorpora también con install=never.
+Estas versiones describen el entorno de referencia. El instalador no impone
+un lockfile ni reinstala todos los paquetes para igualar esta tabla.
 
-## Reintentar primero solo la instalación
+## Política de instalación
 
-Cerrar la sesión anterior de R y abrir una nueva. Reemplazar
-`Funciones_fmp_comparacion.R` por la versión corregida junto al maestro. Ejecutar:
+Con `FMP_INSTALL = "missing"` o `--install=missing`:
+
+1. Se comprueban instalación, versión y carga real de los paquetes requeridos.
+2. Si hace falta instalar, se resuelven `Depends`, `Imports` y `LinkingTo`, sus
+   restricciones de versión y su orden. No se incluyen dependencias `Suggests`.
+3. Se conservan los paquetes utilizables. Si falla la carga por una dependencia
+   ausente, se repara primero esa dependencia, sin reinstalar automáticamente
+   todos los paquetes que dependen de ella.
+4. En macOS/Windows tienen prioridad los binarios compatibles, incluso si existe
+   una fuente más reciente. No se pregunta si se desea compilar esa otra versión.
+5. Cuando no hay binario se admiten fuentes R puras o de datos. Si un paquete
+   requiere compilación y no hay binario compatible en macOS/Windows, se informa
+   el paquete y se detiene. En Linux pueden requerirse herramientas del sistema.
+6. Para R 4.4, si no hay un candidato compatible de `Deriv` en los catálogos,
+   se contempla `Deriv 4.2.0` de CRAN Archive, R puro, con MD5 verificado.
+7. Se registra el estado final y se comprueba que las dependencias carguen.
+
+No hay actualización general, cambio automático de R ni instalación de
+compiladores. Un paquete ya cargado que requiera sustitución exige reiniciar
+la sesión; no se cambia silenciosamente durante su uso.
+
+`FMP_INSTALL = "never"` o `--install=never` impide instalar. Una biblioteca
+local `.R-library/` existente se incorpora también en ese modo. Los paquetes
+requeridos deben estar disponibles para ejecutar el bloque solicitado.
+
+## Comprobar solo dependencias
+
+En una sesión nueva de R:
 
 ```r
 Sys.setenv(FMP_STAGE = "install", FMP_INSTALL = "missing")
 source(file.choose(), encoding = "UTF-8")
 ```
 
-Seleccionar **Script_maerstro_FMP.R**. Esta etapa no requiere elegir el CSV ACRG,
-no descarga TCGA/GEO y no entrena modelos. Reutiliza las instalaciones ya logradas.
-El mensaje de éxito es `Comprobacion de dependencias terminada`.
+Seleccionar `Script_maerstro_FMP.R`. Esta etapa no requiere archivo clínico,
+no descarga cohortes y no entrena modelos. El mensaje de éxito es
+`Comprobacion de dependencias terminada`.
 
-Después, ejecutar el bloque de inicio rápido del README, seleccionando primero
-el CSV y fijando explícitamente `FMP_STAGE = "all"`, `FMP_DOWNLOAD = "missing"`
-y `FMP_INSTALL = "missing"`. Se reutilizan los paquetes y las entradas guardadas.
-
-Por terminal, desde la carpeta del proyecto:
+En terminal, desde la carpeta del proyecto:
 
 ```bash
 Rscript --vanilla Script_maerstro_FMP.R --stage=install --install=missing
 ```
 
-## Diagnóstico y límites de la comprobación
+Para ejecutar después el análisis completo se debe fijar `FMP_STAGE = "all"`
+o `--stage=all` y proporcionar el archivo clínico según el README principal.
 
-`data/instalacion/` contiene plan_paquetes.csv, estado_inicial.csv,
-estado_paquetes.csv, acciones.csv, repositorios.csv y sessionInfo.txt. Las
-versiones concretas, rutas y errores de carga se guardan allí; esta carpeta queda
-excluida de Git por ser parte de data/.
+## Archivos de diagnóstico
 
-Las pruebas de la corrección usan servicios simulados y metadatos reales de los
-repositorios. La planificación para R 4.4/macOS ARM eligió statmod 1.5.1 y
-Deriv 4.2.0 binarios, limma 3.62.2 y GEOquery 2.74.0 binarios y los paquetes de
-datos pertinentes en fuente R pura. No se ejecutó una instalación completa en
-un Mac nuevo desde este entorno. La compañera debe repetir esa comprobación;
-el fallo inicial todavía no constituye una validación integral del proyecto.
-El código de ajuste, preparación y evaluación científica se conserva.
+Se generan en `data/instalacion/`: `plan_paquetes.csv`, `estado_inicial.csv`,
+`estado_paquetes.csv`, `acciones.csv`, `repositorios.csv` y `sessionInfo.txt`.
+La carpeta puede conservar archivos descargados para instalación; no se incluye
+en Git ni en el ZIP limpio. Los errores de carga se guardan completos.
 
-## Fuentes técnicas
-
-- [R: instalación de paquetes y tipos binario/fuente](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/install.packages.html).
-- [Bioconductor 3.20 y R 4.4](https://bioconductor.org/news/bioc_3_20_release/).
-- [Deriv actual y requisitos de R](https://cran.r-project.org/web/packages/Deriv/refman/Deriv.html).
-- [Archivo CRAN de Deriv](https://cran.r-project.org/src/contrib/Archive/Deriv/).
-- [GEOquery 3.20: dependencias](https://bioconductor.uib.no/packages/3.20/bioc/html/GEOquery.html).
-- [limma 3.20: dependencias](https://bioconductor.uib.no/packages/3.20/bioc/html/limma.html).
+La disponibilidad futura de binarios depende de los repositorios. Conservar
+estas versiones y registros permite identificar diferencias entre entornos;
+instalar faltantes por sí solo no garantiza resultados numéricos idénticos.

@@ -1,5 +1,0 @@
-"cohort","population","horizon_years","n","deaths_by_horizon","observed_beyond_horizon","censored_by_horizon","AUC","lower_95","upper_95","status"
-"TCGA","Todos",1,378,83,245,50,0.658936573312448,0.5867,0.7311,"OK"
-"TCGA","I_II",1,168,27,117,24,0.690508958493597,0.5674,0.8136,"OK"
-"ACRG","Todos",1,300,48,252,0,0.656167328042327,0.5745,0.7378,"OK"
-"ACRG","I_II",1,126,6,120,0,0.631944444444444,0.398,0.8659,"OK"

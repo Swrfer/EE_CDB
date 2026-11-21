@@ -1,0 +1,15 @@
+# Contenido de la entrega FMP — 2026-11-20
+
+Distribucion limpia para reproduccion desde las entradas de repositorios.
+
+Incluye: dos scripts de R, documentacion, pruebas tecnicas y referencias fijas.
+No incluye: resultados, figuras, modelos RDS, matrices descargadas, clinica real,
+predicciones individuales, registros de sesiones o paquetes instalados.
+
+Carpetas inicialmente vacias: data/raw/ y resultados/.
+Las referencias de genes/coeficientes son entradas para definir y comprobar el
+analisis; no reemplazan su entrenamiento. La plantilla ACRG solo tiene encabezados.
+
+Ejecutar segun README.md. El archivo clinico ACRG se proporciona por separado.
+Las huellas SHA256 de los archivos distribuidos estan en MANIFEST_SHA256.csv.
+Ese CSV excluye su propia huella y no describe las salidas futuras del analisis.

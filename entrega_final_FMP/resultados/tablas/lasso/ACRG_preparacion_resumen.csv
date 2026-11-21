@@ -1,2 +1,0 @@
-"cohort","n","deaths","quantile_normalization","additional_log2","time_conversion","score_scale"
-"ACRG",300,152,TRUE,FALSE,"months * 30.44 / 365; equivalencia exacta con el script original","scale(score) en ACRG; no normalizacion por gen"

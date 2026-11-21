@@ -1,6 +1,0 @@
-"check","status","detail"
-"CHF OOB completo y finito","PASS","sin pacientes excluidos"
-"Panel identico al bosque","PASS","20 genes; no reestimados"
-"Filas clinicas preservadas","PASS","orden conservado dentro del mismo RDS de resultados"
-"C OOB coincide con 1 - prediction.error de ranger","REVISAR_EMPATES","diferencia absoluta = 0.00044260028"
-"RDS de entrada conservado byte a byte","PASS","5e4adc73a12bbf38d20a51baea90f625"

@@ -1,16 +1,14 @@
+# Datos, modelos, predicciones y resultados generados localmente
 data/
+resultados/
 resultados_replica_FMP/
+resultados_confirmados/
+comprobacion_OOB/
+evidencias_locales/
+.R-library/
 *.rds
-.RData
+*.RData
 .Rhistory
 .Renviron
 .Rproj.user/
-
-evidencias_locales/
-comprobacion_OOB/
 .DS_Store
-
-.R-library/
-
-# Formato anterior, conservado localmente para organizar sus salidas
-resultados_confirmados/
