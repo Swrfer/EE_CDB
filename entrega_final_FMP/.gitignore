@@ -1,0 +1,14 @@
+# Datos, modelos, predicciones y resultados generados localmente
+data/
+resultados/
+resultados_replica_FMP/
+resultados_confirmados/
+comprobacion_OOB/
+evidencias_locales/
+.R-library/
+*.rds
+*.RData
+.Rhistory
+.Renviron
+.Rproj.user/
+.DS_Store
