@@ -1,0 +1,93 @@
+
+===== UNIDADES DE LOS 15 ANALITOS MÁS FRECUENTES =====
+ measurement_concept_id                                                                                             measurement_concept_name  unit_concept_id         unit_concept_name  total_mediciones_analito  mediciones_unidad  personas  valor_minimo  mediana  valor_maximo
+               43055141                                                        Pain severity - 0-10 verbal numeric rating [Score] - Reported                0       No matching concept                    146582             146582      5744           0.0      3.0          10.0
+                4064377                                                                                                 Depression screening                0       No matching concept                     96818              96818      4991           NaN      NaN           NaN
+                3004249                                                                                              Systolic blood pressure             8876 millimeter mercury column                     84762              84762      5744          31.0    118.0         179.0
+                3012888                                                                                             Diastolic blood pressure             8876 millimeter mercury column                     84762              84762      5744           8.0     79.0         132.0
+                3025315                                                                                                          Body weight             9529                  kilogram                     80158              80158      5744           2.0     78.2         152.3
+                3024171                                                                                                     Respiratory rate             8541                per minute                     77948              77948      5744          12.0     14.0          40.0
+                3027018                                                                                                           Heart rate             8541                per minute                     77948              77948      5744          50.0     80.0         199.9
+                3036277                                                                                                          Body height             8582                centimeter                     76432              76432      5744          45.1    166.8         195.1
+                3038553                                                                                        Body mass index (BMI) [Ratio]             9531 kilogram per square meter                     71043              71043      5593          11.8     27.9          55.2
+               46236952 Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M                0       No matching concept                     63562              43690       877           1.0     53.0         161.0
+               46236952 Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M             8795     milliliter per minute                     63562              19872      1266           3.1     21.3         160.9
+               44786664                                                   Weight difference [Mass difference] --pre dialysis - post dialysis             9529                  kilogram                     62033              62033       204           1.0      3.0           5.0
+                3000285                                                                                       Sodium [Moles/volume] in Blood             8753       millimole per liter                     53214              53214      2650         136.0    140.0         144.0
+                3000483                                                                                       Glucose [Mass/volume] in Blood             8840   milligram per deciliter                     53214              53214      2650          64.0     85.5         199.7
+                3004295                                                                                 Urea nitrogen [Mass/volume] in Blood             8840   milligram per deciliter                     53214              53214      2650           7.0     13.5          20.0
+                3032503                                                                                       Calcium [Mass/volume] in Blood             8840   milligram per deciliter                     53214              53214      2650           8.5      9.4          10.2
+
+===== LISINOPRIL DIRECTO FRENTE A DESCENDIENTES =====
+ ingredient_concept_id ingredient_name  exposiciones_directas  personas_directas  exposiciones_descendientes  personas_descendientes  productos_descendientes  diferencia_personas
+               1308216      lisinopril                      0                  0                       26195                    1024                        8                 1024
+
+===== CALIDAD TEMPORAL DE LISINOPRIL =====
+ exposiciones  personas  productos fecha_minima fecha_maxima  days_supply_minimo  days_supply_q1  days_supply_mediana  days_supply_q3  days_supply_maximo  days_supply_no_positivo  days_supply_mayor_365  misma_fecha
+        26195      1024          8   1958-03-18   2026-11-02                  -6             7.0                 28.0           175.0                 420                     1271                   4996         1211
+
+===== DETALLE DE UNIDADES DE FILTRACIÓN GLOMERULAR =====
+ measurement_concept_id                                                                                             measurement_concept_name  unit_concept_id     unit_concept_name unit_source_value  mediciones  personas  minimo   q1  mediana   q3  maximo
+               46236952 Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M                0   No matching concept  mL/min/{1.73_m2}       43690       877     1.0 33.7     53.0 79.5   161.0
+               46236952 Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M             8795 milliliter per minute            mL/min       19872      1266     3.1 11.2     21.3 72.9   160.9
+
+===== DETALLE DE UNIDADES DE PESO =====
+ measurement_concept_id measurement_concept_name  unit_concept_id unit_concept_name unit_source_value  mediciones  personas  minimo   q1  mediana   q3  maximo
+                3025315              Body weight             9529          kilogram                kg       80158      5744     2.0 65.1     78.2 88.8   152.3
+
+===== DISTRIBUCIONES DE ANALITOS CANDIDATOS =====
+ measurement_concept_id                   concept_name  mediciones  valores_numericos  personas  minimo  p001  p01  mediana     p99  p999  maximo
+                3000483 Glucose [Mass/volume] in Blood       53214              53214      2650    64.0  64.0 64.4     85.5 154.174 195.3   199.7
+                3004249        Systolic blood pressure       84762              84762      5744    31.0  58.0 77.0    118.0 151.000 162.0   179.0
+                3025315                    Body weight       80158              80158      5744     2.0   3.3  4.7     78.2 112.100 139.6   152.3
+
+===== VALORES MÁS REPETIDOS EN ANALITOS CANDIDATOS =====
+ measurement_concept_id                   concept_name  value_as_number  repeticiones
+                3000483 Glucose [Mass/volume] in Blood             74.2           154
+                3000483 Glucose [Mass/volume] in Blood             79.2           154
+                3000483 Glucose [Mass/volume] in Blood             88.1           151
+                3000483 Glucose [Mass/volume] in Blood             99.9           149
+                3000483 Glucose [Mass/volume] in Blood             65.9           148
+                3000483 Glucose [Mass/volume] in Blood             86.5           146
+                3000483 Glucose [Mass/volume] in Blood             82.7           145
+                3000483 Glucose [Mass/volume] in Blood             97.3           145
+                3000483 Glucose [Mass/volume] in Blood             68.7           144
+                3000483 Glucose [Mass/volume] in Blood             83.5           144
+                3004249        Systolic blood pressure            126.0          2033
+                3004249        Systolic blood pressure            124.0          2028
+                3004249        Systolic blood pressure            118.0          2027
+                3004249        Systolic blood pressure            125.0          1999
+                3004249        Systolic blood pressure            119.0          1995
+                3004249        Systolic blood pressure            120.0          1993
+                3004249        Systolic blood pressure            121.0          1988
+                3004249        Systolic blood pressure            122.0          1978
+                3004249        Systolic blood pressure            123.0          1975
+                3004249        Systolic blood pressure            117.0          1964
+                3025315                    Body weight             74.5           622
+                3025315                    Body weight             88.9           499
+                3025315                    Body weight             73.3           448
+                3025315                    Body weight             81.5           415
+                3025315                    Body weight             86.8           412
+                3025315                    Body weight             89.4           402
+                3025315                    Body weight             89.9           399
+                3025315                    Body weight             77.6           394
+                3025315                    Body weight             86.1           393
+                3025315                    Body weight             88.2           388
+
+===== HECHOS EN MEASUREMENT Y OBSERVATION =====
+      tabla  concept_id                                                       concept_name source_value  eventos  personas
+MEASUREMENT     3004249                                            Systolic blood pressure       8480-6    84762      5744
+MEASUREMENT     3025315                                                        Body weight      29463-7    80158      5744
+MEASUREMENT     3038553                                      Body mass index (BMI) [Ratio]      39156-5    71043      5593
+MEASUREMENT    44786664 Weight difference [Mass difference] --pre dialysis - post dialysis      74006-8    62033       204
+MEASUREMENT     3000483                                     Glucose [Mass/volume] in Blood       2339-0    53214      2650
+MEASUREMENT     3009261                          Glucose [Presence] in Urine by Test strip      25428-4    40964       782
+MEASUREMENT     3024629                       Glucose [Mass/volume] in Urine by Test strip       5792-7    40896      1180
+MEASUREMENT     3004501                           Glucose [Mass/volume] in Serum or Plasma       2345-7    35354      1059
+MEASUREMENT    40762638                 Body mass index (BMI) [Percentile] Per age and sex      59576-9    13640      1755
+MEASUREMENT    46236327                                  Weight-for-length Per age and sex      77606-2     7917       825
+MEASUREMENT     4149386                                        Urine screening for glucose    268556000     1565       854
+MEASUREMENT     4012477                                             Glucose tolerance test    113076002       17         3
+OBSERVATION    43054909                                             Tobacco smoking status      72166-2    76111      5744
+
+VALIDACIÓN: auditoría complementaria completada.

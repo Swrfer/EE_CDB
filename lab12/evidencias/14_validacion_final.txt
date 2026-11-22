@@ -1,0 +1,37 @@
+Fecha: domingo, 22 de noviembre de 2026, 12:57:38 CST
+Rama: lab12-omop-cdm
+
+1. Sintaxis Python
+PASS
+
+2. Archivos obligatorios
+PASS: lab12/README.md
+PASS: lab12/consultas_omop.sql
+PASS: lab12/diagrama_er.md
+PASS: lab12/reporte_calidad.md
+PASS: lab12/evidencias/analisis/calidad_mapeo.csv
+PASS: lab12/evidencias/analisis/ventana_observacion.csv
+PASS: lab12/evidencias/analisis/athena_top3.csv
+PASS: lab12/evidencias/analisis/comparacion_synthea_eunomia.csv
+
+3. Conteos OMOP
+PASS: concept = 2026160
+PASS: person = 5745
+PASS: observation_period = 5745
+PASS: visit_occurrence = 320853
+PASS: condition_occurrence = 92084
+PASS: drug_exposure = 280617
+PASS: measurement = 3111032
+PASS: observation = 1596434
+PASS: procedure_occurrence = 385657
+
+4. Calidad de mapeo
+PASS: seis dominios con 0% de concept_id = 0
+
+5. Ventana de observación
+PASS: efecto de observation_period cuantificado
+
+6. Comparación Eunomia
+PASS: siete métricas comparativas
+
+RESULTADO FINAL: PASS

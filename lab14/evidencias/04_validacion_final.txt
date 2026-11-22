@@ -1,0 +1,120 @@
+===== VALIDACIÓN FORMAL DEL LABORATORIO 14 =====
+
+1. Rama
+PASS: rama = lab14-concept-set
+
+2. Archivos obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/concept_set.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/justificacion_concept_set.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/figuras/impacto_pacientes.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/notebooks/analisis_concept_set.ipynb
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/scripts/01_generar_lab14.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/scripts/02_validar_lab14.py
+
+3. Notebook
+PASS: celdas de código = 5
+PASS: todas las celdas de código fueron ejecutadas
+PASS: notebook sin salidas de error
+PASS: todas las celdas tienen identificador
+
+4. Selección y concepto semilla
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/seleccion_condicion.csv
+PASS: cáncer gástrico descartado con 2 pacientes
+PASS: diabetes tipo 2 seleccionada con 457 pacientes
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/concepto_semilla.csv
+PASS: concept_id semilla = 201826
+PASS: nombre legible de la semilla
+PASS: dominio de la semilla = Condition
+PASS: vocabulario de la semilla = SNOMED
+PASS: clase de la semilla = Disorder
+PASS: semilla estándar
+PASS: semilla vigente
+
+5. Jerarquía
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/padre_inmediato.csv
+PASS: padre inmediato = Diabetes mellitus (201820)
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/resumen_jerarquia.csv
+PASS: 14 descendientes sin la semilla
+PASS: 15 conceptos en la versión amplia
+PASS: profundidad máxima = 2
+
+6. Traducción ICD-10-CM
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_mapeo.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_cardinalidad.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_resumen.csv
+PASS: 12 códigos ICD-10-CM evaluados
+PASS: 23 filas después del join Maps to
+PASS: ningún código sin mapeo
+PASS: un código con mapeo 1:1
+PASS: once códigos con mapeo 1:N
+PASS: todos los destinos tienen concept_id
+PASS: todos los destinos tienen nombre legible
+PASS: todos los destinos son estándar
+PASS: relación correcta = Maps to
+
+7. Versiones del concept set
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/concept_set_membresia.csv
+PASS: membresía A=1, B=15 y C=12
+PASS: 28 filas de membresía en total
+PASS: A_estricta incluye nombres legibles
+PASS: B_amplia incluye nombres legibles
+PASS: C_razonada incluye nombres legibles
+PASS: versión A contiene la semilla
+PASS: versión C elimina embarazo y remisión
+
+8. Revisión clínica
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/revision_descendientes.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/exclusiones.csv
+PASS: se revisaron todos los 14 descendientes disponibles
+PASS: revisión sin conceptos duplicados
+PASS: cada decisión tiene justificación clínica
+PASS: tres exclusiones clínicas esperadas
+PASS: exclusiones marcadas como no incluidas
+PASS: se documentó por qué no se muestrearon 20 conceptos
+
+9. Impacto en pacientes
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/impacto_pacientes.csv
+PASS: tres versiones comparadas
+PASS: 457 pacientes distintos en A, B y C
+PASS: diferencia absoluta frente a A = 0
+PASS: diferencia porcentual frente a A = 0%
+PASS: 457 eventos en cada versión
+
+10. SQL reproducible
+PASS: versiones construidas con CONCEPT_ANCESTOR
+PASS: traducción usa Maps to
+PASS: dirección de Maps to explícita
+PASS: destino estándar filtrado
+PASS: vigencia de la relación filtrada
+PASS: vigencia de conceptos filtrada
+PASS: fechas de vigencia verificadas
+PASS: impacto usa pacientes distintos
+PASS: versión C usa raíces de exclusión reproducibles
+
+11. Documentación clínica
+PASS: discusión de sensibilidad
+PASS: discusión de VPP
+PASS: exclusiones explicadas clínicamente
+PASS: limitación de menos de 20 descendientes documentada
+PASS: igualdad de pacientes interpretada correctamente
+PASS: fuentes de vocabulario documentadas
+
+12. Figura
+PASS: figura con formato PNG válido
+PASS: figura no vacía
+
+13. Tablas derivadas en DuckDB
+PASS: results.lab14_icd10_mapping disponible
+PASS: results.lab14_concept_set_membership disponible
+PASS: results.lab14_impact disponible
+PASS: DuckDB y CSV tienen la misma membresía
+PASS: DuckDB conserva el impacto esperado
+
+14. Archivos no deseados
+PASS: sin cachés, bases, ZIP ni archivos del sistema
+PASS: sin archivos mayores de 10 MB
+
+===== RESULTADO FINAL =====
+PASS: 87 comprobaciones superadas
+Commit y push: NO ejecutados
