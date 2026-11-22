@@ -1,0 +1,314 @@
+Aviso:
+package ‘DatabaseConnector’ was built under R version 4.4.3 
+Aviso:
+package ‘SqlRender’ was built under R version 4.4.1 
+===== CONFIGURACIÓN =====
+R: R version 4.4.0 (2024-04-24) 
+Java: /opt/anaconda3/envs/cdb/lib/jvm 
+DatabaseConnector: 7.1.0 
+SqlRender: 1.19.4 
+duckdb: 1.5.0 
+CommonDataModel: 1.1.0 
+ETLSyntheaBuilder: 2.1 
+Synthea original: 3.4.0-18-ga07a65555
+Esquema compatible utilizado por el ETL: 3.3.0 
+CDM: 5.4 
+CSV Synthea: /Users/alejandrogarciacolorado/EE_CDB/lab10/data/raw/synthea_5000/csv 
+Vocabularios: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena 
+Base de salida: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/omop/synthea_omop_cdm54.duckdb 
+
+======================================================================
+1. Crear esquemas de DuckDB
+======================================================================
+Connecting using DuckDB driver
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0031 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00107 secs
+Duración: 0.001 minutos
+
+======================================================================
+2. Crear tablas OMOP CDM v5.4
+======================================================================
+[1] "Creating CDM Tables...."
+Connecting using DuckDB driver
+[1] "CDM Tables Created."
+Duración: 0.004 minutos
+
+======================================================================
+3. Crear tablas nativas de Synthea
+======================================================================
+Running synthea_version/v330/create_synthea_tables.sql
+Connecting using DuckDB driver
+  |                                                                              |                                                                      |   0%  |                                                                              |====                                                                  |   6%  |                                                                              |========                                                              |  11%  |                                                                              |============                                                          |  17%  |                                                                              |================                                                      |  22%  |                                                                              |===================                                                   |  28%  |                                                                              |=======================                                               |  33%  |                                                                              |===========================                                           |  39%  |                                                                              |===============================                                       |  44%  |                                                                              |===================================                                   |  50%  |                                                                              |=======================================                               |  56%  |                                                                              |===========================================                           |  61%  |                                                                              |===============================================                       |  67%  |                                                                              |===================================================                   |  72%  |                                                                              |======================================================                |  78%  |                                                                              |==========================================================            |  83%  |                                                                              |==============================================================        |  89%  |                                                                              |==================================================================    |  94%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00733 secs
+Duración: 0.001 minutos
+
+======================================================================
+4. Cargar CSV de Synthea
+======================================================================
+Connecting using DuckDB driver
+Loading: allergies.csv
+Inserting data took 0.0244 secs
+Loading: careplans.csv
+Inserting data took 0.0345 secs
+Loading: claims_transactions.csv
+Inserting data took 3.28 secs
+Loading: claims.csv
+Inserting data took 0.909 secs
+Loading: conditions.csv
+Inserting data took 0.121 secs
+Loading: devices.csv
+Inserting data took 0.0176 secs
+Loading: encounters.csv
+Inserting data took 0.359 secs
+Loading: imaging_studies.csv
+Inserting data took 0.426 secs
+Loading: immunizations.csv
+Inserting data took 0.0359 secs
+Loading: medications.csv
+Inserting data took 0.293 secs
+Loading: observations.csv
+Inserting data took 1.09 secs
+Loading: organizations.csv
+Inserting data took 0.0114 secs
+Loading: patients.csv
+Inserting data took 0.0201 secs
+Loading: payer_transitions.csv
+Inserting data took 0.113 secs
+Loading: payers.csv
+Inserting data took 0.0108 secs
+Loading: procedures.csv
+Inserting data took 0.473 secs
+Loading: providers.csv
+Inserting data took 0.0126 secs
+Loading: supplies.csv
+Inserting data took 0.0283 secs
+Duración: 0.352 minutos
+
+======================================================================
+5. Materializar esquema nativo
+======================================================================
+Connecting using DuckDB driver
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00722 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00135 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0125 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00128 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.658 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0041 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 2.29 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0233 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0996 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00186 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0058 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00132 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.304 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0027 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.314 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0017 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0281 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0716 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.168 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00191 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.3 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00399 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00203 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00943 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00114 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0956 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00192 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00165 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00111 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.321 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00245 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00208 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00105 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0221 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0013 secs
+Duración: 0.1 minutos
+
+======================================================================
+6. Cargar vocabularios de ATHENA
+======================================================================
+Connecting using DuckDB driver
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/CONCEPT_ANCESTOR.csv
+ - reading file 
+ - type converting
+ - uploading 12073517 rows of data in 2 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00172 secs
+ - chunk uploading started on 2026-11-07 19:58:58.267315 for rows 1 to 10000001
+Inserting data took 0.193 secs
+ - chunk uploading started on 2026-11-07 19:58:58.480088 for rows 10000002 to 12073517
+Inserting data took 0.0688 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/CONCEPT_CLASS.csv
+ - reading file 
+ - type converting
+ - uploading 433 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00159 secs
+ - chunk uploading started on 2026-11-07 19:58:58.55943 for rows 1 to 433
+Inserting data took 0.0117 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/CONCEPT_RELATIONSHIP.csv
+ - reading file 
+ - handling dates
+ - type converting
+ - uploading 14129144 rows of data in 2 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00142 secs
+ - chunk uploading started on 2026-11-07 19:59:45.480092 for rows 1 to 10000001
+Inserting data took 0.573 secs
+ - chunk uploading started on 2026-11-07 19:59:46.110815 for rows 10000002 to 14129144
+Inserting data took 0.248 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/CONCEPT_SYNONYM.csv
+ - reading file 
+ - type converting
+ - uploading 2503953 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00142 secs
+ - chunk uploading started on 2026-11-07 19:59:48.949562 for rows 1 to 2503953
+Inserting data took 0.474 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/CONCEPT.csv
+ - reading file 
+ - handling dates
+ - type converting
+ - uploading 2026160 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00142 secs
+ - chunk uploading started on 2026-11-07 19:59:59.795988 for rows 1 to 2026160
+Inserting data took 0.965 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/DOMAIN.csv
+ - reading file 
+ - type converting
+ - uploading 50 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00129 secs
+ - chunk uploading started on 2026-11-07 20:00:00.769944 for rows 1 to 50
+Inserting data took 0.0106 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/DRUG_STRENGTH.csv
+ - reading file 
+ - handling dates
+ - type converting
+ - uploading 209849 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00125 secs
+ - chunk uploading started on 2026-11-07 20:00:01.599452 for rows 1 to 209849
+Inserting data took 0.0509 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/RELATIONSHIP.csv
+ - reading file 
+ - type converting
+ - uploading 724 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00125 secs
+ - chunk uploading started on 2026-11-07 20:00:01.659293 for rows 1 to 724
+Inserting data took 0.0103 secs
+ - Success
+Working on file /Users/alejandrogarciacolorado/EE_CDB/lab12/data/raw/athena/VOCABULARY.csv
+ - reading file 
+ - type converting
+ - uploading 42 rows of data in 1 chunks.
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00117 secs
+ - chunk uploading started on 2026-11-07 20:00:01.676798 for rows 1 to 42
+Inserting data took 0.0103 secs
+ - Success
+Duración: 1.065 minutos
+Avisos:
+1: `type_convert()` only converts columns of type 'character'.
+- `df` has no columns of type 'character' 
+2: In data.table::fread(file = paste0(vocabFileLoc, "/", csv), stringsAsFactors = FALSE,  :
+  Found and resolved improper quoting out-of-sample. First healed line 1223539: <<4162708	"Cleans" needles with bleach	4180186>>. If the fields are not quoted (e.g. field separator does not appear within any field), try quote="" to avoid this warning.
+3: In data.table::fread(file = paste0(vocabFileLoc, "/", csv), stringsAsFactors = FALSE,  :
+  Found and resolved improper quoting out-of-sample. First healed line 32912: <<45883849	"Sick" headaches	Meas Value	LOINC	Answer	S	LA15140-9	19700101	20991231	>>. If the fields are not quoted (e.g. field separator does not appear within any field), try quote="" to avoid this warning.
+
+======================================================================
+7. Materializar vocabularios
+======================================================================
+Connecting using DuckDB driver
+Duración: 0.001 minutos
+
+======================================================================
+8. Crear tablas de mapeo y rollup
+======================================================================
+Connecting using DuckDB driver
+Running: create_source_to_standard_vocab_map.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00857 secs
+Running: create_source_to_source_vocab_map.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |==================                                                    |  25%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00284 secs
+Running: create_states_map.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00282 secs
+Connecting using DuckDB driver
+Running: AllVisitTable.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.336 secs
+Running: AAVITable.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.225 secs
+Running: final_visit_ids.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0814 secs
+Duración: 0.013 minutos
+
+======================================================================
+9. Crear índices adicionales
+======================================================================
+[1] "Creating Extra Indices...."
+Connecting using DuckDB driver
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00144 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00119 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00103 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+  |                                                                              |                                                                      |   0%
