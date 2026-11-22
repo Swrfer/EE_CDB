@@ -1,0 +1,9 @@
+concept_id,concept_name,min_levels_of_separation,max_levels_of_separation
+201820,Diabetes mellitus,1,1
+31821,Disorder of endocrine system,2,2
+4130526,Disorder of glucose metabolism,2,2
+4180628,Disorder of body system,3,3
+437515,Disorder of carbohydrate metabolism,3,3
+4274025,Disease,4,5
+436670,Metabolic disease,4,4
+441840,Clinical finding,5,6
