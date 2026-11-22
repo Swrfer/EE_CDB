@@ -1,0 +1,13 @@
+codigo_icd10,concept_id_origen,nombre_origen,destinos_estandar,clasificacion
+E11.10,1326492,Type 2 diabetes mellitus with ketoacidosis without coma,2,1:N
+E11.21,45591027,Type 2 diabetes mellitus with diabetic nephropathy,2,1:N
+E11.22,45595797,Type 2 diabetes mellitus with diabetic chronic kidney disease,2,1:N
+E11.319,45581353,Type 2 diabetes mellitus with unspecified diabetic retinopathy without macular edema,2,1:N
+E11.3299,37200205,"Type 2 diabetes mellitus with mild nonproliferative diabetic retinopathy without macular edema, unspecified eye",2,1:N
+E11.40,45605403,"Type 2 diabetes mellitus with diabetic neuropathy, unspecified",2,1:N
+E11.42,45557113,Type 2 diabetes mellitus with diabetic polyneuropathy,2,1:N
+E11.51,45533021,Type 2 diabetes mellitus with diabetic peripheral angiopathy without gangrene,2,1:N
+E11.621,45581355,Type 2 diabetes mellitus with foot ulcer,2,1:N
+E11.649,45591031,Type 2 diabetes mellitus with hypoglycemia without coma,2,1:N
+E11.65,45605405,Type 2 diabetes mellitus with hyperglycemia,2,1:N
+E11.9,35206882,Type 2 diabetes mellitus without complications,1,1:1

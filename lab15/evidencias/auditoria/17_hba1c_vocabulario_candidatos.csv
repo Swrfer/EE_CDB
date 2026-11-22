@@ -1,0 +1,19 @@
+concept_id,concept_code,concept_name,concept_class_id,standard_concept,mediciones,pacientes,unidades_distintas
+3004410,4548-4,Hemoglobin A1c/Hemoglobin.total in Blood,Lab Test,S,46481,2462,1
+3005131,27353-2,Glucose mean value [Mass/volume] in Blood Estimated from glycated hemoglobin,Lab Test,S,0,0,0
+3039720,53553-4,Glucose mean value [Moles/volume] in Blood Estimated from glycated hemoglobin,Lab Test,S,0,0,0
+3034070,41962-2,HbA1c measurement device Vendor model code,Clinical Observation,S,0,0,0
+3032856,41961-4,HbA1c measurement device Vendor name,Clinical Observation,S,0,0,0
+3034957,41963-0,HbA1c measurement device Vendor serial number,Clinical Observation,S,0,0,0
+3031861,41964-8,HbA1c measurement device Vendor software version,Clinical Observation,S,0,0,0
+3034639,41995-2,Hemoglobin A1c [Mass/volume] in Blood,Lab Test,S,0,0,0
+3033145,43150-2,Hemoglobin A1c measurement device panel,Clinical Observation,S,0,0,0
+42869630,71875-9,Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood,Lab Test,S,0,0,0
+36304734,86910-7,Hemoglobin A1c/Hemoglobin.total goal Blood,Clinical Observation,S,0,0,0
+3003309,4549-2,Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis,Lab Test,S,0,0,0
+3005673,17856-6,Hemoglobin A1c/Hemoglobin.total in Blood by HPLC,Lab Test,S,0,0,0
+40765129,62388-4,Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol,Lab Test,S,0,0,0
+3007263,17855-8,Hemoglobin A1c/Hemoglobin.total in Blood by calculation,Lab Test,S,0,0,0
+36032094,96595-4,Hemoglobin A1c/Hemoglobin.total in DBS,Lab Test,S,0,0,0
+40762352,59261-8,Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood,Lab Test,S,0,0,0
+3031232,41960-6,Type of HbA1c measurement device,Clinical Observation,S,0,0,0

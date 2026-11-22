@@ -1,0 +1,4 @@
+measurement_id,person_id,concept_id,measurement_date,value_as_number,lower_limit,upper_limit,reason
+1019680,1862,3004249,2015-03-29,31.0,40.0,250.0,below_range
+1019690,1862,3004249,2015-04-06,36.0,40.0,250.0,below_range
+1019718,1862,3004249,2015-04-28,37.0,40.0,250.0,below_range

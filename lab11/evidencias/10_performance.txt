@@ -1,0 +1,11 @@
+Ejecutando: window
+Ejecutando: self_join
+
+===== COMPARACIÓN =====
+  version  comparable_intervals  median_days  repetitions  minimum_ms  median_ms  maximum_ms  self_join_to_window_ratio
+   window                347430         14.0            5   43.794041  45.578791   46.991875                  11.596273
+self_join                347430         14.0            5  521.921958 528.544083  535.788000                  11.596273
+
+Razón self-join/ventana: 11.596
+Resultados equivalentes: sí
+Medición de rendimiento: correcta

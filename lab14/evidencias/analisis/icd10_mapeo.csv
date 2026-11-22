@@ -1,0 +1,24 @@
+codigo_icd10,concept_id_origen,nombre_origen,concept_id_estandar,nombre_estandar,dominio_estandar,vocabulario_estandar,standard_concept,relationship_id
+E11.10,1326492,Type 2 diabetes mellitus with ketoacidosis without coma,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.10,1326492,Type 2 diabetes mellitus with ketoacidosis without coma,443734,Ketoacidosis due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.21,45591027,Type 2 diabetes mellitus with diabetic nephropathy,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.21,45591027,Type 2 diabetes mellitus with diabetic nephropathy,443731,Renal disorder due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.22,45595797,Type 2 diabetes mellitus with diabetic chronic kidney disease,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.22,45595797,Type 2 diabetes mellitus with diabetic chronic kidney disease,43531578,Chronic kidney disease due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.319,45581353,Type 2 diabetes mellitus with unspecified diabetic retinopathy without macular edema,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.319,45581353,Type 2 diabetes mellitus with unspecified diabetic retinopathy without macular edema,443733,Disorder of eye due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.3299,37200205,"Type 2 diabetes mellitus with mild nonproliferative diabetic retinopathy without macular edema, unspecified eye",201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.3299,37200205,"Type 2 diabetes mellitus with mild nonproliferative diabetic retinopathy without macular edema, unspecified eye",45757435,Mild nonproliferative retinopathy due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.40,45605403,"Type 2 diabetes mellitus with diabetic neuropathy, unspecified",201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.40,45605403,"Type 2 diabetes mellitus with diabetic neuropathy, unspecified",376065,Disorder of nervous system due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.42,45557113,Type 2 diabetes mellitus with diabetic polyneuropathy,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.42,45557113,Type 2 diabetes mellitus with diabetic polyneuropathy,37017432,Polyneuropathy due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.51,45533021,Type 2 diabetes mellitus with diabetic peripheral angiopathy without gangrene,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.51,45533021,Type 2 diabetes mellitus with diabetic peripheral angiopathy without gangrene,443729,Peripheral circulatory disorder due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.621,45581355,Type 2 diabetes mellitus with foot ulcer,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.621,45581355,Type 2 diabetes mellitus with foot ulcer,43530690,Foot ulcer due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.649,45591031,Type 2 diabetes mellitus with hypoglycemia without coma,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.649,45591031,Type 2 diabetes mellitus with hypoglycemia without coma,45757363,Hypoglycemia due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.65,45605405,Type 2 diabetes mellitus with hyperglycemia,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.65,45605405,Type 2 diabetes mellitus with hyperglycemia,37016349,Hyperglycemia due to type 2 diabetes mellitus,Condition,SNOMED,S,Maps to
+E11.9,35206882,Type 2 diabetes mellitus without complications,201826,Type 2 diabetes mellitus,Condition,SNOMED,S,Maps to

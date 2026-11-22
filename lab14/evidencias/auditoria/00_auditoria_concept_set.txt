@@ -1,0 +1,163 @@
+
+===== CONTEOS DE VOCABULARIO =====
+               tabla    filas
+             concept  2026160
+    concept_ancestor 12073517
+concept_relationship 14129144
+
+===== VOCABULARIOS RELEVANTES =====
+vocabulary_id  conceptos  conceptos_estandar  conceptos_vigentes
+      ICD10CM     100273                   0               98403
+       SNOMED    1106309              356613              421757
+
+===== COBERTURA DE CONCEPT_ANCESTOR =====
+ relaciones  ancestros  descendientes  profundidad_maxima
+   12073517     939708         939626                  29
+
+===== CANDIDATOS DE CÁNCER GÁSTRICO =====
+ concept_id                                      concept_name domain_id vocabulary_id concept_class_id standard_concept invalid_reason  pacientes_exacto  eventos_exactos
+     196044             Primary malignant neoplasm of stomach Condition        SNOMED         Disorder                S           None                 2                2
+    4174763                              Early gastric cancer Condition        SNOMED         Disorder                S           None                 0                0
+     609279                      HER2-positive gastric cancer Condition        SNOMED         Disorder             None           None                 0                0
+    4174764                               Late gastric cancer Condition        SNOMED         Disorder                S           None                 0                0
+    4200887 Local recurrence of malignant neoplasm of stomach Condition        SNOMED         Disorder             None           None                 0                0
+     443387                     Malignant neoplasm of stomach Condition        SNOMED         Disorder                S           None                 0                0
+     197803         Overlapping malignant neoplasm of stomach Condition        SNOMED         Disorder                S           None                 0                0
+   37166651              Primary HER2-positive gastric cancer Condition        SNOMED         Disorder             None           None                 0                0
+
+===== CANDIDATOS DE DIABETES TIPO 2 =====
+ concept_id                                                                                                                            concept_name domain_id vocabulary_id concept_class_id standard_concept invalid_reason  pacientes_exacto  eventos_exactos
+     201826                                                                                                                Type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None               457              457
+   45763582                                                                                               Blindness due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 1                1
+    4321756                                                                                    Acanthosis nigricans due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   36717156                                                                                                Acidosis due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531588                                                                                                  Angina due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   45769888                                                                                             Ankle ulcer due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+    4196141                                                                                             Arthropathy due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   37016768                                                                                    Autonomic neuropathy due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   40483315                                                                                                        Brittle type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531578                                                                                  Chronic kidney disease due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531559                                                                          Chronic kidney disease stage 1 due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531566                                                                          Chronic kidney disease stage 2 due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531653                                                                          Chronic kidney disease stage 3 due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+    1075909                                                                         Chronic kidney disease stage 3A due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+    1075908                                                                         Chronic kidney disease stage 3B due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531577                                                                          Chronic kidney disease stage 4 due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531562                                                                          Chronic kidney disease stage 5 due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   37309630                                                                                 Coronary artery disease due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   45769894                                                                                     Cranial nerve palsy due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531616                                                                                              Dermopathy due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   37018912                                                                                  Diabetic hand syndrome due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+     443732                                                                                                Disorder due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531597                                                                                Disorder due to well controlled type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+     443733                                                                                         Disorder of eye due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+     376065                                                                              Disorder of nervous system due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   43531564                                                                                            Dyslipidemia due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   45757280 Dyslipidemia with high density lipoprotein below reference range and triglyceride above reference range due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+   45769906                                                                     End stage renal disease on dialysis due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+    4177050                                                                                    Erectile dysfunction due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+    4223463                                                                                   Exudative maculopathy due to type 2 diabetes mellitus Condition        SNOMED         Disorder                S           None                 0                0
+
+===== CONCEPTO SEMILLA PROPUESTO =====
+ concept_id             concept_name domain_id vocabulary_id concept_class_id standard_concept concept_code valid_start_date valid_end_date invalid_reason
+     201826 Type 2 diabetes mellitus Condition        SNOMED         Disorder                S     44054006       2002-01-31     2099-12-31           None
+
+===== PADRES INMEDIATOS DEL CONCEPTO SEMILLA =====
+ parent_concept_id parent_concept_name domain_id vocabulary_id concept_class_id standard_concept relationship_id
+            201820   Diabetes mellitus Condition        SNOMED         Disorder                S            Is a
+
+===== HIJOS INMEDIATOS DEL CONCEPTO SEMILLA =====
+ child_concept_id                           child_concept_name domain_id concept_class_id standard_concept
+         40483315             Brittle type 2 diabetes mellitus Condition         Disorder                S
+         45757474 Diabetes mellitus type 2 without retinopathy Condition         Disorder                S
+          4130162     Insulin treated type 2 diabetes mellitus Condition         Disorder                S
+         37163431          Ketosis-resistant diabetes mellitus Condition         Disorder                S
+          4063043        Pre-existing type 2 diabetes mellitus Condition         Disorder                S
+          4129519       Pregnancy and type 2 diabetes mellitus Condition         Disorder                S
+          4230254         Type 2 diabetes mellitus in nonobese Condition         Disorder                S
+          4304377            Type 2 diabetes mellitus in obese Condition         Disorder                S
+         45766052        Type 2 diabetes mellitus in remission Condition         Disorder                S
+          4099651          Type 2 diabetes mellitus with ulcer Condition         Disorder                S
+         40482801        Uncontrolled type 2 diabetes mellitus Condition         Disorder                S
+         40485020     Well controlled type 2 diabetes mellitus Condition         Disorder                S
+
+===== RESUMEN DE DESCENDIENTES =====
+ descendientes_sin_semilla  conceptos_version_amplia  profundidad_maxima
+                        14                        15                   2
+
+===== IMPACTO PRELIMINAR ESTRICTO Y AMPLIO =====
+     version  conceptos  pacientes  eventos
+A — estricta          1        457      457
+  B — amplia         15        457      457
+
+===== DESCENDIENTES CON PACIENTES =====
+ concept_id                                       concept_name concept_class_id  min_levels_of_separation  max_levels_of_separation  eventos  pacientes
+   40483315                   Brittle type 2 diabetes mellitus         Disorder                         1                         1        0          0
+   45757474       Diabetes mellitus type 2 without retinopathy         Disorder                         1                         1        0          0
+    4130162           Insulin treated type 2 diabetes mellitus         Disorder                         1                         1        0          0
+   37163431                Ketosis-resistant diabetes mellitus         Disorder                         1                         1        0          0
+    4063043              Pre-existing type 2 diabetes mellitus         Disorder                         1                         1        0          0
+   43531010 Pre-existing type 2 diabetes mellitus in pregnancy         Disorder                         2                         2        0          0
+    4129519             Pregnancy and type 2 diabetes mellitus         Disorder                         1                         1        0          0
+   45757508        Type 2 diabetes mellitus controlled by diet         Disorder                         2                         2        0          0
+    4230254               Type 2 diabetes mellitus in nonobese         Disorder                         1                         1        0          0
+    4304377                  Type 2 diabetes mellitus in obese         Disorder                         1                         1        0          0
+   45766052              Type 2 diabetes mellitus in remission         Disorder                         1                         1        0          0
+    4099651                Type 2 diabetes mellitus with ulcer         Disorder                         1                         1        0          0
+   40482801              Uncontrolled type 2 diabetes mellitus         Disorder                         1                         1        0          0
+   40485020           Well controlled type 2 diabetes mellitus         Disorder                         1                         1        0          0
+
+===== MUESTRA DETERMINISTA DE 20 DESCENDIENTES =====
+ concept_id                                       concept_name concept_class_id  min_levels_of_separation  max_levels_of_separation  eventos  pacientes  semilla
+   45766052              Type 2 diabetes mellitus in remission         Disorder                         1                         1        0          0 20261122
+   40482801              Uncontrolled type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+   45757508        Type 2 diabetes mellitus controlled by diet         Disorder                         2                         2        0          0 20261122
+    4304377                  Type 2 diabetes mellitus in obese         Disorder                         1                         1        0          0 20261122
+   40485020           Well controlled type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+   40483315                   Brittle type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+   45757474       Diabetes mellitus type 2 without retinopathy         Disorder                         1                         1        0          0 20261122
+    4230254               Type 2 diabetes mellitus in nonobese         Disorder                         1                         1        0          0 20261122
+    4063043              Pre-existing type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+    4099651                Type 2 diabetes mellitus with ulcer         Disorder                         1                         1        0          0 20261122
+   37163431                Ketosis-resistant diabetes mellitus         Disorder                         1                         1        0          0 20261122
+   43531010 Pre-existing type 2 diabetes mellitus in pregnancy         Disorder                         2                         2        0          0 20261122
+    4129519             Pregnancy and type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+    4130162           Insulin treated type 2 diabetes mellitus         Disorder                         1                         1        0          0 20261122
+
+===== POSIBLES EXCLUSIONES CLÍNICAS =====
+ concept_id                                       concept_name concept_class_id  min_levels_of_separation  eventos  pacientes
+   43531010 Pre-existing type 2 diabetes mellitus in pregnancy         Disorder                         2        0          0
+    4129519             Pregnancy and type 2 diabetes mellitus         Disorder                         1        0          0
+   45766052              Type 2 diabetes mellitus in remission         Disorder                         1        0          0
+
+===== TRADUCCIÓN DE CÓDIGOS ICD10CM =====
+codigo_icd10  concept_id_origen                                                                                                   nombre_origen  concept_id_estandar                                                   nombre_estandar dominio_estandar vocabulario_estandar standard_concept relationship_id
+      E11.10            1326492                                                         Type 2 diabetes mellitus with ketoacidosis without coma               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.10            1326492                                                         Type 2 diabetes mellitus with ketoacidosis without coma               443734                      Ketoacidosis due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.21           45591027                                                              Type 2 diabetes mellitus with diabetic nephropathy               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.21           45591027                                                              Type 2 diabetes mellitus with diabetic nephropathy               443731                    Renal disorder due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.22           45595797                                                   Type 2 diabetes mellitus with diabetic chronic kidney disease               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.22           45595797                                                   Type 2 diabetes mellitus with diabetic chronic kidney disease             43531578            Chronic kidney disease due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.319           45581353                            Type 2 diabetes mellitus with unspecified diabetic retinopathy without macular edema               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.319           45581353                            Type 2 diabetes mellitus with unspecified diabetic retinopathy without macular edema               443733                   Disorder of eye due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+    E11.3299           37200205 Type 2 diabetes mellitus with mild nonproliferative diabetic retinopathy without macular edema, unspecified eye               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+    E11.3299           37200205 Type 2 diabetes mellitus with mild nonproliferative diabetic retinopathy without macular edema, unspecified eye             45757435 Mild nonproliferative retinopathy due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.40           45605403                                                  Type 2 diabetes mellitus with diabetic neuropathy, unspecified               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.40           45605403                                                  Type 2 diabetes mellitus with diabetic neuropathy, unspecified               376065        Disorder of nervous system due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.42           45557113                                                           Type 2 diabetes mellitus with diabetic polyneuropathy               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.42           45557113                                                           Type 2 diabetes mellitus with diabetic polyneuropathy             37017432                    Polyneuropathy due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.51           45533021                                   Type 2 diabetes mellitus with diabetic peripheral angiopathy without gangrene               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.51           45533021                                   Type 2 diabetes mellitus with diabetic peripheral angiopathy without gangrene               443729   Peripheral circulatory disorder due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.621           45581355                                                                        Type 2 diabetes mellitus with foot ulcer               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.621           45581355                                                                        Type 2 diabetes mellitus with foot ulcer             43530690                        Foot ulcer due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.649           45591031                                                         Type 2 diabetes mellitus with hypoglycemia without coma               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+     E11.649           45591031                                                         Type 2 diabetes mellitus with hypoglycemia without coma             45757363                      Hypoglycemia due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.65           45605405                                                                     Type 2 diabetes mellitus with hyperglycemia               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+      E11.65           45605405                                                                     Type 2 diabetes mellitus with hyperglycemia             37016349                     Hyperglycemia due to type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+       E11.9           35206882                                                                  Type 2 diabetes mellitus without complications               201826                                          Type 2 diabetes mellitus        Condition               SNOMED                S         Maps to
+
+===== RESUMEN DE CARDINALIDAD ICD10CM =====
+ codigos_solicitados  sin_mapeo  mapeo_unico  mapeo_multiple  filas_despues_del_mapeo
+                  12          0            1              11                     23.0
+
+VALIDACIÓN: auditoría del concept set completada.

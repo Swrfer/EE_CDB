@@ -1,0 +1,3 @@
+version,corrida_1_ms,corrida_2_ms,corrida_3_ms,mediana_ms,pacientes
+IN + CONCEPT_ANCESTOR,2.676459,2.4825,2.276583,2.4825,457
+JOIN + concept set materializado,1.2595,1.510667,1.358583,1.358583,457

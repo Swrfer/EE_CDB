@@ -1,0 +1,4 @@
+loinc,analito,veredicto
+4548-4,HbA1c,"Sí, en esta base: todas las mediciones usan %. No mezclar con mmol/mol IFCC sin conversión."
+2160-0,Creatinina,"Sí, en esta base: todas usan mg/dL. No mezclar con µmol/L; el factor aproximado es 88.4."
+2345-7,Glucosa,"Sí, en esta base: todas usan mg/dL. Convertir mmol/L antes de combinar si apareciera."

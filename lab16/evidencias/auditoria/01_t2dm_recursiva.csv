@@ -1,0 +1,14 @@
+concept_id,concept_name,nivel,camino_ids,camino_nombres
+201826,Type 2 diabetes mellitus,0,201826,Type 2 diabetes mellitus
+201820,Diabetes mellitus,1,201826 -> 201820,Type 2 diabetes mellitus -> Diabetes mellitus
+31821,Disorder of endocrine system,2,201826 -> 201820 -> 31821,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system
+4130526,Disorder of glucose metabolism,2,201826 -> 201820 -> 4130526,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism
+4180628,Disorder of body system,3,201826 -> 201820 -> 31821 -> 4180628,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system
+437515,Disorder of carbohydrate metabolism,3,201826 -> 201820 -> 4130526 -> 437515,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism
+4274025,Disease,4,201826 -> 201820 -> 31821 -> 4180628 -> 4274025,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease
+436670,Metabolic disease,4,201826 -> 201820 -> 4130526 -> 437515 -> 436670,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease
+441840,Clinical finding,5,201826 -> 201820 -> 31821 -> 4180628 -> 4274025 -> 441840,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease -> Clinical finding
+4274025,Disease,5,201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease
+441840,Clinical finding,6,201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025 -> 441840,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease -> Clinical finding
+4008453,SNOMED CT Concept,6,201826 -> 201820 -> 31821 -> 4180628 -> 4274025 -> 441840 -> 4008453,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease -> Clinical finding -> SNOMED CT Concept
+4008453,SNOMED CT Concept,7,201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025 -> 441840 -> 4008453,Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease -> Clinical finding -> SNOMED CT Concept

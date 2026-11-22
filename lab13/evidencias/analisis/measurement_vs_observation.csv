@@ -1,0 +1,4 @@
+clinical_fact,omop_table,concept_id,concept_name,events,persons,themis_assessment
+Body weight,MEASUREMENT,3025315,Body weight,80158,5744,Concordant: quantitative standardized measurement
+Tobacco smoking status,OBSERVATION,43054909,Tobacco smoking status,76111,5744,Concordant: social and lifestyle fact
+Systolic blood pressure,MEASUREMENT,3004249,Systolic blood pressure,84762,5744,Concordant: quantitative standardized measurement

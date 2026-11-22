@@ -1,0 +1,4 @@
+loinc,component,property,time,system,scale,method,descripcion,fuente
+4548-4,Hemoglobin A1c/Hemoglobin.total,MFr,Pt,Bld,Qn,No especificado,"Fracción de masa de HbA1c respecto a hemoglobina total en sangre, cuantitativa y puntual.",https://loinc.org/4548-4
+2160-0,Creatinine,MCnc,Pt,Ser/Plas,Qn,No especificado,"Concentración de masa de creatinina en suero o plasma, cuantitativa y puntual.",https://loinc.org/2160-0
+2345-7,Glucose,MCnc,Pt,Ser/Plas,Qn,No especificado,"Concentración de masa de glucosa en suero o plasma, cuantitativa y puntual.",https://loinc.org/2345-7
