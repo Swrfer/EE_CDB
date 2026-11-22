@@ -1,0 +1,20 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/vocabularios_disponibles.csv (4 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/rxnav_tres_medicamentos.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/top20_productos_ingredientes.csv (20 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/top20_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/atc_a10b_ingredientes.csv (42 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/atc_a10b_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/lisinopril_impacto.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/hba1c_concept_set.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/hba1c_comparacion_4548.csv (2 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/loinc_seis_ejes.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/auditoria_unidades.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/mapeo_catalogo_local.csv (15 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/mapeo_catalogo_resumen.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/veredictos_unidades.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab15/notebooks/analisis_rxnorm_loinc.ipynb
+
+===== LABORATORIO 15 GENERADO =====
+Fármaco final: lisinopril, versión C sin HCTZ
+Analito: HbA1c por componente LOINC
+Commit y push: NO ejecutados

@@ -1,0 +1,12 @@
+vocabulary_id,concept_class_id,conceptos
+RxNorm,Clinical Drug,36214
+RxNorm,Clinical Drug Comp,28308
+RxNorm,Branded Drug,20967
+RxNorm,Branded Drug Comp,19487
+RxNorm,Clinical Drug Form,15164
+RxNorm,Ingredient,14642
+RxNorm,Branded Drug Form,14589
+RxNorm,Quant Clinical Drug,3766
+RxNorm,Quant Branded Drug,3024
+RxNorm,Branded Pack,1006
+RxNorm,Clinical Pack,919
