@@ -1,0 +1,157 @@
+
+===== CONTEOS PRINCIPALES =====
+           tabla    filas
+         concept  2026160
+concept_ancestor 12073517
+        drug_era        0
+   drug_exposure   280617
+     measurement  3111032
+     observation  1596434
+          person     5745
+
+===== COLUMNAS DE DRUG_EXPOSURE =====
+                 column_name     data_type is_nullable
+            drug_exposure_id       INTEGER          NO
+                   person_id       INTEGER          NO
+             drug_concept_id       INTEGER          NO
+    drug_exposure_start_date          DATE          NO
+drug_exposure_start_datetime     TIMESTAMP         YES
+      drug_exposure_end_date          DATE          NO
+  drug_exposure_end_datetime     TIMESTAMP         YES
+           verbatim_end_date          DATE         YES
+        drug_type_concept_id       INTEGER          NO
+                 stop_reason       VARCHAR         YES
+                     refills       INTEGER         YES
+                    quantity DECIMAL(18,3)         YES
+                 days_supply       INTEGER         YES
+                         sig       VARCHAR         YES
+            route_concept_id       INTEGER         YES
+                  lot_number       VARCHAR         YES
+                 provider_id       INTEGER         YES
+         visit_occurrence_id       INTEGER         YES
+             visit_detail_id       INTEGER         YES
+           drug_source_value       VARCHAR         YES
+      drug_source_concept_id       INTEGER         YES
+          route_source_value       VARCHAR         YES
+      dose_unit_source_value       VARCHAR         YES
+
+===== TIPO DE EXPOSICIÓN =====
+ drug_type_concept_id drug_type_concept_name  exposiciones  personas  porcentaje
+                32838       EHR prescription        280617      5461       100.0
+
+===== COMPLETITUD DE DRUG_EXPOSURE =====
+ exposiciones  personas fecha_minima fecha_maxima  porcentaje_end_date_nulo  porcentaje_misma_fecha  porcentaje_days_supply_nulo  porcentaje_concept_id_cero
+       280617      5461   1921-01-07   2026-11-02                       0.0                 36.4311                          0.0                         0.0
+
+===== DISTRIBUCIÓN DE DAYS_SUPPLY =====
+ valores_no_nulos  minimo  q1  mediana   q3  maximo
+           280617      -6 0.0      7.0 63.0   23499
+
+===== TOP 20 CONCEPTOS DE FÁRMACO =====
+ drug_concept_id                                                                                                 drug_concept_name    concept_class_id vocabulary_id  exposiciones  personas
+         1127433                                                                                  acetaminophen 325 MG Oral Tablet       Clinical Drug        RxNorm          3059      2394
+         1115171                                                                                naproxen sodium 220 MG Oral Tablet       Clinical Drug        RxNorm          1260      1191
+         1713671                                                               amoxicillin 250 MG / clavulanate 125 MG Oral Tablet       Clinical Drug        RxNorm          1320      1159
+        19126352                                                                         nitroglycerin 0.4 MG/ACTUAT Mucosal Spray       Clinical Drug        RxNorm           941       941
+        19080128                                                                                      lisinopril 10 MG Oral Tablet       Clinical Drug        RxNorm         25324       927
+        40166824                                                    24 HR metoprolol succinate 100 MG Extended Release Oral Tablet Quant Clinical Drug        RxNorm           910       910
+         1539411                                                                                     simvastatin 20 MG Oral Tablet       Clinical Drug        RxNorm           822       822
+        19078461                                                                                      ibuprofen 200 MG Oral Tablet       Clinical Drug        RxNorm           875       802
+        19075601                                                                                     clopidogrel 75 MG Oral Tablet       Clinical Drug        RxNorm           776       776
+        19078106                                                                             hydrochlorothiazide 25 MG Oral Tablet       Clinical Drug        RxNorm         19605       721
+        19073094                                                                                     amlodipine 2.5 MG Oral Tablet       Clinical Drug        RxNorm         18237       714
+        40229134 acetaminophen 21.7 MG/ML / dextromethorphan hydrobromide 1 MG/ML / doxylamine succinate 0.417 MG/ML Oral Solution       Clinical Drug        RxNorm           700       667
+         1539463                                                                                     simvastatin 10 MG Oral Tablet       Clinical Drug        RxNorm          5514       607
+         1594382                                                                NDA020800 0.3 ML epinephrine 1 MG/ML Auto-Injector       Clinical Drug        RxNorm           558       558
+        19079924                                                                              acetaminophen 160 MG Chewable Tablet       Clinical Drug        RxNorm           636       478
+        40224805                                                              1 ML medroxyprogesterone acetate 150 MG/ML Injection Quant Clinical Drug        RxNorm           608       471
+        40162606                                                    acetaminophen 300 MG / hydrocodone bitartrate 5 MG Oral Tablet       Clinical Drug        RxNorm          3933       463
+        19019979                                                                                      ibuprofen 100 MG Oral Tablet       Clinical Drug        RxNorm           593       456
+         1519937                                                                                   etonogestrel 68 MG Drug Implant       Clinical Drug        RxNorm           523       417
+        19009384             insulin isophane, human 70 UNT/ML / insulin, regular, human 30 UNT/ML Injectable Suspension [Humulin]        Branded Drug        RxNorm         24944       415
+
+===== TOP 20 INGREDIENTES MEDIANTE CONCEPT_ANCESTOR =====
+ ingredient_concept_id     ingredient_name  exposiciones_descendientes  personas
+               1125315       acetaminophen                       20054      3569
+               1713332         amoxicillin                        2006      1624
+               1177480           ibuprofen                        5114      1447
+               1115008            naproxen                        1307      1222
+               1539403         simvastatin                        6355      1203
+               1759842         clavulanate                        1363      1195
+               1549786   ethinyl estradiol                        2285      1045
+               1308216          lisinopril                       26195      1024
+               1361711       nitroglycerin                        1038       992
+               1307046          metoprolol                        1035       954
+               1589505      levonorgestrel                        1511       906
+              19127890   inert ingredients                        1837       882
+               1322184         clopidogrel                         824       806
+                974166 hydrochlorothiazide                       19656       757
+               1332418          amlodipine                       18253       723
+               1521369       norethindrone                        1485       701
+               1729720        penicillin V                         756       675
+               1174888         hydrocodone                        6205       668
+                738818          doxylamine                         700       667
+               1119510    dextromethorphan                         700       667
+
+===== COLUMNAS DE MEASUREMENT =====
+                  column_name     data_type is_nullable
+               measurement_id       INTEGER          NO
+                    person_id       INTEGER          NO
+       measurement_concept_id       INTEGER          NO
+             measurement_date          DATE          NO
+         measurement_datetime     TIMESTAMP         YES
+             measurement_time       VARCHAR         YES
+  measurement_type_concept_id       INTEGER          NO
+          operator_concept_id       INTEGER         YES
+              value_as_number DECIMAL(18,3)         YES
+          value_as_concept_id       INTEGER         YES
+              unit_concept_id       INTEGER         YES
+                    range_low DECIMAL(18,3)         YES
+                   range_high DECIMAL(18,3)         YES
+                  provider_id       INTEGER         YES
+          visit_occurrence_id       INTEGER         YES
+              visit_detail_id       INTEGER         YES
+     measurement_source_value       VARCHAR         YES
+measurement_source_concept_id       INTEGER         YES
+            unit_source_value       VARCHAR         YES
+       unit_source_concept_id       INTEGER         YES
+           value_source_value       VARCHAR         YES
+         measurement_event_id       INTEGER         YES
+  meas_event_field_concept_id       INTEGER         YES
+
+===== COMPLETITUD DE MEASUREMENT =====
+ mediciones  personas fecha_minima fecha_maxima  porcentaje_value_number_nulo  porcentaje_operador_no_cero  porcentaje_concept_id_cero
+    3111032      5744   1920-11-11   2026-11-02                       22.1704                          0.0                         0.0
+
+===== TOP 20 ANALITOS =====
+ measurement_concept_id                                                                                             measurement_concept_name  mediciones  personas  unidades
+               43055141                                                        Pain severity - 0-10 verbal numeric rating [Score] - Reported      146582      5744         1
+                4064377                                                                                                 Depression screening       96818      4991         1
+                3004249                                                                                              Systolic blood pressure       84762      5744         1
+                3012888                                                                                             Diastolic blood pressure       84762      5744         1
+                3025315                                                                                                          Body weight       80158      5744         1
+                3027018                                                                                                           Heart rate       77948      5744         1
+                3024171                                                                                                     Respiratory rate       77948      5744         1
+                3036277                                                                                                          Body height       76432      5744         1
+                3038553                                                                                        Body mass index (BMI) [Ratio]       71043      5593         1
+               46236952 Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M       63562      1680         2
+               44786664                                                   Weight difference [Mass difference] --pre dialysis - post dialysis       62033       204         1
+                3004295                                                                                 Urea nitrogen [Mass/volume] in Blood       53214      2650         1
+                3051825                                                                                    Creatinine [Mass/volume] in Blood       53214      2650         1
+                3005456                                                                                    Potassium [Moles/volume] in Blood       53214      2650         1
+                3014094                                                                        Carbon dioxide, total [Moles/volume] in Blood       53214      2650         1
+                3018572                                                                                     Chloride [Moles/volume] in Blood       53214      2650         1
+                3032503                                                                                       Calcium [Mass/volume] in Blood       53214      2650         1
+                3000285                                                                                       Sodium [Moles/volume] in Blood       53214      2650         1
+                3000483                                                                                       Glucose [Mass/volume] in Blood       53214      2650         1
+                3004410                                                                             Hemoglobin A1c/Hemoglobin.total in Blood       46481      2462         1
+
+===== UNIDADES DE LOS 10 ANALITOS MÁS FRECUENTES =====
+Traceback (most recent call last):
+  File "<stdin>", line 282, in <module>
+  File "<stdin>", line 25, in mostrar
+_duckdb.BinderException: Binder Error: column "mediciones" must appear in the GROUP BY clause or must be part of an aggregate function.
+Either add it to the GROUP BY list, or use ANY_VALUE("mediciones") if the exact value of "mediciones" is not important.
+
+LINE 37:         t.mediciones DESC,
+                      ^^^^^^^^^^^^
