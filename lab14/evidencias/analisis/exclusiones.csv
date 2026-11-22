@@ -1,0 +1,4 @@
+concept_id,concept_name,concept_class_id,min_levels_of_separation,max_levels_of_separation,eventos,pacientes,incluido,justificacion_clinica,metodo_revision,semilla_muestreo_prevista
+43531010,Pre-existing type 2 diabetes mellitus in pregnancy,Disorder,2,2,0,0,No,La diabetes preexistente en embarazo pertenece al contexto obstétrico excluido.,Revisión exhaustiva: solo había 14 descendientes (<20),20261122
+4129519,Pregnancy and type 2 diabetes mellitus,Disorder,1,1,0,0,No,La diabetes asociada al embarazo es un contexto obstétrico distinto de la cohorte general adulta.,Revisión exhaustiva: solo había 14 descendientes (<20),20261122
+45766052,Type 2 diabetes mellitus in remission,Disorder,1,1,0,0,No,La remisión no representa enfermedad activa para la pregunta de investigación.,Revisión exhaustiva: solo había 14 descendientes (<20),20261122

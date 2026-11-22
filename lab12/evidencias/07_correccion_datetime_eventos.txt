@@ -1,0 +1,167 @@
+Aviso:
+package ‘DatabaseConnector’ was built under R version 4.4.3 
+===== 1. VALIDAR VOCABULARIO Y MAPAS =====
+Connecting using DuckDB driver
+  concepts standard_maps source_maps final_visit_ids
+1  2026160       1251044     2026160          333849
+
+===== 2. VACIAR TABLAS CLÍNICAS PARCIALES =====
+Vaciando: care_site 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00594 secs
+Vaciando: cdm_source 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00157 secs
+Vaciando: cohort 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00114 secs
+Vaciando: cohort_definition 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00284 secs
+Vaciando: condition_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00126 secs
+Vaciando: condition_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: cost 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00102 secs
+Vaciando: death 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000973 secs
+Vaciando: device_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: dose_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00116 secs
+Vaciando: drug_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00102 secs
+Vaciando: drug_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00102 secs
+Vaciando: episode 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00195 secs
+Vaciando: episode_event 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00101 secs
+Vaciando: fact_relationship 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00104 secs
+Vaciando: location 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00177 secs
+Vaciando: measurement 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+Vaciando: metadata 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000992 secs
+Vaciando: note 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00254 secs
+Vaciando: note_nlp 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: observation 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+Vaciando: observation_period 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00405 secs
+Vaciando: payer_plan_period 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00117 secs
+Vaciando: person 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00362 secs
+Vaciando: procedure_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00102 secs
+Vaciando: provider 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00197 secs
+Vaciando: specimen 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0011 secs
+Vaciando: visit_detail 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.525 secs
+Vaciando: visit_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.535 secs
+
+===== 3. AUDITAR COLUMNAS DATETIME =====
+             table_name                    column_name data_type
+1  condition_occurrence       condition_start_datetime TIMESTAMP
+2  condition_occurrence         condition_end_datetime TIMESTAMP
+3                 death                 death_datetime TIMESTAMP
+4       device_exposure device_exposure_start_datetime TIMESTAMP
+5       device_exposure   device_exposure_end_datetime TIMESTAMP
+6         drug_exposure   drug_exposure_start_datetime TIMESTAMP
+7         drug_exposure     drug_exposure_end_datetime TIMESTAMP
+8               episode         episode_start_datetime TIMESTAMP
+9               episode           episode_end_datetime TIMESTAMP
+10          measurement           measurement_datetime TIMESTAMP
+11             metadata              metadata_datetime TIMESTAMP
+12                 note                  note_datetime TIMESTAMP
+13             note_nlp                   nlp_datetime TIMESTAMP
+14          observation           observation_datetime TIMESTAMP
+15               person                 birth_datetime TIMESTAMP
+16 procedure_occurrence             procedure_datetime TIMESTAMP
+17 procedure_occurrence         procedure_end_datetime TIMESTAMP
+18             specimen              specimen_datetime TIMESTAMP
+19         visit_detail    visit_detail_start_datetime TIMESTAMP
+20         visit_detail      visit_detail_end_datetime TIMESTAMP
+21     visit_occurrence           visit_start_datetime TIMESTAMP
+22     visit_occurrence             visit_end_datetime TIMESTAMP
+Todos los campos datetime ya son TIMESTAMP.
+
+===== 5. RECARGAR EVENTOS CLÍNICOS =====
+Connecting using DuckDB driver
+Running: insert_location.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00998 secs
+Running: insert_care_site.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00272 secs
+Running: insert_person.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00848 secs
+Running: insert_observation_period.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0101 secs
+Running: insert_provider.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0075 secs
+Running: insert_visit_occurrence.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.261 secs
+Running: insert_visit_detail.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.241 secs
+Running: insert_condition_occurrence.sql
+  |                                                                              |                                                                      |   0%Error in `.createErrorReport()`:
+! Error executing SQL:
+Invalid Error: Conversion Error: Type INT32 with value 5877642-06-23 (BC) can't be cast to the destination type INT64 when casting from source column condition_end_datetime
+
+LINE 26: c.stop                                     condition_end_da...
+         ^
+ℹ Context: rapi_execute
+ℹ Error type: INVALID
+An error report has been created at  /Users/alejandrogarciacolorado/EE_CDB/errorReportSql.txt
+Backtrace:
+    ▆
+ 1. └─ETLSyntheaBuilder::LoadEventTables(...)
+ 2.   └─ETLSyntheaBuilder (local) runStep(sql, fileQuery)
+ 3.     └─DatabaseConnector::executeSql(conn, sql)
+ 4.       └─base::tryCatch(...)
+ 5.         └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 6.           └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 7.             └─value[[3L]](cond)
+ 8.               └─DatabaseConnector:::.createErrorReport(dbms, err$message, sqlStatement, errorReportFile)
+ 9.                 └─rlang::abort(...)
+Ejecución interrumpida

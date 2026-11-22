@@ -1,0 +1,21 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/concept_set.sql
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/seleccion_condicion.csv (2 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/concepto_semilla.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/padre_inmediato.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/resumen_jerarquia.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_mapeo.csv (23 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_cardinalidad.csv (12 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/icd10_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/revision_descendientes.csv (14 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/exclusiones.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/concept_set_membresia.csv (28 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/evidencias/analisis/impacto_pacientes.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/figuras/impacto_pacientes.png
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/justificacion_concept_set.md
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/README.md
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab14/notebooks/analisis_concept_set.ipynb
+
+===== LABORATORIO 14 GENERADO =====
+Condición: diabetes mellitus tipo 2
+Definición final: C — razonada
+Commit y push: NO ejecutados

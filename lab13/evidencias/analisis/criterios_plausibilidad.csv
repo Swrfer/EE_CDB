@@ -1,0 +1,4 @@
+concept_id,analito,poblacion,limite_inferior,limite_superior,unidad,fuente
+3004249,Systolic blood pressure,Adultos (>=18 años),40.0,250.0,mmHg,https://doi.org/10.1155/2016/4364761
+3000483,Glucose [Mass/volume] in Blood,Adultos (>=18 años),10.0,500.0,mg/dL,https://doi.org/10.1155/2016/4364761
+3025315,Body weight,Adultos (>=18 años),27.215542,317.514659,kg,https://doi.org/10.1155/2016/4364761

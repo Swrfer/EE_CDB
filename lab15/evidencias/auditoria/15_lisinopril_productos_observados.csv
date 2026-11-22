@@ -1,0 +1,9 @@
+drug_concept_id,concept_name,concept_class_id,concept_code,exposiciones,pacientes,numero_ingredientes,ingredientes,tipo_producto,decision_preliminar_C
+19080128,lisinopril 10 MG Oral Tablet,Clinical Drug,314076,25324,927,1,lisinopril,monoterapia,conservar_C
+19080129,lisinopril 20 MG Oral Tablet,Clinical Drug,314077,814,84,1,lisinopril,monoterapia,conservar_C
+1308251,lisinopril 5 MG Oral Tablet,Clinical Drug,311354,18,18,1,lisinopril,monoterapia,conservar_C
+1308250,lisinopril 2.5 MG Oral Tablet,Clinical Drug,311353,11,11,1,lisinopril,monoterapia,conservar_C
+1308221,lisinopril 40 MG Oral Tablet,Clinical Drug,197884,11,11,1,lisinopril,monoterapia,conservar_C
+974199,hydrochlorothiazide 12.5 MG / lisinopril 10 MG Oral Tablet,Clinical Drug,197885,6,6,2,hydrochlorothiazide | lisinopril,combinacion,excluir_C_diuretico
+974201,hydrochlorothiazide 25 MG / lisinopril 20 MG Oral Tablet,Clinical Drug,197887,6,6,2,hydrochlorothiazide | lisinopril,combinacion,excluir_C_diuretico
+974200,hydrochlorothiazide 12.5 MG / lisinopril 20 MG Oral Tablet,Clinical Drug,197886,5,5,2,hydrochlorothiazide | lisinopril,combinacion,excluir_C_diuretico

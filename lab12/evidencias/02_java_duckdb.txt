@@ -1,0 +1,15 @@
+JAVA_HOME: /opt/anaconda3/envs/cdb/lib/jvm 
+Aviso:
+package ‘rJava’ was built under R version 4.4.1 
+Java visto por R: 17.0.18 
+Aviso:
+package ‘DatabaseConnector’ was built under R version 4.4.3 
+Connecting using DuckDB driver
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.34 secs
+Aviso:
+In connectDuckdb(connectionDetails) :
+  The ICU extension of DuckDB is not installed. Attempting to install it.
+  conexion_correcta
+1                 1
+VALIDACIÓN: R, Java y DuckDB funcionan correctamente.

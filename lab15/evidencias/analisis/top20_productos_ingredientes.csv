@@ -1,0 +1,21 @@
+drug_concept_id,concept_name,concept_class_id,exposiciones,pacientes,numero_ingredientes,ingredientes,separacion_minima
+19030765,1 ML epoetin alfa 4000 UNT/ML Injection [Epogen],Quant Branded Drug,49026,166,1,1301125 — epoetin alfa,2
+19080128,lisinopril 10 MG Oral Tablet,Clinical Drug,25324,927,1,1308216 — lisinopril,2
+19009384,"insulin isophane, human 70 UNT/ML / insulin, regular, human 30 UNT/ML Injectable Suspension [Humulin]",Branded Drug,24944,415,2,"1596977 — insulin, regular, human | 46221581 — insulin isophane",2
+19078106,hydrochlorothiazide 25 MG Oral Tablet,Clinical Drug,19605,721,1,974166 — hydrochlorothiazide,2
+19073094,amlodipine 2.5 MG Oral Tablet,Clinical Drug,18237,714,1,1332418 — amlodipine,2
+35604087,cisplatin 50 MG Injection,Clinical Drug,10407,55,1,1397599 — cisplatin,2
+40163924,24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet,Quant Clinical Drug,10098,246,1,1503297 — metformin,2
+1378388,paclitaxel 100 MG Injection,Clinical Drug,8406,52,1,1378382 — paclitaxel,2
+40173590,alendronic acid 10 MG Oral Tablet,Clinical Drug,5735,206,1,1557272 — alendronate,2
+1539463,simvastatin 10 MG Oral Tablet,Clinical Drug,5514,607,1,1539403 — simvastatin,2
+19041324,acetaminophen 325 MG Oral Tablet [Tylenol],Branded Drug,4553,248,1,1125315 — acetaminophen,2
+40231918,acetaminophen 325 MG / oxycodone hydrochloride 10 MG Oral Tablet [Percocet],Branded Drug,4227,208,2,1124957 — oxycodone | 1125315 — acetaminophen,2
+40162606,acetaminophen 300 MG / hydrocodone bitartrate 5 MG Oral Tablet,Clinical Drug,3933,463,2,1125315 — acetaminophen | 1174888 — hydrocodone,2
+906115,tropicamide 5 MG/ML Ophthalmic Solution,Clinical Drug,3736,351,1,906072 — tropicamide,2
+19033893,ibuprofen 400 MG Oral Tablet [Ibu],Branded Drug,3646,239,1,1177480 — ibuprofen,2
+35603224,10 ML furosemide 10 MG/ML Injection,Quant Clinical Drug,3384,149,1,956874 — furosemide,2
+46287738,24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus],Quant Branded Drug,3341,164,1,950637 — tacrolimus,2
+1154062,72 HR fentanyl 0.025 MG/HR Transdermal System,Quant Clinical Drug,3123,154,1,1154029 — fentanyl,2
+1127433,acetaminophen 325 MG Oral Tablet,Clinical Drug,3059,2394,1,1125315 — acetaminophen,2
+19123989,albuterol 0.83 MG/ML Inhalation Solution,Clinical Drug,2940,143,1,1154343 — albuterol,2

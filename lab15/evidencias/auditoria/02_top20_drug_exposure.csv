@@ -1,0 +1,21 @@
+drug_concept_id,concept_name,vocabulary_id,concept_class_id,concept_code,exposiciones,pacientes
+19030765,1 ML epoetin alfa 4000 UNT/ML Injection [Epogen],RxNorm,Quant Branded Drug,205923,49026,166
+19080128,lisinopril 10 MG Oral Tablet,RxNorm,Clinical Drug,314076,25324,927
+19009384,"insulin isophane, human 70 UNT/ML / insulin, regular, human 30 UNT/ML Injectable Suspension [Humulin]",RxNorm,Branded Drug,106892,24944,415
+19078106,hydrochlorothiazide 25 MG Oral Tablet,RxNorm,Clinical Drug,310798,19605,721
+19073094,amlodipine 2.5 MG Oral Tablet,RxNorm,Clinical Drug,308136,18237,714
+35604087,cisplatin 50 MG Injection,RxNorm,Clinical Drug,1736854,10407,55
+40163924,24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet,RxNorm,Quant Clinical Drug,860975,10098,246
+1378388,paclitaxel 100 MG Injection,RxNorm,Clinical Drug,583214,8406,52
+40173590,alendronic acid 10 MG Oral Tablet,RxNorm,Clinical Drug,904419,5735,206
+1539463,simvastatin 10 MG Oral Tablet,RxNorm,Clinical Drug,314231,5514,607
+19041324,acetaminophen 325 MG Oral Tablet [Tylenol],RxNorm,Branded Drug,209387,4553,248
+40231918,acetaminophen 325 MG / oxycodone hydrochloride 10 MG Oral Tablet [Percocet],RxNorm,Branded Drug,1049625,4227,208
+40162606,acetaminophen 300 MG / hydrocodone bitartrate 5 MG Oral Tablet,RxNorm,Clinical Drug,856987,3933,463
+906115,tropicamide 5 MG/ML Ophthalmic Solution,RxNorm,Clinical Drug,313521,3736,351
+19033893,ibuprofen 400 MG Oral Tablet [Ibu],RxNorm,Branded Drug,206905,3646,239
+35603224,10 ML furosemide 10 MG/ML Injection,RxNorm,Quant Clinical Drug,1719286,3384,149
+46287738,24 HR tacrolimus 1 MG Extended Release Oral Tablet [Envarsus],RxNorm,Quant Branded Drug,1664463,3341,164
+1154062,72 HR fentanyl 0.025 MG/HR Transdermal System,RxNorm,Quant Clinical Drug,245134,3123,154
+1127433,acetaminophen 325 MG Oral Tablet,RxNorm,Clinical Drug,313782,3059,2394
+19123989,albuterol 0.83 MG/ML Inhalation Solution,RxNorm,Clinical Drug,630208,2940,143

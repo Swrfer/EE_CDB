@@ -1,0 +1,51 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/farmacoepi.sql
+Base: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/omop/synthea_omop_cdm54.duckdb
+Ejecutando: 01_tipo_exposicion
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/tipo_exposicion.csv (1 filas)
+Ejecutando: 02_top20_ingredientes
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/top20_ingredientes.csv (20 filas)
+Ejecutando: 02_days_supply
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/days_supply_resumen.csv (1 filas)
+Ejecutando: 02_calidad_fechas
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/drug_exposure_calidad.csv (1 filas)
+Ejecutando: 03_ingrediente_directo_jerarquia
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/ingrediente_directo_jerarquia.csv (1 filas)
+Ejecutando: 04_crear_drug_era
+Ejecutando: 04_resumen_drug_era
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/drug_era_resumen.csv (1 filas)
+Ejecutando: 05_crear_pdc
+Ejecutando: 05_resumen_pdc
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/pdc_resumen.csv (1 filas)
+Ejecutando: 06_top15_analitos
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/top15_analitos.csv (15 filas)
+Ejecutando: 06_unidades_egfr
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/unidades_egfr.csv (2 filas)
+Ejecutando: 06_calidad_measurement
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/measurement_calidad.csv (1 filas)
+Ejecutando: 07_normalizar_peso
+Ejecutando: 07_resumen_normalizacion
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/normalizacion_peso_resumen.csv (2 filas)
+Ejecutando: 08_valores_implausibles
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/valores_implausibles_resumen.csv (3 filas)
+Ejecutando: 08_detalle_implausibles
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/valores_implausibles_detalle.csv (3 filas)
+Ejecutando: 09_measurement_observation
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/measurement_vs_observation.csv (3 filas)
+Ejecutando: 10_glucosa_indice
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/glucosa_indice_personas.csv (5655 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/drug_era_lisinopril.csv (6028 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/pdc_lisinopril.csv (975 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/normalizacion_peso_muestra.csv (200 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/glucosa_indice_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/criterios_plausibilidad.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/figuras (4 figuras)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/reporte_calidad.md
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/README.md
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab13/notebooks/analisis_farmacoepi.ipynb
+
+===== ENTREGABLES GENERADOS =====
+/Users/alejandrogarciacolorado/EE_CDB/lab13/README.md
+/Users/alejandrogarciacolorado/EE_CDB/lab13/farmacoepi.sql
+/Users/alejandrogarciacolorado/EE_CDB/lab13/reporte_calidad.md
+/Users/alejandrogarciacolorado/EE_CDB/lab13/notebooks/analisis_farmacoepi.ipynb
+VALIDACIÓN: generación del Laboratorio 13 completada.
