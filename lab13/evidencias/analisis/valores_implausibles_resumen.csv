@@ -1,0 +1,4 @@
+concept_id,concept_name,unit,lower_limit,upper_limit,adult_measurements,outside_range,outside_percentage,repeated_implausible_rows,repeated_implausible_values
+3000483,Glucose [Mass/volume] in Blood,mg/dL,10.0,500.0,52800,0,0.0,0,0
+3004249,Systolic blood pressure,mmHg,40.0,250.0,66917,3,0.0045,0,0
+3025315,Body weight,kg,27.2155422,317.514659,62362,0,0.0,0,0
