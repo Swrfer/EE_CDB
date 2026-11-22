@@ -1,0 +1,20 @@
+===== MEDICAMENTOS FRECUENTES =====
+   code                                                                                           description  records  patients
+ 205923                                                      1 ML Epoetin Alfa 4000 UNT/ML Injection [Epogen]    49026       166
+ 314076                                                                          lisinopril 10 MG Oral Tablet    25324       927
+ 106892 insulin isophane  human 70 UNT/ML / insulin  regular  human 30 UNT/ML Injectable Suspension [Humulin]    24944       415
+ 310798                                                                 Hydrochlorothiazide 25 MG Oral Tablet    19605       721
+ 308136                                                                         amLODIPine 2.5 MG Oral Tablet    18237       714
+1736854                                                                             Cisplatin 50 MG Injection    10407        55
+ 860975                                     24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet    10098       246
+ 583214                                                                           PACLitaxel 100 MG Injection     8357        45
+ 904419                                                                     Alendronic acid 10 MG Oral Tablet     5735       206
+ 314231                                                                         Simvastatin 10 MG Oral Tablet     5509       603
+
+===== HbA1c: 4548-4 =====
+ total_measurements  patients  maximum_per_patient  patients_with_five
+            46481.0      2462                  450                1984
+
+===== INGRESOS HOSPITALARIOS =====
+ inpatient_encounters  patients  encounters_with_discharge
+                 6795      2714                       6795
