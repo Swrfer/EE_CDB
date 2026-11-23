@@ -1,0 +1,132 @@
+
+===== LISINOPRIL COMO INGREDIENTE =====
+ concept_id concept_name vocabulary_id concept_class_id standard_concept concept_code invalid_reason
+    1308216   lisinopril        RxNorm       Ingredient                S        29046           None
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/14_lisinopril_ingrediente.csv (1 filas)
+
+===== TODOS LOS PRODUCTOS OBSERVADOS DE LISINOPRIL =====
+ drug_concept_id                                               concept_name concept_class_id concept_code  exposiciones  pacientes  numero_ingredientes                     ingredientes tipo_producto decision_preliminar_C
+        19080128                               lisinopril 10 MG Oral Tablet    Clinical Drug       314076         25324        927                    1                       lisinopril   monoterapia           conservar_C
+        19080129                               lisinopril 20 MG Oral Tablet    Clinical Drug       314077           814         84                    1                       lisinopril   monoterapia           conservar_C
+         1308251                                lisinopril 5 MG Oral Tablet    Clinical Drug       311354            18         18                    1                       lisinopril   monoterapia           conservar_C
+         1308250                              lisinopril 2.5 MG Oral Tablet    Clinical Drug       311353            11         11                    1                       lisinopril   monoterapia           conservar_C
+         1308221                               lisinopril 40 MG Oral Tablet    Clinical Drug       197884            11         11                    1                       lisinopril   monoterapia           conservar_C
+          974199 hydrochlorothiazide 12.5 MG / lisinopril 10 MG Oral Tablet    Clinical Drug       197885             6          6                    2 hydrochlorothiazide | lisinopril   combinacion   excluir_C_diuretico
+          974201   hydrochlorothiazide 25 MG / lisinopril 20 MG Oral Tablet    Clinical Drug       197887             6          6                    2 hydrochlorothiazide | lisinopril   combinacion   excluir_C_diuretico
+          974200 hydrochlorothiazide 12.5 MG / lisinopril 20 MG Oral Tablet    Clinical Drug       197886             5          5                    2 hydrochlorothiazide | lisinopril   combinacion   excluir_C_diuretico
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/15_lisinopril_productos_observados.csv (8 filas)
+Productos: 8
+Monoterapia: 5
+Combinaciones: 3
+Combinaciones con HCTZ: 3
+
+===== IMPACTO PRELIMINAR A/B/C PARA LISINOPRIL =====
+          version  conceptos_vocabulario  productos_observados  pacientes  exposiciones
+    A_monoterapia                     64                     5       1014         26178
+B_todo_lisinopril                     98                     8       1024         26195
+       C_sin_hctz                     64                     5       1014         26178
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/16_lisinopril_impacto_preliminar.csv (3 filas)
+
+===== TODOS LOS LOINC HbA1c ESTÁNDAR Y VIGENTES =====
+ concept_id concept_code                                                                  concept_name     concept_class_id standard_concept  mediciones  pacientes  unidades_distintas
+    3004410       4548-4                                      Hemoglobin A1c/Hemoglobin.total in Blood             Lab Test                S       46481       2462                   1
+    3005131      27353-2  Glucose mean value [Mass/volume] in Blood Estimated from glycated hemoglobin             Lab Test                S           0          0                   0
+    3039720      53553-4 Glucose mean value [Moles/volume] in Blood Estimated from glycated hemoglobin             Lab Test                S           0          0                   0
+    3034070      41962-2                                    HbA1c measurement device Vendor model code Clinical Observation                S           0          0                   0
+    3032856      41961-4                                          HbA1c measurement device Vendor name Clinical Observation                S           0          0                   0
+    3034957      41963-0                                 HbA1c measurement device Vendor serial number Clinical Observation                S           0          0                   0
+    3031861      41964-8                              HbA1c measurement device Vendor software version Clinical Observation                S           0          0                   0
+    3034639      41995-2                                         Hemoglobin A1c [Mass/volume] in Blood             Lab Test                S           0          0                   0
+    3033145      43150-2                                       Hemoglobin A1c measurement device panel Clinical Observation                S           0          0                   0
+   42869630      71875-9                 Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood             Lab Test                S           0          0                   0
+   36304734      86910-7                                    Hemoglobin A1c/Hemoglobin.total goal Blood Clinical Observation                S           0          0                   0
+    3003309       4549-2                   Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis             Lab Test                S           0          0                   0
+    3005673      17856-6                              Hemoglobin A1c/Hemoglobin.total in Blood by HPLC             Lab Test                S           0          0                   0
+   40765129      62388-4                 Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol             Lab Test                S           0          0                   0
+    3007263      17855-8                       Hemoglobin A1c/Hemoglobin.total in Blood by calculation             Lab Test                S           0          0                   0
+   36032094      96595-4                                        Hemoglobin A1c/Hemoglobin.total in DBS             Lab Test                S           0          0                   0
+   40762352      59261-8    Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood             Lab Test                S           0          0                   0
+    3031232      41960-6                                              Type of HbA1c measurement device Clinical Observation                S           0          0                   0
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/17_hba1c_vocabulario_candidatos.csv (18 filas)
+
+===== JERARQUÍA OMOP DE 4548-4 =====
+relacion  concept_id      concept_code                                                                                                                concept_name vocabulary_id     concept_class_id  min_levels_of_separation  max_levels_of_separation
+ancestor    45876002              CHEM                                                                                                                   Chemistry         LOINC          LOINC Class                         1                         1
+ancestor    40758528           55399-0                                                                                                     Diabetes tracking panel         LOINC Clinical Observation                         1                         1
+ancestor     3033145           43150-2                                                                                     Hemoglobin A1c measurement device panel         LOINC Clinical Observation                         1                         1
+ancestor     1621295         LG51070-7                                         Hemoglobin A1c/Hemoglobin.total|Mass Fraction|Moment in time|Blood, Serum or Plasma         LOINC          LOINC Group                         1                         1
+ancestor    36208195        LP248770-2                                                                                               Lab terms not yet categorized         LOINC      LOINC Hierarchy                         1                         1
+ancestor    40771521           68996-8                                                                              Laboratory - end stage renal disease form 2728         LOINC               Survey                         1                         1
+ancestor    36207527        LP248771-0                                                                                          Clinical terms not yet categorized         LOINC      LOINC Hierarchy                         2                         2
+ancestor    40770464           67868-0 End Stage Renal Disease (ESRD) Medical Evidence Report, Medicare Entitlement AndOr Patient Registration - OMB CMS form 2728         LOINC               Survey                         2                         2
+ancestor    45876069 PANEL.SURVEY.ESRD                                                                          End Stage Renal Disease (ESRD) facility survey set         LOINC          LOINC Class                         2                         3
+ancestor    40652433           LG100-4                                                                                                      Flowsheet - laboratory         LOINC          LOINC Group                         2                         2
+ancestor    37052688        LP404481-6                                                                    HbA1c measurement device panel | Patient | Panel.devices         LOINC      LOINC Hierarchy                         2                         2
+ancestor    36206173         LP29693-6                                                                                                                  Laboratory         LOINC      LOINC Hierarchy                         2                         5
+ancestor    45875956     PANEL.DEVICES                                                                                                   Medical devices order set         LOINC          LOINC Class                         2                         2
+ancestor    45875969         PANEL.PHR                                                                                              Public health record order set         LOINC          LOINC Class                         2                         2
+ancestor    36210656        LP248772-8                                                                                            Survey terms not yet categorized         LOINC      LOINC Hierarchy                         2                         3
+ancestor    37044165          LP7787-7                                                                                                                    Clinical         LOINC      LOINC Hierarchy                         3                         5
+ancestor    45876249             PANEL                                                                                                                   Order set         LOINC          LOINC Class                         3                         5
+ancestor    37063217         LP36380-1                                                                                                               Panel.devices         LOINC      LOINC Hierarchy                         3                         3
+ancestor    36207528         LP29696-9                                                                                                          Survey instruments         LOINC      LOINC Hierarchy                         3                         4
+ancestor    45876060      PANEL.SURVEY                                                                                                                  Survey set         LOINC          LOINC Class                         3                         4
+ancestor     1761982        LP432695-7                                                                                                                 {component}         LOINC      LOINC Hierarchy                         3                         6
+ancestor    37061796         LP35960-1                                                                                                                     Devices         LOINC      LOINC Hierarchy                         4                         4
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/18_hba1c_jerarquia_4548_4.csv (22 filas)
+
+===== RELACIONES DIRECTAS DE 4548-4 =====
+direccion    relationship_id  concept_id concept_code                                                                        concept_name vocabulary_id     concept_class_id invalid_reason
+ incoming       Component of    37056065   LP286151-8                                                     Hemoglobin A1c/Hemoglobin.total         LOINC      LOINC Component           None
+ incoming            Maps to      645901     106634-9  Deprecated Hemoglobin A1c/Hemoglobin.total [Molar ratio] in Blood by IFCC protocol         LOINC             Lab Test           None
+ incoming     Panel contains    40758528      55399-0                                                             Diabetes tracking panel         LOINC Clinical Observation           None
+ incoming     Panel contains     3040295      54039-3                               HEDIS 2009-2011 Codes to identify HbA1c tests (CDC-D)         LOINC             Lab Test           None
+ incoming     Panel contains    40770369      67761-7                              HEDIS 2012, 2013 Codes to identify HbA1c tests (CDC-D)         LOINC             Lab Test           None
+ incoming     Panel contains    44786901      74246-0                                                  HEDIS 2014 Value Set - HbA1c Tests         LOINC             Lab Test           None
+ incoming     Panel contains    46235675      75862-3                                             HEDIS 2015-2020 Value Set - HbA1C Tests         LOINC             Lab Test           None
+ incoming     Panel contains    36032066      96070-8                                               HEDIS MY 2020 Value Set - HbA1C Tests         LOINC             Lab Test           None
+ incoming     Panel contains     3033145      43150-2                                             Hemoglobin A1c measurement device panel         LOINC Clinical Observation           None
+ incoming     Panel contains     3050909      52482-7                                                                          Laboratory         LOINC               Survey           None
+ incoming     Panel contains    40771865      69344-0                                                           Laboratory - acute [CARE]         LOINC               Survey           None
+ incoming     Panel contains    40771521      68996-8                                      Laboratory - end stage renal disease form 2728         LOINC               Survey           None
+ incoming        Property of     1029654     LP6831-4                                                                       Mass fraction         LOINC       LOINC Property           None
+ incoming      Scale type of     1033751     LP7753-9                                                                                  Qn         LOINC          LOINC Scale           None
+ incoming           Subsumes    45876002         CHEM                                                                           Chemistry         LOINC          LOINC Class           None
+ incoming           Subsumes     1621295    LG51070-7 Hemoglobin A1c/Hemoglobin.total|Mass Fraction|Moment in time|Blood, Serum or Plasma         LOINC          LOINC Group           None
+ incoming           Subsumes    36208195   LP248770-2                                                       Lab terms not yet categorized         LOINC      LOINC Hierarchy           None
+ incoming          System of     1029919     LP7057-5                                                                               Blood         LOINC         LOINC System           None
+ incoming     Time aspect of     1029816     LP6960-1                                                                Point in time (spot)         LOINC           LOINC Time           None
+ outgoing Contained in panel    40758528      55399-0                                                             Diabetes tracking panel         LOINC Clinical Observation           None
+ outgoing Contained in panel     3040295      54039-3                               HEDIS 2009-2011 Codes to identify HbA1c tests (CDC-D)         LOINC             Lab Test           None
+ outgoing Contained in panel    40770369      67761-7                              HEDIS 2012, 2013 Codes to identify HbA1c tests (CDC-D)         LOINC             Lab Test           None
+ outgoing Contained in panel    44786901      74246-0                                                  HEDIS 2014 Value Set - HbA1c Tests         LOINC             Lab Test           None
+ outgoing Contained in panel    46235675      75862-3                                             HEDIS 2015-2020 Value Set - HbA1C Tests         LOINC             Lab Test           None
+ outgoing Contained in panel    36032066      96070-8                                               HEDIS MY 2020 Value Set - HbA1C Tests         LOINC             Lab Test           None
+ outgoing Contained in panel     3033145      43150-2                                             Hemoglobin A1c measurement device panel         LOINC Clinical Observation           None
+ outgoing Contained in panel     3050909      52482-7                                                                          Laboratory         LOINC               Survey           None
+ outgoing Contained in panel    40771865      69344-0                                                           Laboratory - acute [CARE]         LOINC               Survey           None
+ outgoing Contained in panel    40771521      68996-8                                      Laboratory - end stage renal disease form 2728         LOINC               Survey           None
+ outgoing      Has component    37056065   LP286151-8                                                     Hemoglobin A1c/Hemoglobin.total         LOINC      LOINC Component           None
+ outgoing       Has property     1029654     LP6831-4                                                                       Mass fraction         LOINC       LOINC Property           None
+ outgoing     Has scale type     1033751     LP7753-9                                                                                  Qn         LOINC          LOINC Scale           None
+ outgoing         Has system     1029919     LP7057-5                                                                               Blood         LOINC         LOINC System           None
+ outgoing    Has time aspect     1029816     LP6960-1                                                                Point in time (spot)         LOINC           LOINC Time           None
+ outgoing               Is a    45876002         CHEM                                                                           Chemistry         LOINC          LOINC Class           None
+ outgoing               Is a     1621295    LG51070-7 Hemoglobin A1c/Hemoglobin.total|Mass Fraction|Moment in time|Blood, Serum or Plasma         LOINC          LOINC Group           None
+ outgoing               Is a    36208195   LP248770-2                                                       Lab terms not yet categorized         LOINC      LOINC Hierarchy           None
+ outgoing        Mapped from      645901     106634-9  Deprecated Hemoglobin A1c/Hemoglobin.total [Molar ratio] in Blood by IFCC protocol         LOINC             Lab Test           None
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/19_hba1c_relaciones_4548_4.csv (38 filas)
+
+===== RXNAV: IN, SCDF Y BN =====
+medicamento rxcui nombre_rxnav tty  formas_clinicas_scdf  nombres_marca_bn fecha_consulta                                                              fuente estado
+  metformin  6809    metformin  IN                    21                14     2026-11-22  https://rxnav.nlm.nih.gov/REST/rxcui/6809/related.json?tty=SCDF+BN     OK
+ lisinopril 29046   lisinopril  IN                     3                 4     2026-11-22 https://rxnav.nlm.nih.gov/REST/rxcui/29046/related.json?tty=SCDF+BN     OK
+  cisplatin  2555    cisplatin  IN                     2                 0     2026-11-22  https://rxnav.nlm.nih.gov/REST/rxcui/2555/related.json?tty=SCDF+BN     OK
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/auditoria/20_rxnav_tres_ingredientes.csv (3 filas)
+
+===== RESUMEN =====
+Productos observados de lisinopril: 8
+Candidatos LOINC HbA1c: 18
+Relaciones jerárquicas de 4548-4: 22
+Consultas RxNav exitosas: 3 de 3
+AUDITORÍA DIRIGIDA COMPLETADA

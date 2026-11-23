@@ -43,3 +43,7 @@ __pycache__/
 /lab10/*.duckdb
 /lab10/*.db
 /lab10/.ipynb_checkpoints/
+
+/lab12/data/
+/lab12/*.duckdb
+*.duckdb

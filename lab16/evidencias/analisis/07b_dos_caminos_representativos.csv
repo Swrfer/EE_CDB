@@ -1,0 +1,3 @@
+ruta_representativa,camino,longitud,camino_ids,camino_nombres
+cabeza_mandíbula,1,4,4281516 -> 37018293 -> 4181187 -> 4042836 -> 4274025,Gingivitis -> Inflammatory disorder of jaw region -> Inflammatory disorder of head -> Disorder of head -> Disease
+sistema_digestivo,4,5,4281516 -> 4043371 -> 4190185 -> 4178818 -> 4180628 -> 4274025,Gingivitis -> Inflammatory disorder of digestive tract -> Inflammatory disorder of digestive system -> Inflammation of specific body systems -> Disorder of body system -> Disease

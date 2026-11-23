@@ -1,0 +1,184 @@
+===== VALIDACIÓN FORMAL DEL LABORATORIO 18 =====
+
+1. Rama
+PASS: rama = lab18-cohort-audit
+
+2. Entregables obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/diagnostico_cohorte.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/scripts/00_auditar_lab18.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/scripts/01_generar_lab18.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/scripts/02_validar_lab18.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/figuras/01_diagrama_atricion_consort.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/figuras/02_incidencia_anio.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/figuras/03_incidencia_edad.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/figuras/04_sensibilidad_lavado.png
+
+3. Sintaxis Python
+PASS: sintaxis correcta: 00_auditar_lab18.py
+PASS: sintaxis correcta: 01_generar_lab18.py
+PASS: sintaxis correcta: 02_validar_lab18.py
+
+4. Factibilidad
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/01_factibilidad.csv
+PASS: una fila de factibilidad
+PASS: 22 personas en la cohorte
+PASS: Q1 de seguimiento = 294.25 días
+PASS: mediana de seguimiento = 1,054 días
+PASS: Q3 de seguimiento = 1,766 días
+PASS: 255 mediciones de eGFR
+PASS: 19 personas con eGFR
+PASS: 65 mediciones de eGFR < 60
+PASS: seis personas con eGFR < 60
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/01_factibilidad_veredicto.csv
+PASS: un veredicto de factibilidad
+PASS: modelo multivariable no factible
+PASS: dependencia de mediciones repetidas documentada
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/02_egfr_seguimiento.csv
+PASS: 255 filas de seguimiento renal
+PASS: 19 personas en detalle renal
+PASS: 65 indicadores renales bajos reproducibles
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/03_egfr_unidades.csv
+PASS: dos representaciones de unidad para eGFR
+PASS: unidades suman 255 mediciones
+
+5. Atrición original
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/04_atricion_original.csv
+PASS: siete pasos originales
+PASS: pasos originales ordenados
+PASS: conteos originales esperados
+PASS: pérdidas originales correctas
+PASS: N original nunca aumenta
+PASS: 2.17% permanece
+
+6. Orden alternativo
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/05_atricion_reordenada.csv
+PASS: siete pasos reordenados
+PASS: conteos reordenados esperados
+PASS: N final idéntico en ambos órdenes
+PASS: T2DM cuesta 835 en orden original
+PASS: presión cuesta 926 al evaluarse primero
+PASS: T2DM cuesta 66 al evaluarse después
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/02_atricion_comparada.csv
+PASS: comparación declara mismo N final
+
+7. Incidencia descriptiva
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/06_incidencia_anio.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/07_incidencia_edad.csv
+PASS: once años con entradas
+PASS: entradas anuales suman 22
+PASS: cinco grupos etarios
+PASS: grupos etarios suman 22
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/03_incidencia_resumen.csv
+PASS: resumen de incidencia disponible
+PASS: conteos no presentados como tasas
+
+8. Evento índice
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/08_codigos_evento_indice.csv
+PASS: cuatro productos índice
+PASS: productos índice suman 22 personas
+PASS: producto dominante esperado
+PASS: producto dominante aporta 19 personas
+PASS: producto dominante aporta 86.36%
+PASS: todos los productos tienen nombre
+PASS: una ambigüedad de filas índice detectada
+
+9. Conceptos huérfanos
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/09_conceptos_huerfanos_candidatos.csv
+PASS: tres candidatos huérfanos reales
+PASS: todos contienen lisinopril
+PASS: todos son combinaciones con HCTZ
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/05_huerfanos_decisiones.csv
+PASS: tres decisiones de huérfanos
+PASS: los tres candidatos quedan excluidos
+PASS: exclusión justificada clínicamente
+
+10. Comparación CIRCE/ATLAS
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/06_comparacion_circe.csv
+PASS: tres casos borde CIRCE
+PASS: tres casos borde distintos
+PASS: limitación propia explicada
+PASS: importancia evaluada en cada caso
+PASS: eventos del mismo día
+PASS: múltiples periodos de observación
+PASS: colapso de episodios
+
+11. Sensibilidad
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/10_variantes_resumen.csv
+PASS: lavados 180, 365 y 730
+PASS: 22 personas en cada variante
+PASS: edad media estable
+PASS: edad mediana estable
+PASS: seguimiento mediano estable
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/11_variantes_miembros.csv
+PASS: 66 filas de membresía
+PASS: 365 es subconjunto de 180
+PASS: 730 es subconjunto de 365
+PASS: mismos miembros en las tres variantes
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/12_variantes_comorbilidades.csv
+PASS: tres comorbilidades por variante
+PASS: top 3 completo por variante
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/13_traslape_variantes.csv
+PASS: 22 personas en las tres variantes
+PASS: cero personas exclusivas
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/14_verificacion_anidamiento.csv
+PASS: dos comprobaciones de anidamiento
+PASS: anidamiento validado
+PASS: cero violaciones de anidamiento
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/08_sensibilidad_resumen.csv
+PASS: 365 días declarado principal
+PASS: igualdad con definición principal
+
+12. Figuras
+PASS: PNG válido: 01_diagrama_atricion_consort.png
+PASS: figura no vacía: 01_diagrama_atricion_consort.png
+PASS: PNG válido: 02_incidencia_anio.png
+PASS: figura no vacía: 02_incidencia_anio.png
+PASS: PNG válido: 03_incidencia_edad.png
+PASS: figura no vacía: 03_incidencia_edad.png
+PASS: PNG válido: 04_sensibilidad_lavado.png
+PASS: figura no vacía: 04_sensibilidad_lavado.png
+
+13. Documentación
+PASS: factibilidad documentada
+PASS: veredicto explícito
+PASS: eventos no independientes
+PASS: atrición original
+PASS: orden alternativo
+PASS: igualdad final interpretada
+PASS: incidencia interpretada
+PASS: incidencia no confundida con tasa
+PASS: códigos índice
+PASS: dominancia del código documentada
+PASS: huérfanos documentados
+PASS: comparación CIRCE
+PASS: sensibilidad documentada
+PASS: definición principal declarada
+PASS: anidamiento interpretado
+PASS: discusión final
+PASS: limitación causal reconocida
+PASS: limitación propia reconocida
+PASS: fuente OHDSI citada
+PASS: fuente CirceR citada
+PASS: Git permanece manual
+
+14. Código reproducible
+PASS: tres variantes generadas por código
+PASS: CTE parametrizable por lavado
+PASS: conteos distintos utilizados
+PASS: diagrama CONSORT regenerable
+PASS: figura de atrición regenerable
+PASS: figura anual regenerable
+PASS: figura etaria regenerable
+PASS: figura de sensibilidad regenerable
+PASS: auditor no ejecuta Git
+PASS: generador no ejecuta Git
+
+15. Archivos no deseados y formato
+PASS: sin bases, ZIP, cachés ni archivos del sistema
+PASS: sin archivos mayores de 10 MB
+PASS: archivos de texto sin espacios finales
+
+===== RESULTADO FINAL =====
+PASS: 149 comprobaciones superadas
+Commit y push: NO ejecutados

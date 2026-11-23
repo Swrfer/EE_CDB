@@ -1,0 +1,176 @@
+===== VALIDACIÓN FORMAL DEL LABORATORIO 15 =====
+
+1. Rama
+PASS: rama = lab15-rxnorm-loinc
+
+2. Archivos obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/auditoria_unidades.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/mapeo_catalogo_local.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/concept_sets/01_lisinopril.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/concept_sets/02_atc_a10b.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/concept_sets/03_hba1c.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/figuras/impacto_lisinopril.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/figuras/histograma_hba1c_por_unidad.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/figuras/histograma_creatinina_por_unidad.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/figuras/histograma_glucosa_por_unidad.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/notebooks/analisis_rxnorm_loinc.ipynb
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/scripts/00_auditar_lab15.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/scripts/00b_auditar_lab15.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/scripts/01_generar_lab15.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/scripts/02_validar_lab15.py
+
+3. Notebook
+PASS: celdas de código = 5
+PASS: todas las celdas fueron ejecutadas
+PASS: notebook sin errores
+PASS: todas las celdas tienen identificador
+
+4. Vocabularios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/vocabularios_disponibles.csv
+PASS: cuatro vocabularios disponibles identificados
+PASS: ausencia de RxNorm Extension identificada
+PASS: limitación de RxNorm Extension documentada
+PASS: impacto de la ausencia del vocabulario cuantificado
+
+5. RxNav
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/rxnav_tres_medicamentos.csv
+PASS: tres ingredientes consultados en RxNav
+PASS: medicamentos RxNav esperados
+PASS: los tres conceptos tienen TTY = IN
+PASS: RxCUI correcto para metformin
+PASS: SCDF correcto para metformin
+PASS: BN correcto para metformin
+PASS: RxCUI correcto para lisinopril
+PASS: SCDF correcto para lisinopril
+PASS: BN correcto para lisinopril
+PASS: RxCUI correcto para cisplatin
+PASS: SCDF correcto para cisplatin
+PASS: BN correcto para cisplatin
+PASS: fecha de consulta RxNav documentada
+
+6. Productos e ingredientes
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/top20_productos_ingredientes.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/top20_resumen.csv
+PASS: 20 productos frecuentes evaluados
+PASS: productos frecuentes sin duplicados
+PASS: todos los productos resueltos a ingrediente
+PASS: ingredientes con nombres legibles
+PASS: tres productos con múltiples ingredientes
+PASS: 20 filas antes del join
+PASS: 23 relaciones producto-ingrediente después del join
+PASS: decisión sobre separación cero documentada
+
+7. ATC A10B
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/atc_a10b_ingredientes.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/atc_a10b_resumen.csv
+PASS: 42 ingredientes derivados de A10B
+PASS: ingredientes A10B sin duplicados
+PASS: ingredientes A10B con nombres legibles
+PASS: dos productos A10B observados
+PASS: 246 pacientes expuestos a A10B
+PASS: 331 productos totales observados
+PASS: 329 productos fuera de A10B
+PASS: 5461 pacientes con productos fuera de A10B
+
+8. Definiciones de lisinopril
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/lisinopril_impacto.csv
+PASS: versiones A/B/C ordenadas
+PASS: conceptos A/B/C = 53/77/53
+PASS: productos observados A/B/C = 5/8/5
+PASS: pacientes A/B/C = 1014/1024/1014
+PASS: exposiciones A/B/C consistentes
+PASS: lisinopril construido por jerarquía
+PASS: exclusión de HCTZ explícita
+PASS: encabezado SQL con conteos finales
+PASS: versión y fecha RxNorm en encabezado
+
+9. LOINC y concept set HbA1c
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/loinc_seis_ejes.csv
+PASS: tres códigos LOINC descompuestos
+PASS: códigos LOINC esperados
+PASS: seis ejes completos
+PASS: descripción clínica para cada código
+PASS: fuente oficial para cada LOINC
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/hba1c_concept_set.csv
+PASS: concept set HbA1c con siete códigos
+PASS: 4548-4 incluido
+PASS: concept set HbA1c sin duplicados
+PASS: todos representan HbA1c
+PASS: HbA1c excluye device
+PASS: HbA1c excluye panel
+PASS: HbA1c excluye goal
+PASS: HbA1c excluye glucose mean
+PASS: incluye variante HPLC
+PASS: incluye variante por electroforesis
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/hba1c_comparacion_4548.csv
+PASS: comparación de 1 frente a 7 códigos
+PASS: 46481 mediciones en ambas definiciones
+PASS: 2462 pacientes en ambas definiciones
+PASS: HbA1c construido por componente LOINC
+PASS: versión y fecha LOINC en encabezado
+PASS: encabezado HbA1c con conteo
+
+10. Auditoría de unidades
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/auditoria_unidades.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab15/evidencias/analisis/veredictos_unidades.csv
+PASS: tres combinaciones analito-unidad observadas
+PASS: 0% de unidades nulas o no mapeadas
+PASS: todas las unidades tienen código UCUM
+PASS: unidades observadas = % y mg/dL
+PASS: un veredicto por analito
+PASS: veredictos de unidades razonados
+PASS: porcentaje de unidades faltantes documentado
+PASS: factor de creatinina documentado
+
+11. Catálogo local
+PASS: catálogo local con 15 filas
+PASS: claves locales únicas
+PASS: 12 mapeos de confianza alta
+PASS: un mapeo dudoso
+PASS: dos filas no mapeables
+PASS: mapeos altos con concepto y nombre
+PASS: no mapeables sin concepto forzado
+PASS: incluye abreviatura HCTZ
+PASS: incluye combinación abreviada
+PASS: incluye presentación inexistente
+PASS: incluye material no farmacológico
+PASS: responsable de cada decisión documentado
+PASS: razón documentada para cada mapeo
+
+12. Encabezados y reproducibilidad SQL
+PASS: 01_lisinopril.sql declara vocabulario
+PASS: 01_lisinopril.sql declara fecha
+PASS: 01_lisinopril.sql es ejecutable
+PASS: 02_atc_a10b.sql declara vocabulario
+PASS: 02_atc_a10b.sql declara fecha
+PASS: 02_atc_a10b.sql es ejecutable
+PASS: 03_hba1c.sql declara vocabulario
+PASS: 03_hba1c.sql declara fecha
+PASS: 03_hba1c.sql es ejecutable
+PASS: encabezado ATC con conteo
+PASS: ATC construido por jerarquía
+
+13. Figuras
+PASS: PNG válido: impacto_lisinopril.png
+PASS: figura no vacía: impacto_lisinopril.png
+PASS: PNG válido: histograma_hba1c_por_unidad.png
+PASS: figura no vacía: histograma_hba1c_por_unidad.png
+PASS: PNG válido: histograma_creatinina_por_unidad.png
+PASS: figura no vacía: histograma_creatinina_por_unidad.png
+PASS: PNG válido: histograma_glucosa_por_unidad.png
+PASS: figura no vacía: histograma_glucosa_por_unidad.png
+
+14. Tablas derivadas en DuckDB
+PASS: cuatro tablas lab15 disponibles en results
+PASS: membresía de lisinopril coincide con CSV
+PASS: 42 ingredientes A10B en DuckDB
+PASS: siete códigos HbA1c en DuckDB
+
+15. Archivos no deseados
+PASS: sin bases, ZIP, cachés ni archivos del sistema
+PASS: sin archivos mayores de 10 MB
+
+===== RESULTADO FINAL =====
+PASS: 141 comprobaciones superadas
+Commit y push: NO ejecutados

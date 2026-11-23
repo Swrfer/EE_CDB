@@ -1,0 +1,2 @@
+cohort_patients,followup_q1_days,followup_median_days,followup_q3_days,egfr_measurements,patients_with_egfr,egfr_below_60_events,patients_with_egfr_below_60
+22,294.25,1054.0,1766.0,255,19,65,6

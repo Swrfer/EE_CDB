@@ -1,0 +1,8 @@
+measurement_concept_id,loinc_code,concept_name,concept_class_id,mediciones,pacientes,unidades_distintas
+3004410,4548-4,Hemoglobin A1c/Hemoglobin.total in Blood,Lab Test,46481,2462,1
+3007263,17855-8,Hemoglobin A1c/Hemoglobin.total in Blood by calculation,Lab Test,0,0,0
+3005673,17856-6,Hemoglobin A1c/Hemoglobin.total in Blood by HPLC,Lab Test,0,0,0
+3003309,4549-2,Hemoglobin A1c/Hemoglobin.total in Blood by Electrophoresis,Lab Test,0,0,0
+40765129,62388-4,Hemoglobin A1c/Hemoglobin.total in Blood by JDS/JSCC protocol,Lab Test,0,0,0
+42869630,71875-9,Hemoglobin A1c/Hemoglobin.total [Pure mass fraction] in Blood,Lab Test,0,0,0
+36032094,96595-4,Hemoglobin A1c/Hemoglobin.total in DBS,Lab Test,0,0,0

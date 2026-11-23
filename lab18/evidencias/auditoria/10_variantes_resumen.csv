@@ -1,0 +1,4 @@
+washout_days,patients,age_mean,age_median,followup_median_days,sex_categories
+180,22,56.8,57.5,1054.0,1
+365,22,56.8,57.5,1054.0,1
+730,22,56.8,57.5,1054.0,1

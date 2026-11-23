@@ -1,0 +1,10 @@
+washout_days,concept_id,concept_name,patients
+180,320128,Essential hypertension,19
+180,4120314,Hypertriglyceridemia,11
+180,436940,Metabolic syndrome X,7
+365,320128,Essential hypertension,19
+365,4120314,Hypertriglyceridemia,11
+365,436940,Metabolic syndrome X,7
+730,320128,Essential hypertension,19
+730,4120314,Hypertriglyceridemia,11
+730,436940,Metabolic syndrome X,7

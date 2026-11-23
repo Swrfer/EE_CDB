@@ -1,0 +1,24 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/00_tablas_requeridas.csv (14 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/01_factibilidad.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/02_egfr_seguimiento.csv (255 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/03_egfr_unidades.csv (2 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/04_atricion_original.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/05_atricion_reordenada.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/06_incidencia_anio.csv (11 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/07_incidencia_edad.csv (5 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/08_codigos_evento_indice.csv (4 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/09_conceptos_huerfanos_candidatos.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/10_variantes_resumen.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/11_variantes_miembros.csv (66 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/12_variantes_comorbilidades.csv (9 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/13_traslape_variantes.csv (5 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/auditoria/14_verificacion_anidamiento.csv (2 filas)
+
+===== AUDITORÍA DEL LABORATORIO 18 COMPLETADA =====
+Cohorte original: 22
+Eventos eGFR < 60: 65
+Pacientes con eGFR < 60: 6
+N final original: 22
+N final reordenado: 22
+Variantes anidadas: True
+Commit y push: NO ejecutados

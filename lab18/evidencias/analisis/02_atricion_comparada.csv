@@ -1,0 +1,8 @@
+step,criterion_original,n_original,criterion_reordenado,n_reordenado,same_final_n
+1,Evento inicial: primera exposición,1014,Evento inicial,1014,True
+2,+ 365 días de observación,1014,+ 365 días observación,1014,True
+3,+ lavado de 365 días,1014,+ lavado 365 días,1014,True
+4,+ T2DM observado antes del índice,179,+ >=2 fechas de presión,88,True
+5,+ >=2 fechas con presión arterial,22,+ T2DM antes del índice,22,True
+6,- menores de 18 años,22,- menores de 18 años,22,True
+7,- embarazo durante los 365 días basales,22,- embarazo basal,22,True

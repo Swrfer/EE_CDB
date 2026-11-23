@@ -1,0 +1,345 @@
+
+===== TABLAS REQUERIDAS =====
+          table_name  filas_estimadas
+             concept          2026160
+    concept_ancestor         12073517
+concept_relationship         14129144
+        relationship              724
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/00_tablas_requeridas.csv (4 filas)
+
+===== RECORRIDO RECURSIVO HACIA ARRIBA: T2DM =====
+ concept_id                        concept_name  nivel                                                                      camino_ids                                                                                                                                                                                  camino_nombres
+     201826            Type 2 diabetes mellitus      0                                                                          201826                                                                                                                                                                        Type 2 diabetes mellitus
+     201820                   Diabetes mellitus      1                                                                201826 -> 201820                                                                                                                                                   Type 2 diabetes mellitus -> Diabetes mellitus
+      31821        Disorder of endocrine system      2                                                       201826 -> 201820 -> 31821                                                                                                                   Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system
+    4130526      Disorder of glucose metabolism      2                                                     201826 -> 201820 -> 4130526                                                                                                                 Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism
+    4180628             Disorder of body system      3                                            201826 -> 201820 -> 31821 -> 4180628                                                                                        Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system
+     437515 Disorder of carbohydrate metabolism      3                                           201826 -> 201820 -> 4130526 -> 437515                                                                          Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism
+    4274025                             Disease      4                                 201826 -> 201820 -> 31821 -> 4180628 -> 4274025                                                                             Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease
+     436670                   Metabolic disease      4                                 201826 -> 201820 -> 4130526 -> 437515 -> 436670                                                     Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease
+     441840                    Clinical finding      5                       201826 -> 201820 -> 31821 -> 4180628 -> 4274025 -> 441840                                                         Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease -> Clinical finding
+    4274025                             Disease      5                      201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025                                          Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease
+     441840                    Clinical finding      6            201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025 -> 441840                      Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease -> Clinical finding
+    4008453                   SNOMED CT Concept      6            201826 -> 201820 -> 31821 -> 4180628 -> 4274025 -> 441840 -> 4008453                                    Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of endocrine system -> Disorder of body system -> Disease -> Clinical finding -> SNOMED CT Concept
+    4008453                   SNOMED CT Concept      7 201826 -> 201820 -> 4130526 -> 437515 -> 436670 -> 4274025 -> 441840 -> 4008453 Type 2 diabetes mellitus -> Diabetes mellitus -> Disorder of glucose metabolism -> Disorder of carbohydrate metabolism -> Metabolic disease -> Disease -> Clinical finding -> SNOMED CT Concept
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/01_t2dm_recursiva.csv (13 filas)
+Profundidad máxima: 7
+
+===== ANCESTROS T2DM MEDIANTE CONCEPT_ANCESTOR =====
+ concept_id                        concept_name  min_levels_of_separation  max_levels_of_separation
+     201820                   Diabetes mellitus                         1                         1
+      31821        Disorder of endocrine system                         2                         2
+    4130526      Disorder of glucose metabolism                         2                         2
+    4180628             Disorder of body system                         3                         3
+     437515 Disorder of carbohydrate metabolism                         3                         3
+    4274025                             Disease                         4                         5
+     436670                   Metabolic disease                         4                         4
+     441840                    Clinical finding                         5                         6
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/02_t2dm_concept_ancestor.csv (8 filas)
+ ancestros_recursiva  ancestros_concept_ancestor  interseccion  solo_recursiva  solo_concept_ancestor  conjuntos_identicos ids_solo_recursiva ids_solo_concept_ancestor
+                   9                           8             8               1                      0                False            4008453
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/03_comparacion_ancestros.csv (1 filas)
+
+===== METADATOS DE RELATIONSHIP =====
+ tipos_relacion  jerarquicas  definen_ancestria  ambas  solo_jerarquicas  solo_ancestria
+            724          124                 63     55                69               8
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/04_relationship_resumen.csv (1 filas)
+     relationship_id                                                    relationship_name is_hierarchical defines_ancestry reverse_relationship_id
+ Has quantified form                                         Has quantified form (RxNorm)               0                1      Quantified form of
+       Has tradename                                               Has tradename (RxNorm)               0                1            Tradename of
+  MedDRA - SNOMED eq                                   MedDRA to SNOMED equivalent (OMOP)               0                1      SNOMED - MedDRA eq
+     Reformulated in                                             Reformulated in (RxNorm)               0                1        Reformulation of
+    SNOMED - CPT4 eq                                    SNOMED to CPT-4 equivalent (OMOP)               0                1        CPT4 - SNOMED eq
+   SNOMED - ICD9P eq                          SNOMED to ICD-9-Procedure equivalent (OMOP)               0                1       ICD9P - SNOMED eq
+  Source - RxNorm eq                              Drug Source to RxNorm equivalent (OMOP)               0                1      RxNorm - Source eq
+  VAProd - RxNorm eq                             VA Product to RxNorm equivalent (NDF-RT)               0                1      RxNorm - VAProd eq
+              Box of                                            Prepackaged box of (OMOP)               1                0        Available as box
+       Brand name of                                                 Brand name of (OMOP)               1                0          Has brand name
+           CI MoA of                     Contraindicating mechanism of action of (NDF-RT)               1                0              Has CI MoA
+               CI by                                          Contraindicated by (NDF-RT)               1                0                   CI to
+    CI chem class of                          Contraindicating chemical class of (NDF-RT)               1                0       Has CI chem class
+CI physiol effect by            Contraindicating physiological effect induced by (NDF-RT)               1                0    Has CI physio effect
+               CI to                                         Contraindication to (NDF-RT)               1                0                   CI by
+CMS Specialty - NUCC                                          CMS Specialty to NUCC (CMS)               1                0    NUCC - CMS Specialty
+   CPT4 - SNOMED cat                                      CPT-4 to SNOMED category (OMOP)               1                0       SNOMED cat - CPT4
+     Chem to Prep eq Chemical Structure to Pharmaceutical Preparation equivalent (NDF-RT)               1                0         Prep to Chem eq
+         Consists of                                                 Consists of (RxNorm)               1                0             Constitutes
+  Contained in panel                                                   Contained in panel               1                0          Panel contains
+            Contains                                                    Contains (RxNorm)               1                0            Contained in
+       DRG - MDC cat                                            DRG to MDC category (CMS)               1                0           MDC cat - DRG
+   Diagnosed through                                           Diagnosed through (NDF-RT)               1                0            May diagnose
+     Domain subsumes                                               Domain subsumes (OMOP)               1                0               Is domain
+  Drug class of drug                                            Drug class of drug (OMOP)               1                0     Drug has drug class
+ Drug has drug class                                           Drug has drug class (OMOP)               1                0      Drug class of drug
+ HCPCS - SNOMED meas                                 HCPCS is a SNOMED measurement (OMOP)               1                0     SNOMED meas - HCPCS
+ HCPCS - SNOMED proc                                   HCPCS is a SNOMED procedure (OMOP)               1                0     SNOMED proc - HCPCS
+        HOI - MedDRA                                           HOI contains MedDRA (OMOP)               1                0            MedDRA - HOI
+          Has CI MoA                    Has contraindicating mechanism of action (NDF-RT)               1                0               CI MoA of
+   Has CI chem class                         Has contraindicating chemical class (NDF-RT)               1                0        CI chem class of
+Has CI physio effect                   Has contraindicating physiological effect (NDF-RT)               1                0    CI physiol effect by
+    Has FDA-appr ind                               Has FDA-approved drug indication (FDB)               1                0      Is FDA-appr ind of
+             Has MoA                                     Has mechanism of action (NDF-RT)               1                0                  MoA of
+              Has PK                                        Has pharmacokinetics (NDF-RT)               1                0                   PK of
+    Has antineopl Rx                                 Has antineoplastic - RxNorm (HemOnc)               1                0         Rx antineopl of
+      Has brand name                                                Has brand name (OMOP)               1                0           Brand name of
+  Has chem structure                                      Has chemical structure (NDF-RT)               1                0       Chem structure of
+ Has dose form group                                         Has dose form group (RxNorm)               1                0      Dose form group of
+  Has immunosuppr Rx                               Has immunosuppressor - RxNorm (HemOnc)               1                0       Rx immunosuppr of
+  Has inferred class                                       Has inferred drug class (OMOP)               1                0       Inferred class of
+ Has local therap Rx                                  Has local therapy - RxNorm (HemOnc)               1                0     Rx local therapy of
+      Has metabolism                                      Has site of metabolism (NDF-RT)               1                0           Metabolism of
+     Has metabolites                                      Has active metabolites (NDF-RT)               1                0           Metabolite of
+        Has modality                                                Has modality (HemOnc)               1                0             Modality of
+   Has off-label ind                                  Has off-label drug indication (FDB)               1                0     Is off-label ind of
+   Has physio effect                                    Has physiological effect (NDF-RT)               1                0       Physiol effect by
+    Has product comp                                       Has product component (NDF-RT)               1                0         Product comp of
+    Has regimen type                                            Has regimen type (HemOnc)               1                0         Regimen type of
+          Induced by                                                  Induced by (NDF-RT)               1                0                 Induces
+             Induces                                                     Induces (NDF-RT)               1                0              Induced by
+     Inhibits effect                                             Inhibits effect (NDF-RT)               1                0     May be inhibited by
+           Is domain                                                   Is a domain (OMOP)               1                0         Domain subsumes
+    Marketed form of                                              Marketed form of (OMOP)               1                0       Has marketed form
+ May be inhibited by                                  Effect may be inhibited by (NDF-RT)               1                0         Inhibits effect
+        May diagnose                                                May diagnose (NDF-RT)               1                0       Diagnosed through
+         May prevent                                                 May prevent (NDF-RT)               1                0     May be prevented by
+           May treat                                                   May treat (NDF-RT)               1                0       May be treated by
+        MedDRA - HOI                                       MedDRA contained in HOI (OMOP)               1                0            HOI - MedDRA
+       Metabolism of                                       Site of metabolism of (NDF-RT)               1                0          Has metabolism
+       Metabolite of                                        Active metabolite of (NDF-RT)               1                0         Has metabolites
+  NDFRT dose form of                                                Dose form of (NDF-RT)               1                0     NDFRT has dose form
+ NDFRT has dose form                                               Has dose form (NDF-RT)               1                0      NDFRT dose form of
+       NDFRT has ing                                              Has ingredient (NDF-RT)               1                0            NDFRT ing of
+      OPCS4 - SNOMED                      OPCS4 to SNOMED equivalent or categorical (NHS)               1                0          SNOMED - OPCS4
+               PK of                                         Pharmacokinetics of (NDF-RT)               1                0                  Has PK
+     PoS - Visit cat                            Place of Service to Visit category (OMOP)               1                0         Visit cat - PoS
+        RxNorm - CVX                                                  RxNorm - CVX (OMOP)               1                0            CVX - RxNorm
+        RxNorm - DOI                                       RxNorm contained in DOI (OMOP)               1                0            DOI - RxNorm
+        RxNorm - ETC                                                  RxNorm to ETC (FDB)               1                0            ETC - RxNorm
+        RxNorm - SPL                                                  RxNorm to SPL (NLM)               1                0            SPL - RxNorm
+ RxNorm dose form of                                                Dose form of (RxNorm)               1                0    RxNorm has dose form
+RxNorm has dose form                                               Has dose form (RxNorm)               1                0     RxNorm dose form of
+      RxNorm has ing                                              Has ingredient (RxNorm)               1                0           RxNorm ing of
+         RxNorm is a                                                        Is a (RxNorm)               1                0     RxNorm inverse is a
+        SNOMED - HOI                                       SNOMED contained in HOI (OMOP)               1                0            HOI - SNOMED
+    Version contains                         OMOP CDM Version contains table/field (OMOP)               1                0    Contained in version
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/05_relationship_diferencias.csv (77 filas)
+
+===== RELACIONES QUE SALEN DE LISINOPRIL =====
+     relationship_id                                relationship_name is_hierarchical defines_ancestry  target_concept_id                                                                                                   target_concept_name target_vocabulary_id target_concept_class invalid_reason
+      Has brand name                            Has brand name (OMOP)               1                0           19013820                                                                                                                Carace               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19013841                                                                                                           Carace Plus               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19047472                                                                                                              Prinivil               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19113824                                                                                                               Prinize               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19078330                                                                                                              Prinzide               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           40221244                                                                                                               Qbrelis               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19135784                                                                                                            Zestoretic               RxNorm           Brand Name           None
+      Has brand name                            Has brand name (OMOP)               1                0           19038723                                                                                                               Zestril               RxNorm           Brand Name           None
+            Has form                                Has form (RxNorm)               0                0           46274918                                                                                                  lisinopril anhydrous               RxNorm   Precise Ingredient           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           37157027                                                                                Amlodipine and lisinopril only product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           37157029                                                              Amlodipine and lisinopril only product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           37157026                                                                         Amlodipine- and lisinopril-containing product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           37157028                                                       Amlodipine- and lisinopril-containing product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           36678815                                                                       Hydrochlorothiazide and lisinopril only product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           36681899                                                     Hydrochlorothiazide and lisinopril only product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0            4163126                                                                Hydrochlorothiazide- and lisinopril-containing product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           35625776                                              Hydrochlorothiazide- and lisinopril-containing product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0            4305091                                                                                                            Lisinopril               SNOMED            Substance           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           37167902                                                                                                  Lisinopril anhydrous               SNOMED            Substance           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           36679136                                                                                               Lisinopril only product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           36682151                                                                             Lisinopril only product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           40531496                                                                                                   Lisinopril+diuretic               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0            4031421                                                                                         Lisinopril-containing product               SNOMED  Pharma/Biol Product           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           35625774                                                                       Lisinopril-containing product in oral dose form               SNOMED   Clinical Drug Form           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           45957828 Retired SNOMED UK Drug extension concept, do not use, use concept indicated by the CONCEPT_RELATIONSHIP table, if any               SNOMED            Substance           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           36030000                                                                                      hydrochlorothiazide / lisinopril               RxNorm Multiple Ingredients           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0            1308216                                                                                                            lisinopril               RxNorm           Ingredient           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           21601817                                                                                             lisinopril and amlodipine                  ATC              ATC 5th           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           21601805                                                                                              lisinopril and diuretics                  ATC              ATC 5th           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           46274918                                                                                                  lisinopril anhydrous               RxNorm   Precise Ingredient           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           21601787                                                                                                      lisinopril; oral                  ATC              ATC 5th           None
+         Mapped from              Standard to Non-standard map (OMOP)               0                0           45893493                                                                               rosuvastatin, amlodipine and lisinopril                  ATC              ATC 5th           None
+             Maps to              Non-standard to Standard map (OMOP)               0                0            1308216                                                                                                            lisinopril               RxNorm           Ingredient           None
+ RxNorm - ATC pr lat        RxNorm/Extension to ATC pr lateral (OMOP)               0                0           21601817                                                                                             lisinopril and amlodipine                  ATC              ATC 5th           None
+ RxNorm - ATC pr lat        RxNorm/Extension to ATC pr lateral (OMOP)               0                0           21601805                                                                                              lisinopril and diuretics                  ATC              ATC 5th           None
+ RxNorm - ATC pr lat        RxNorm/Extension to ATC pr lateral (OMOP)               0                0           21601787                                                                                                      lisinopril; oral                  ATC              ATC 5th           None
+RxNorm - ATC sec lat RxNorm/Extension to ATC secondary lateral (OMOP)               0                0           45893493                                                                               rosuvastatin, amlodipine and lisinopril                  ATC              ATC 5th           None
+ RxNorm - ATC sec up RxNorm/Extension to ATC secondary upwards (OMOP)               0                0           21601488                                                                                     hydrochlorothiazide, combinations                  ATC              ATC 5th           None
+  RxNorm - SNOMED eq             RxNorm to SNOMED equivalent (RxNorm)               0                0            4305091                                                                                                            Lisinopril               SNOMED            Substance           None
+  RxNorm - SNOMED eq             RxNorm to SNOMED equivalent (RxNorm)               0                0            4031421                                                                                         Lisinopril-containing product               SNOMED  Pharma/Biol Product           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           36224291                                                                         hydrochlorothiazide / lisinopril Oral Product               RxNorm  Clinical Dose Group           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           40044817                                                                          hydrochlorothiazide / lisinopril Oral Tablet               RxNorm   Clinical Drug Form           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           36224292                                                                                 hydrochlorothiazide / lisinopril Pill               RxNorm  Clinical Dose Group           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           40221240                                                                                                    lisinopril 1 MG/ML               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308304                                                                                                      lisinopril 10 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308305                                                                                                     lisinopril 2.5 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308306                                                                                                      lisinopril 20 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308307                                                                                                      lisinopril 30 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308308                                                                                                      lisinopril 40 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1            1308309                                                                                                       lisinopril 5 MG               RxNorm   Clinical Drug Comp           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           40221241                                                                                        lisinopril Oral Liquid Product               RxNorm  Clinical Dose Group           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           36221121                                                                                               lisinopril Oral Product               RxNorm  Clinical Dose Group           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           40221242                                                                                              lisinopril Oral Solution               RxNorm   Clinical Drug Form           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           40000499                                                                                                lisinopril Oral Tablet               RxNorm   Clinical Drug Form           None
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1           36221122                                                                                                       lisinopril Pill               RxNorm  Clinical Dose Group           None
+   Value mapped from      Value_as_concept to non-standard map (OMOP)               0                0            4170655                                                                                                    Lisinopril allergy               SNOMED             Disorder           None
+   Value mapped from      Value_as_concept to non-standard map (OMOP)               0                0           43530991                                                                           Non-allergic hypersensitivity to lisinopril               SNOMED     Clinical Finding           None
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/06_lisinopril_relaciones_salientes.csv (57 filas)
+     relationship_id                                relationship_name is_hierarchical defines_ancestry  destinos                                       ejemplo
+         Mapped from              Standard to Non-standard map (OMOP)               0                0        23        Amlodipine and lisinopril only product
+       RxNorm ing of                           Ingredient of (RxNorm)               1                1        15 hydrochlorothiazide / lisinopril Oral Product
+      Has brand name                            Has brand name (OMOP)               1                0         8                                        Carace
+ RxNorm - ATC pr lat        RxNorm/Extension to ATC pr lateral (OMOP)               0                0         3                     lisinopril and amlodipine
+  RxNorm - SNOMED eq             RxNorm to SNOMED equivalent (RxNorm)               0                0         2                                    Lisinopril
+   Value mapped from      Value_as_concept to non-standard map (OMOP)               0                0         2                            Lisinopril allergy
+            Has form                                Has form (RxNorm)               0                0         1                          lisinopril anhydrous
+             Maps to              Non-standard to Standard map (OMOP)               0                0         1                                    lisinopril
+RxNorm - ATC sec lat RxNorm/Extension to ATC secondary lateral (OMOP)               0                0         1       rosuvastatin, amlodipine and lisinopril
+ RxNorm - ATC sec up RxNorm/Extension to ATC secondary upwards (OMOP)               0                0         1             hydrochlorothiazide, combinations
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/07_lisinopril_tipos_relacion.csv (10 filas)
+
+===== CANDIDATOS REALES DE POLI-JERARQUÍA =====
+ ancestor_concept_id                                      ancestor_name  descendant_concept_id  descendant_name  min_levels_of_separation  max_levels_of_separation  eventos  pacientes
+             4274025                                            Disease                4281516       Gingivitis                         4                         8    10343       4680
+             4309188                        Disorder of digestive tract                4281516       Gingivitis                         2                         5    10343       4680
+             4182161                             Finding of head region                4281516       Gingivitis                         3                         6    10343       4680
+             4201745                       Disorder of digestive system                4281516       Gingivitis                         3                         6    10343       4680
+             4180628                            Disorder of body system                4281516       Gingivitis                         4                         7    10343       4680
+             4247371                                       Head finding                4281516       Gingivitis                         4                         7    10343       4680
+             4302537                           Digestive system finding                4281516       Gingivitis                         4                         7    10343       4680
+              435569                                    Disorder of jaw                4281516       Gingivitis                         2                         4    10343       4680
+             4042836                                   Disorder of head                4281516       Gingivitis                         3                         5    10343       4680
+             4093991                     General finding of soft tissue                4281516       Gingivitis                         3                         5    10343       4680
+             4022570                                Oral cavity finding                4281516       Gingivitis                         3                         4    10343       4680
+             4042502                                   Disease of mouth                4281516       Gingivitis                         3                         4    10343       4680
+             4180169 Inflammation of specific body structures or tissue                4281516       Gingivitis                         3                         4    10343       4680
+             4027384                              Inflammatory disorder                4281516       Gingivitis                         4                         5    10343       4680
+             4307122                            Finding of mouth region                4281516       Gingivitis                         4                         5    10343       4680
+             4274025                                            Disease               40481087  Viral sinusitis                         3                         8     5960       3684
+             4180169 Inflammation of specific body structures or tissue               40481087  Viral sinusitis                         3                         6     5960       3684
+             4027384                              Inflammatory disorder               40481087  Viral sinusitis                         4                         7     5960       3684
+              432250                                 Infectious disease               40481087  Viral sinusitis                         2                         4     5960       3684
+             4247371                                       Head finding               40481087  Viral sinusitis                         3                         5     5960       3684
+             4042836                                   Disorder of head               40481087  Viral sinusitis                         2                         3     5960       3684
+              320136                     Disorder of respiratory system               40481087  Viral sinusitis                         4                         5     5960       3684
+             4024567                                Respiratory finding               40481087  Viral sinusitis                         5                         6     5960       3684
+             4180628                            Disorder of body system               40481087  Viral sinusitis                         5                         6     5960       3684
+              441840                                   Clinical finding                4309238 Social isolation                         2                         3     5857       3115
+             4274025                                            Disease                 133228    Dental caries                         3                         8     4142       3079
+              432795                  Traumatic or non-traumatic injury                 133228    Dental caries                         2                         6     4142       3079
+             4247371                                       Head finding                 133228    Dental caries                         4                         7     4142       3079
+             4302537                           Digestive system finding                 133228    Dental caries                         4                         7     4142       3079
+             4042502                                   Disease of mouth                 133228    Dental caries                         2                         4     4142       3079
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/08_polijerarquia_candidatos.csv (30 filas)
+
+===== CAMINOS DEL CASO SELECCIONADO =====
+ camino  longitud                                                                                    camino_ids                                                                                                                                                                                                                                    camino_nombres
+      1         4                                          4281516 -> 37018293 -> 4181187 -> 4042836 -> 4274025                                                                                                                                 Gingivitis -> Inflammatory disorder of jaw region -> Inflammatory disorder of head -> Disorder of head -> Disease
+      2         4                                           4281516 -> 37018293 -> 435569 -> 4042836 -> 4274025                                                                                                                                               Gingivitis -> Inflammatory disorder of jaw region -> Disorder of jaw -> Disorder of head -> Disease
+      3         5                               4281516 -> 37018293 -> 4181187 -> 4180169 -> 4027384 -> 4274025                                                                      Gingivitis -> Inflammatory disorder of jaw region -> Inflammatory disorder of head -> Inflammation of specific body structures or tissue -> Inflammatory disorder -> Disease
+      4         5                                4281516 -> 4043371 -> 4190185 -> 4178818 -> 4180628 -> 4274025                                                                Gingivitis -> Inflammatory disorder of digestive tract -> Inflammatory disorder of digestive system -> Inflammation of specific body systems -> Disorder of body system -> Disease
+      5         5                                4281516 -> 4043371 -> 4190185 -> 4201745 -> 4180628 -> 4274025                                                                         Gingivitis -> Inflammatory disorder of digestive tract -> Inflammatory disorder of digestive system -> Disorder of digestive system -> Disorder of body system -> Disease
+      6         5                                4281516 -> 4043371 -> 4309188 -> 4201745 -> 4180628 -> 4274025                                                                                       Gingivitis -> Inflammatory disorder of digestive tract -> Disorder of digestive tract -> Disorder of digestive system -> Disorder of body system -> Disease
+      7         5                                 4281516 -> 4090111 -> 139057 -> 4042502 -> 4042836 -> 4274025                                                                                                                                Gingivitis -> Gingival disease -> Disorder of oral soft tissues -> Disease of mouth -> Disorder of head -> Disease
+      8         5                                  4281516 -> 4090111 -> 139057 -> 4090614 -> 376208 -> 4274025                                                                                                          Gingivitis -> Gingival disease -> Disorder of oral soft tissues -> Disorder of soft tissue of head -> Disorder of soft tissue -> Disease
+      9         5                                 4281516 -> 4090111 -> 139057 -> 4090614 -> 4042836 -> 4274025                                                                                                                 Gingivitis -> Gingival disease -> Disorder of oral soft tissues -> Disorder of soft tissue of head -> Disorder of head -> Disease
+     10         6                     4281516 -> 4043371 -> 4190185 -> 4178818 -> 4180169 -> 4027384 -> 4274025            Gingivitis -> Inflammatory disorder of digestive tract -> Inflammatory disorder of digestive system -> Inflammation of specific body systems -> Inflammation of specific body structures or tissue -> Inflammatory disorder -> Disease
+     11         6                       4281516 -> 4090111 -> 134398 -> 201603 -> 4042502 -> 4042836 -> 4274025                                                                                        Gingivitis -> Gingival disease -> Periodontal disease -> Disorder of teeth AND/OR supporting structures -> Disease of mouth -> Disorder of head -> Disease
+     12         6                        4281516 -> 4090111 -> 134398 -> 201603 -> 435569 -> 4042836 -> 4274025                                                                                         Gingivitis -> Gingival disease -> Periodontal disease -> Disorder of teeth AND/OR supporting structures -> Disorder of jaw -> Disorder of head -> Disease
+     13         8 4281516 -> 4090111 -> 134398 -> 201603 -> 4198525 -> 4309188 -> 4201745 -> 4180628 -> 4274025 Gingivitis -> Gingival disease -> Periodontal disease -> Disorder of teeth AND/OR supporting structures -> Disorder of upper digestive tract -> Disorder of digestive tract -> Disorder of digestive system -> Disorder of body system -> Disease
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/09_polijerarquia_caminos.csv (13 filas)
+Par seleccionado: 4274025 <- 4281516
+Caminos reconstruidos: 13
+
+===== CANDIDATOS DE INSUFICIENCIA CARDIACA =====
+ concept_id                                                                   concept_name      concept_code  eventos  pacientes
+    4229440                                               Chronic congestive heart failure          88805009      162        162
+     316139                                                                  Heart failure          84114007        3          3
+   44782718                            Acute combined systolic and diastolic heart failure   153931000119109        0          0
+    4023479                                                 Acute congestive heart failure          10633002        0          0
+   40481042                                                  Acute diastolic heart failure         443343001        0          0
+   44782655                         Acute exacerbation of chronic congestive heart failure         698296002        0          0
+    1245073                                    Acute exacerbation of chronic heart failure        1296659009        0          0
+     442310                                                            Acute heart failure          56675007        0          0
+     764877                 Acute heart failure co-occurrent with normal ejection fraction     7421000175106        0          0
+    4327205                                      Acute left-sided congestive heart failure          74960003        0          0
+   44782733                 Acute on chronic combined systolic and diastolic heart failure   153951000119103        0          0
+   40481043                                       Acute on chronic diastolic heart failure         443344007        0          0
+     764874      Acute on chronic heart failure co-occurrent with normal ejection fraction     7401000175100        0          0
+   37309625                          Acute on chronic right-sided congestive heart failure 16838951000119100        0          0
+   40480602                                        Acute on chronic systolic heart failure         443253003        0          0
+    4215446                                     Acute right-sided congestive heart failure          80479009        0          0
+    4233424                                                Acute right-sided heart failure         359617009        0          0
+   40480603                                                   Acute systolic heart failure         443254009        0          0
+     313502             Benign hypertensive heart disease without congestive heart failure          77970009        0          0
+    4242669                                         Biventricular congestive heart failure          92506005        0          0
+   44782719                          Chronic combined systolic and diastolic heart failure   153941000119100        0          0
+   40479576                                                Chronic diastolic heart failure         441530006        0          0
+     444031                                                          Chronic heart failure          48447003        0          0
+     764876               Chronic heart failure co-occurrent with normal ejection fraction     7411000175102        0          0
+    4206009                                    Chronic left-sided congestive heart failure           5375005        0          0
+    4009047                                               Chronic left-sided heart failure         111283005        0          0
+    4284562                                   Chronic right-sided congestive heart failure          66989003        0          0
+    4014159                                              Chronic right-sided heart failure          10335000        0          0
+   40479192                                                 Chronic systolic heart failure         441481004        0          0
+     319835                                                       Congestive heart failure          42343007        0          0
+   44784345                   Congestive heart failure as early postoperative complication    72481000119103        0          0
+     762002     Congestive heart failure as post-operative complication of cardiac surgery   285211000119102        0          0
+     762003 Congestive heart failure as post-operative complication of non-cardiac surgery   285221000119109        0          0
+   44782428                                 Congestive heart failure due to cardiomyopathy   101281000119107        0          0
+    4139864          Congestive heart failure due to left ventricular systolic dysfunction         426263006        0          0
+    4142561                               Congestive heart failure due to valvular disease         426611007        0          0
+   43021826                                               Congestive heart failure stage C    67441000119101        0          0
+   36712927                Congestive heart failure stage C due to ischemic cardiomyopathy 15629541000119106        0          0
+   43021825                                               Congestive heart failure stage D    67431000119105        0          0
+   44782713                              Congestive heart failure with right heart failure    23341000119109        0          0
+     315295                                             Congestive rheumatic heart failure          82523003        0          0
+    4311437                                            Decompensated chronic heart failure         424404003        0          0
+     443587                                                        Diastolic heart failure         418304008        0          0
+   43531001                                                Diastolic heart failure stage A         609555007        0          0
+   43021842                                                Diastolic heart failure stage C   120891000119109        0          0
+   43021841                                                Diastolic heart failure stage D   120881000119106        0          0
+   43022068                                       Exacerbation of congestive heart failure    96311000119109        0          0
+   43021735                                                            Fetal heart failure         462172006        0          0
+   45766964                                Fetal heart failure due to extracardiac disease         704242009        0          0
+   43022054                                Fetal heart failure with myocardial hypertrophy         462174007        0          0
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/10_heart_failure_candidatos.csv (50 filas)
+        rama  concept_id                     concept_name  pacientes  eventos
+ rama_amplia      316139                    Heart failure       <NA>     <NA>
+rama_interna     4229440 Chronic congestive heart failure        162      162
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/11_heart_failure_ramas.csv (2 filas)
+ conteo_A_filas_join  conteo_B_conceptos  conteo_C_pacientes  eventos_unicos  filas_duplicadas_por_solapamiento
+                 327                   2                 165             165                                162
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/12_heart_failure_conteos.csv (1 filas)
+
+===== PACIENTES CANDIDATOS PARA DEPURACIÓN =====
+ person_id  condition_occurrence_id condition_start_date condition_source_value  condition_source_concept_id      source_concept_name  condition_concept_id    standard_concept_name
+      1456                    23116           1994-08-26               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      1112                    17429           2022-02-23               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+       635                     9728           2019-11-29               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      4560                    73128           2024-04-11               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+       743                    11650           2002-11-25               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      3691                    59350           2012-05-25               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      3095                    49424           2009-09-18               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      3758                    60560           1986-12-08               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      3577                    57589           2015-06-08               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+      2285                    36882           2014-02-18               44054006                       201826 Type 2 diabetes mellitus                201826 Type 2 diabetes mellitus
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/13_pacientes_candidatos.csv (10 filas)
+
+===== CONCEPTOS RETIRADOS EN EL CONCEPT SET FINAL =====
+SIN FILAS
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/14_conceptos_retirados.csv (0 filas)
+ conceptos_retirados  conceptos_D  conceptos_U  pacientes_antes  pacientes_despues  diferencia_pacientes
+                   0            0            0              457                457                     0
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/auditoria/15_conceptos_retirados_efecto.csv (1 filas)
+
+===== RESUMEN =====
+Recursiva y CONCEPT_ANCESTOR idénticos: False
+Tipos de relación salientes de lisinopril: 10
+Caso poli-jerárquico: Disease <- Gingivitis
+Caminos reconstruidos: 13
+Ramas de insuficiencia cardiaca:
+        rama  concept_id                     concept_name  pacientes  eventos
+ rama_amplia      316139                    Heart failure       <NA>     <NA>
+rama_interna     4229440 Chronic congestive heart failure        162      162
+Conceptos retirados: 0
+AUDITORÍA COMPLETADA

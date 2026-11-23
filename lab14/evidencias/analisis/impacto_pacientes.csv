@@ -1,0 +1,4 @@
+version,conceptos,pacientes_distintos,eventos,diferencia_pacientes_vs_A,diferencia_porcentual_vs_A
+A_estricta,1,457,457,0,0.0
+B_amplia,15,457,457,0,0.0
+C_razonada,12,457,457,0,0.0

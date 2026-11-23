@@ -1,0 +1,23 @@
+relacion,concept_id,concept_code,concept_name,vocabulary_id,concept_class_id,min_levels_of_separation,max_levels_of_separation
+ancestor,45876002,CHEM,Chemistry,LOINC,LOINC Class,1,1
+ancestor,40758528,55399-0,Diabetes tracking panel,LOINC,Clinical Observation,1,1
+ancestor,3033145,43150-2,Hemoglobin A1c measurement device panel,LOINC,Clinical Observation,1,1
+ancestor,1621295,LG51070-7,"Hemoglobin A1c/Hemoglobin.total|Mass Fraction|Moment in time|Blood, Serum or Plasma",LOINC,LOINC Group,1,1
+ancestor,36208195,LP248770-2,Lab terms not yet categorized,LOINC,LOINC Hierarchy,1,1
+ancestor,40771521,68996-8,Laboratory - end stage renal disease form 2728,LOINC,Survey,1,1
+ancestor,36207527,LP248771-0,Clinical terms not yet categorized,LOINC,LOINC Hierarchy,2,2
+ancestor,40770464,67868-0,"End Stage Renal Disease (ESRD) Medical Evidence Report, Medicare Entitlement AndOr Patient Registration - OMB CMS form 2728",LOINC,Survey,2,2
+ancestor,45876069,PANEL.SURVEY.ESRD,End Stage Renal Disease (ESRD) facility survey set,LOINC,LOINC Class,2,3
+ancestor,40652433,LG100-4,Flowsheet - laboratory,LOINC,LOINC Group,2,2
+ancestor,37052688,LP404481-6,HbA1c measurement device panel | Patient | Panel.devices,LOINC,LOINC Hierarchy,2,2
+ancestor,36206173,LP29693-6,Laboratory,LOINC,LOINC Hierarchy,2,5
+ancestor,45875956,PANEL.DEVICES,Medical devices order set,LOINC,LOINC Class,2,2
+ancestor,45875969,PANEL.PHR,Public health record order set,LOINC,LOINC Class,2,2
+ancestor,36210656,LP248772-8,Survey terms not yet categorized,LOINC,LOINC Hierarchy,2,3
+ancestor,37044165,LP7787-7,Clinical,LOINC,LOINC Hierarchy,3,5
+ancestor,45876249,PANEL,Order set,LOINC,LOINC Class,3,5
+ancestor,37063217,LP36380-1,Panel.devices,LOINC,LOINC Hierarchy,3,3
+ancestor,36207528,LP29696-9,Survey instruments,LOINC,LOINC Hierarchy,3,4
+ancestor,45876060,PANEL.SURVEY,Survey set,LOINC,LOINC Class,3,4
+ancestor,1761982,LP432695-7,{component},LOINC,LOINC Hierarchy,3,6
+ancestor,37061796,LP35960-1,Devices,LOINC,LOINC Hierarchy,4,4

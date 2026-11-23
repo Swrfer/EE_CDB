@@ -1,0 +1,20 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/01_atricion.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/02_evento_inicial_validacion.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/03_cohorte_validacion.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/04_miembros_cohorte.csv (22 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/05_caracterizacion_individual.csv (22 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/06_distribucion_sexo.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/07_top10_comorbilidades.csv (10 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/08_seguimiento_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/09_tabla1.csv (5 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/10_auditoria_immortal_time.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00_observation_period_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00b_eventos_fuera_observacion.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00c_comparacion_ventanas_t2dm.csv (3 filas)
+
+===== LABORATORIO 17 GENERADO =====
+Cohorte final: 22
+Mediana de seguimiento: 1054.0 días
+Intervalos inválidos: 0
+Fechas fuera de observación: 0
+Commit y push: NO ejecutados

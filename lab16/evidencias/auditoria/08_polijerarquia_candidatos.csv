@@ -1,0 +1,31 @@
+ancestor_concept_id,ancestor_name,descendant_concept_id,descendant_name,min_levels_of_separation,max_levels_of_separation,eventos,pacientes
+4274025,Disease,4281516,Gingivitis,4,8,10343,4680
+4309188,Disorder of digestive tract,4281516,Gingivitis,2,5,10343,4680
+4182161,Finding of head region,4281516,Gingivitis,3,6,10343,4680
+4201745,Disorder of digestive system,4281516,Gingivitis,3,6,10343,4680
+4180628,Disorder of body system,4281516,Gingivitis,4,7,10343,4680
+4247371,Head finding,4281516,Gingivitis,4,7,10343,4680
+4302537,Digestive system finding,4281516,Gingivitis,4,7,10343,4680
+435569,Disorder of jaw,4281516,Gingivitis,2,4,10343,4680
+4042836,Disorder of head,4281516,Gingivitis,3,5,10343,4680
+4093991,General finding of soft tissue,4281516,Gingivitis,3,5,10343,4680
+4022570,Oral cavity finding,4281516,Gingivitis,3,4,10343,4680
+4042502,Disease of mouth,4281516,Gingivitis,3,4,10343,4680
+4180169,Inflammation of specific body structures or tissue,4281516,Gingivitis,3,4,10343,4680
+4027384,Inflammatory disorder,4281516,Gingivitis,4,5,10343,4680
+4307122,Finding of mouth region,4281516,Gingivitis,4,5,10343,4680
+4274025,Disease,40481087,Viral sinusitis,3,8,5960,3684
+4180169,Inflammation of specific body structures or tissue,40481087,Viral sinusitis,3,6,5960,3684
+4027384,Inflammatory disorder,40481087,Viral sinusitis,4,7,5960,3684
+432250,Infectious disease,40481087,Viral sinusitis,2,4,5960,3684
+4247371,Head finding,40481087,Viral sinusitis,3,5,5960,3684
+4042836,Disorder of head,40481087,Viral sinusitis,2,3,5960,3684
+320136,Disorder of respiratory system,40481087,Viral sinusitis,4,5,5960,3684
+4024567,Respiratory finding,40481087,Viral sinusitis,5,6,5960,3684
+4180628,Disorder of body system,40481087,Viral sinusitis,5,6,5960,3684
+441840,Clinical finding,4309238,Social isolation,2,3,5857,3115
+4274025,Disease,133228,Dental caries,3,8,4142,3079
+432795,Traumatic or non-traumatic injury,133228,Dental caries,2,6,4142,3079
+4247371,Head finding,133228,Dental caries,4,7,4142,3079
+4302537,Digestive system finding,133228,Dental caries,4,7,4142,3079
+4042502,Disease of mouth,133228,Dental caries,2,4,4142,3079

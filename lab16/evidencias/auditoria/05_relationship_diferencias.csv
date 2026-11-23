@@ -1,0 +1,78 @@
+relationship_id,relationship_name,is_hierarchical,defines_ancestry,reverse_relationship_id
+Has quantified form,Has quantified form (RxNorm),0,1,Quantified form of
+Has tradename,Has tradename (RxNorm),0,1,Tradename of
+MedDRA - SNOMED eq,MedDRA to SNOMED equivalent (OMOP),0,1,SNOMED - MedDRA eq
+Reformulated in,Reformulated in (RxNorm),0,1,Reformulation of
+SNOMED - CPT4 eq,SNOMED to CPT-4 equivalent (OMOP),0,1,CPT4 - SNOMED eq
+SNOMED - ICD9P eq,SNOMED to ICD-9-Procedure equivalent (OMOP),0,1,ICD9P - SNOMED eq
+Source - RxNorm eq,Drug Source to RxNorm equivalent (OMOP),0,1,RxNorm - Source eq
+VAProd - RxNorm eq,VA Product to RxNorm equivalent (NDF-RT),0,1,RxNorm - VAProd eq
+Box of,Prepackaged box of (OMOP),1,0,Available as box
+Brand name of,Brand name of (OMOP),1,0,Has brand name
+CI MoA of,Contraindicating mechanism of action of (NDF-RT),1,0,Has CI MoA
+CI by,Contraindicated by (NDF-RT),1,0,CI to
+CI chem class of,Contraindicating chemical class of (NDF-RT),1,0,Has CI chem class
+CI physiol effect by,Contraindicating physiological effect induced by (NDF-RT),1,0,Has CI physio effect
+CI to,Contraindication to (NDF-RT),1,0,CI by
+CMS Specialty - NUCC,CMS Specialty to NUCC (CMS),1,0,NUCC - CMS Specialty
+CPT4 - SNOMED cat,CPT-4 to SNOMED category (OMOP),1,0,SNOMED cat - CPT4
+Chem to Prep eq,Chemical Structure to Pharmaceutical Preparation equivalent (NDF-RT),1,0,Prep to Chem eq
+Consists of,Consists of (RxNorm),1,0,Constitutes
+Contained in panel,Contained in panel,1,0,Panel contains
+Contains,Contains (RxNorm),1,0,Contained in
+DRG - MDC cat,DRG to MDC category (CMS),1,0,MDC cat - DRG
+Diagnosed through,Diagnosed through (NDF-RT),1,0,May diagnose
+Domain subsumes,Domain subsumes (OMOP),1,0,Is domain
+Drug class of drug,Drug class of drug (OMOP),1,0,Drug has drug class
+Drug has drug class,Drug has drug class (OMOP),1,0,Drug class of drug
+HCPCS - SNOMED meas,HCPCS is a SNOMED measurement (OMOP),1,0,SNOMED meas - HCPCS
+HCPCS - SNOMED proc,HCPCS is a SNOMED procedure (OMOP),1,0,SNOMED proc - HCPCS
+HOI - MedDRA,HOI contains MedDRA (OMOP),1,0,MedDRA - HOI
+Has CI MoA,Has contraindicating mechanism of action (NDF-RT),1,0,CI MoA of
+Has CI chem class,Has contraindicating chemical class (NDF-RT),1,0,CI chem class of
+Has CI physio effect,Has contraindicating physiological effect (NDF-RT),1,0,CI physiol effect by
+Has FDA-appr ind,Has FDA-approved drug indication (FDB),1,0,Is FDA-appr ind of
+Has MoA,Has mechanism of action (NDF-RT),1,0,MoA of
+Has PK,Has pharmacokinetics (NDF-RT),1,0,PK of
+Has antineopl Rx,Has antineoplastic - RxNorm (HemOnc),1,0,Rx antineopl of
+Has brand name,Has brand name (OMOP),1,0,Brand name of
+Has chem structure,Has chemical structure (NDF-RT),1,0,Chem structure of
+Has dose form group,Has dose form group (RxNorm),1,0,Dose form group of
+Has immunosuppr Rx,Has immunosuppressor - RxNorm (HemOnc),1,0,Rx immunosuppr of
+Has inferred class,Has inferred drug class (OMOP),1,0,Inferred class of
+Has local therap Rx,Has local therapy - RxNorm (HemOnc),1,0,Rx local therapy of
+Has metabolism,Has site of metabolism (NDF-RT),1,0,Metabolism of
+Has metabolites,Has active metabolites (NDF-RT),1,0,Metabolite of
+Has modality,Has modality (HemOnc),1,0,Modality of
+Has off-label ind,Has off-label drug indication (FDB),1,0,Is off-label ind of
+Has physio effect,Has physiological effect (NDF-RT),1,0,Physiol effect by
+Has product comp,Has product component (NDF-RT),1,0,Product comp of
+Has regimen type,Has regimen type (HemOnc),1,0,Regimen type of
+Induced by,Induced by (NDF-RT),1,0,Induces
+Induces,Induces (NDF-RT),1,0,Induced by
+Inhibits effect,Inhibits effect (NDF-RT),1,0,May be inhibited by
+Is domain,Is a domain (OMOP),1,0,Domain subsumes
+Marketed form of,Marketed form of (OMOP),1,0,Has marketed form
+May be inhibited by,Effect may be inhibited by (NDF-RT),1,0,Inhibits effect
+May diagnose,May diagnose (NDF-RT),1,0,Diagnosed through
+May prevent,May prevent (NDF-RT),1,0,May be prevented by
+May treat,May treat (NDF-RT),1,0,May be treated by
+MedDRA - HOI,MedDRA contained in HOI (OMOP),1,0,HOI - MedDRA
+Metabolism of,Site of metabolism of (NDF-RT),1,0,Has metabolism
+Metabolite of,Active metabolite of (NDF-RT),1,0,Has metabolites
+NDFRT dose form of,Dose form of (NDF-RT),1,0,NDFRT has dose form
+NDFRT has dose form,Has dose form (NDF-RT),1,0,NDFRT dose form of
+NDFRT has ing,Has ingredient (NDF-RT),1,0,NDFRT ing of
+OPCS4 - SNOMED,OPCS4 to SNOMED equivalent or categorical (NHS),1,0,SNOMED - OPCS4
+PK of,Pharmacokinetics of (NDF-RT),1,0,Has PK
+PoS - Visit cat,Place of Service to Visit category (OMOP),1,0,Visit cat - PoS
+RxNorm - CVX,RxNorm - CVX (OMOP),1,0,CVX - RxNorm
+RxNorm - DOI,RxNorm contained in DOI (OMOP),1,0,DOI - RxNorm
+RxNorm - ETC,RxNorm to ETC (FDB),1,0,ETC - RxNorm
+RxNorm - SPL,RxNorm to SPL (NLM),1,0,SPL - RxNorm
+RxNorm dose form of,Dose form of (RxNorm),1,0,RxNorm has dose form
+RxNorm has dose form,Has dose form (RxNorm),1,0,RxNorm dose form of
+RxNorm has ing,Has ingredient (RxNorm),1,0,RxNorm ing of
+RxNorm is a,Is a (RxNorm),1,0,RxNorm inverse is a
+SNOMED - HOI,SNOMED contained in HOI (OMOP),1,0,HOI - SNOMED
+Version contains,OMOP CDM Version contains table/field (OMOP),1,0,Contained in version

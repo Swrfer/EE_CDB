@@ -1,0 +1,8 @@
+criterion,window,uses_future_for_entry,justification
+Observación previa,"[-∞ observado, índice]",No,Solo confirma seguimiento anterior al índice.
+Lavado,"[-365,-1]",No,No usa exposiciones posteriores.
+T2DM,"[inicio OP,0]",No,Diagnóstico registrado antes o en el índice.
+>=2 fechas de presión,"[-365,0]",No,Todas las mediciones son basales.
+Edad,índice,No,Se calcula exactamente en la fecha índice.
+Embarazo,"[-365,0]",No,La exclusión usa solo antecedentes basales.
+Continuidad de lisinopril,posterior al índice,No para entrada,Solo determina la fecha de salida; no decide inclusión.

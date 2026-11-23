@@ -1,0 +1,46 @@
+===== PREPARAR EUNOMIA =====
+dataset: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/reference/eunomia_cache/GiBleed_5.3_1.5.duckdb available: FALSE
+archive: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/reference/eunomia_cache/GiBleed_5.3.zip available:FALSE
+attempting to download GiBleed
+probando la URL 'https://raw.githubusercontent.com/OHDSI/EunomiaDatasets/main/datasets/GiBleed/GiBleed_5.3.zip'
+Content type 'application/zip' length 6861852 bytes (6.5 MB)
+==================================================
+downloaded 6.5 MB
+
+downloaded: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/reference/eunomia_cache/GiBleed_5.3.zip
+attempting to extract and load: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/reference/eunomia_cache/GiBleed_5.3.zip to: /Users/alejandrogarciacolorado/EE_CDB/lab12/data/reference/eunomia_cache/GiBleed_5.3_1.5.duckdb
+unzipping to: /var/folders/pd/q0g0l1bs3_30q5gs20qtcs5m0000gn/T//RtmpbKyZJZ
+connecting to: duckdb
+executing ddl statements from: /var/folders/pd/q0g0l1bs3_30q5gs20qtcs5m0000gn/T//RtmpbKyZJZ/OMOPCDM_duckdb_5.3_ddl.sql
+Error in `dbSendQuery()`:
+! No statements to execute
+ℹ Context: rapi_prepare
+Backtrace:
+     ▆
+  1. ├─Eunomia::getDatabaseFile(...)
+  2. │ └─Eunomia::extractLoadData(...)
+  3. │   └─Eunomia::loadDataFiles(...)
+  4. │     ├─DBI::dbExecute(conn = connection, statement = statement)
+  5. │     └─DBI::dbExecute(conn = connection, statement = statement)
+  6. │       ├─DBI::dbSendStatement(conn, statement, ...)
+  7. │       └─DBI::dbSendStatement(conn, statement, ...)
+  8. │         ├─DBI::dbSendQuery(conn, statement, ...)
+  9. │         └─duckdb::dbSendQuery(conn, statement, ...)
+ 10. │           └─duckdb (local) .local(conn, statement, ...)
+ 11. │             └─duckdb:::rethrow_rapi_prepare(conn@conn_ref, statement, env)
+ 12. │               ├─rlang::try_fetch(...)
+ 13. │               │ ├─base::tryCatch(...)
+ 14. │               │ │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 15. │               │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 16. │               │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 17. │               │ └─base::withCallingHandlers(...)
+ 18. │               └─duckdb:::rapi_prepare(conn, query, env)
+ 19. ├─duckdb (local) `<fn>`("rapi_prepare", "No statements to execute")
+ 20. │ └─rlang::abort(error_parts, class = "duckdb_error", !!!fields)
+ 21. │   └─rlang:::signal_abort(cnd, .file)
+ 22. │     └─base::signalCondition(cnd)
+ 23. └─rlang (local) `<fn>`(`<dckdb_rr>`)
+ 24.   └─handlers[[1L]](cnd)
+ 25.     └─duckdb:::rethrow_error_from_rapi(e, call)
+ 26.       └─rlang::abort(msg, call = call)
+Ejecución interrumpida

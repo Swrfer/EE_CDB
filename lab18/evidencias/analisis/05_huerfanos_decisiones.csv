@@ -1,0 +1,4 @@
+concept_id,concept_name,concept_class_id,exposures,patients,candidate_reason,include,decision
+974199,hydrochlorothiazide 12.5 MG / lisinopril 10 MG Oral Tablet,Clinical Drug,6,6,Descendiente de HCTZ: exclusión deliberada,No,Excluir: contiene HCTZ y cambia la exposición de monoterapia preespecificada; no es un olvido del concept set.
+974201,hydrochlorothiazide 25 MG / lisinopril 20 MG Oral Tablet,Clinical Drug,6,6,Descendiente de HCTZ: exclusión deliberada,No,Excluir: contiene HCTZ y cambia la exposición de monoterapia preespecificada; no es un olvido del concept set.
+974200,hydrochlorothiazide 12.5 MG / lisinopril 20 MG Oral Tablet,Clinical Drug,5,5,Descendiente de HCTZ: exclusión deliberada,No,Excluir: contiene HCTZ y cambia la exposición de monoterapia preespecificada; no es un olvido del concept set.

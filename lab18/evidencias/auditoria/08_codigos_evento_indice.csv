@@ -1,0 +1,5 @@
+drug_concept_id,concept_name,concept_class_id,patients,percentage,patients_with_multiple_index_rows
+19080128,lisinopril 10 MG Oral Tablet,Clinical Drug,19,86.36,1.0
+1308250,lisinopril 2.5 MG Oral Tablet,Clinical Drug,1,4.55,0.0
+1308251,lisinopril 5 MG Oral Tablet,Clinical Drug,1,4.55,0.0
+19080129,lisinopril 20 MG Oral Tablet,Clinical Drug,1,4.55,0.0

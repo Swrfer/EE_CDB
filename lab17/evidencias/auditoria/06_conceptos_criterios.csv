@@ -1,0 +1,7 @@
+criterion,concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,standard_concept
+Blood pressure,3004249,Systolic blood pressure,Measurement,LOINC,Clinical Observation,S
+Blood pressure,3012888,Diastolic blood pressure,Measurement,LOINC,Clinical Observation,S
+Blood pressure,4152194,Systolic blood pressure,Measurement,SNOMED,Observable Entity,S
+Blood pressure,4154790,Diastolic blood pressure,Measurement,SNOMED,Observable Entity,S
+Pregnancy root,4299535,Pregnancy,Condition,SNOMED,Clinical Finding,S
+T2DM seed,201826,Type 2 diabetes mellitus,Condition,SNOMED,Disorder,S

@@ -1,0 +1,168 @@
+===== VALIDACIÓN FORMAL DEL LABORATORIO 17 =====
+
+1. Rama
+PASS: rama = lab17-new-user-cohort
+
+2. Entregables obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/cohorte_definicion.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/cohorte_definicion.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/atricion.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/caracterizacion.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/figuras/01_eventos_indice_antes_despues.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/figuras/02_histograma_seguimiento.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/scripts/00_auditar_lab17.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/scripts/00b_comparar_criterios_lab17.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/scripts/01_generar_lab17.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/scripts/02_validar_lab17.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/01_atricion.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/02_evento_inicial_validacion.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/03_cohorte_validacion.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/04_miembros_cohorte.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/05_caracterizacion_individual.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/07_top10_comorbilidades.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/09_tabla1.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/10_auditoria_immortal_time.csv
+
+3. Sintaxis Python
+PASS: sintaxis correcta: 00_auditar_lab17.py
+PASS: sintaxis correcta: 00b_comparar_criterios_lab17.py
+PASS: sintaxis correcta: 01_generar_lab17.py
+PASS: sintaxis correcta: 02_validar_lab17.py
+
+4. OBSERVATION_PERIOD
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00_observation_period_resumen.csv
+PASS: 5,745 personas totales
+PASS: todas tienen periodo de observación
+PASS: 5,745 periodos
+PASS: sin periodos múltiples
+PASS: mediana de observación = 11,516 días
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00b_eventos_fuera_observacion.csv
+PASS: tres dominios auditados
+PASS: Condition: 699 eventos fuera
+PASS: Drug: 0 eventos fuera
+PASS: Measurement: 89 eventos fuera
+
+5. Selección de ventana T2DM
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/00c_comparacion_ventanas_t2dm.csv
+PASS: 17 con T2DM iniciado en los últimos 365 días
+PASS: 179 con T2DM observado antes del índice
+PASS: 22 tras dos fechas de presión arterial
+PASS: variante activa produjo cero filas y se documenta por ausencia
+
+6. Evento inicial y atrición
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/02_evento_inicial_validacion.csv
+PASS: 1,014 filas de evento inicial
+PASS: 1,014 personas distintas
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/01_atricion.csv
+PASS: siete pasos de atrición
+PASS: pasos ordenados de 1 a 7
+PASS: conteos de atrición esperados
+PASS: pérdidas por paso correctas
+PASS: N nunca aumenta entre pasos
+PASS: 2.17% de la población inicial permanece
+
+7. Cohorte estándar
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/03_cohorte_validacion.csv
+PASS: 22 filas finales
+PASS: 22 personas finales
+PASS: sin finales anteriores al índice
+PASS: sin índices fuera de observación
+PASS: sin salidas fuera de observación
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/04_miembros_cohorte.csv
+PASS: 22 miembros exportados
+PASS: una fila por persona en la cohorte
+PASS: todos los intervalos son cronológicos
+PASS: cohort_definition_id = 17001
+
+8. Caracterización
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/05_caracterizacion_individual.csv
+PASS: 22 personas caracterizadas
+PASS: edad disponible para todas
+PASS: todas son adultas
+PASS: edad media reproducible = 56.8 años
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/06_distribucion_sexo.csv
+PASS: sexo contabilizado para 22 personas
+PASS: limitación de sexo no mapeado conservada
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/07_top10_comorbilidades.csv
+PASS: diez comorbilidades
+PASS: comorbilidades con nombres legibles
+PASS: conteos de comorbilidad válidos
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/08_seguimiento_resumen.csv
+PASS: seguimiento para 22 personas
+PASS: mediana de seguimiento = 1,054 días
+PASS: seguimiento mínimo positivo
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/09_tabla1.csv
+PASS: tabla 1 presentable
+
+9. Immortal time bias
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/analisis/10_auditoria_immortal_time.csv
+PASS: siete componentes temporales auditados
+PASS: ningún criterio de entrada usa el futuro
+PASS: información posterior solo determina salida
+
+10. Figuras
+PASS: PNG válido: 01_eventos_indice_antes_despues.png
+PASS: figura no vacía: 01_eventos_indice_antes_despues.png
+PASS: PNG válido: 02_histograma_seguimiento.png
+PASS: figura no vacía: 02_histograma_seguimiento.png
+
+11. SQL reproducible
+PASS: CTE initial_event
+PASS: CTE prior_observation
+PASS: CTE washout
+PASS: CTE inclusion_t2dm
+PASS: CTE inclusion_two_bp_dates
+PASS: CTE exclusion_minors
+PASS: CTE exclusion_pregnancy
+PASS: primera exposición por persona
+PASS: 365 días continuos de observación
+PASS: lavado mediante NOT EXISTS
+PASS: inclusión T2DM mediante EXISTS
+PASS: criterio agregado de fechas de presión
+PASS: umbral de dos fechas
+PASS: criterios y concept sets usan NOT EXISTS
+PASS: gaps and islands usa máximo final previo
+PASS: gap de 30 días
+PASS: salida censurada al final de observación
+PASS: INSERT en results.cohort
+PASS: cuatro columnas estándar
+PASS: reinserción idempotente
+
+12. Concordancia prosa–SQL
+PASS: PICOT presente
+PASS: PICOT: Población
+PASS: PICOT: Exposición
+PASS: PICOT: Comparador
+PASS: PICOT: Desenlace
+PASS: PICOT: Tiempo
+PASS: justificación de observación previa
+PASS: se explica qué implicaría una ventana menor
+PASS: ventana de T2DM justificada clínicamente
+PASS: umbral de presión justificado
+PASS: gap de salida documentado
+PASS: censura por fin de observación documentada
+PASS: N inicial discutido
+PASS: N final discutido
+PASS: criterio más costoso discutido
+PASS: observación y lavado separados
+PASS: tabla 1 incluida
+PASS: immortal time discutido
+PASS: ausencia de sesgo justificada
+
+13. Tablas locales en DuckDB
+PASS: base OMOP local disponible
+PASS: ocho tablas derivadas disponibles
+PASS: 64 conceptos de lisinopril sin HCTZ
+PASS: 15 conceptos de T2DM
+PASS: cuatro conceptos de presión
+PASS: 22 candidatos finales materializados
+PASS: results.cohort contiene 22 filas y personas
+
+14. Archivos no deseados y formato
+PASS: sin bases, ZIP, cachés ni archivos del sistema
+PASS: sin archivos mayores de 10 MB
+
+===== RESULTADO FINAL =====
+PASS: 135 comprobaciones superadas
+Commit y push: NO ejecutados

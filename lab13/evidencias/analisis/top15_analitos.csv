@@ -1,0 +1,16 @@
+measurement_concept_id,measurement_concept_name,mediciones,personas,unidades
+43055141,Pain severity - 0-10 verbal numeric rating [Score] - Reported,146582,5744,1
+4064377,Depression screening,96818,4991,1
+3012888,Diastolic blood pressure,84762,5744,1
+3004249,Systolic blood pressure,84762,5744,1
+3025315,Body weight,80158,5744,1
+3024171,Respiratory rate,77948,5744,1
+3027018,Heart rate,77948,5744,1
+3036277,Body height,76432,5744,1
+3038553,Body mass index (BMI) [Ratio],71043,5593,1
+46236952,"Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M",63562,1680,2
+44786664,Weight difference [Mass difference] --pre dialysis - post dialysis,62033,204,1
+3004295,Urea nitrogen [Mass/volume] in Blood,53214,2650,1
+3018572,Chloride [Moles/volume] in Blood,53214,2650,1
+3032503,Calcium [Mass/volume] in Blood,53214,2650,1
+3000483,Glucose [Mass/volume] in Blood,53214,2650,1
