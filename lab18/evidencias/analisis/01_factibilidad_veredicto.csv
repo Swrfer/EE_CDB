@@ -1,0 +1,2 @@
+cohort_patients,followup_median_days,followup_q1_days,followup_q3_days,egfr_measurements,patients_with_egfr,egfr_below_60_events,patients_with_egfr_below_60,model_feasible,reason
+22,1054.0,294.25,1766.0,255,19,65,6,No,Sólo 6 pacientes presentan la señal renal; las 65 mediciones repetidas no son eventos independientes.

@@ -1,0 +1,15 @@
+schema_name,table_name
+cdm,concept
+cdm,concept_ancestor
+cdm,condition_occurrence
+cdm,drug_exposure
+cdm,measurement
+cdm,observation_period
+cdm,person
+results,cohort
+results,lab17_attrition
+results,lab17_bp_concept_set
+results,lab17_first_drug_era
+results,lab17_lisinopril_concept_set
+results,lab17_pregnancy_concept_set
+results,lab17_t2dm_concept_set

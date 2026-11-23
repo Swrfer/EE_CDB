@@ -1,0 +1,16 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/01_factibilidad_veredicto.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/02_atricion_comparada.csv (7 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/03_incidencia_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/04_evento_indice_resumen.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/05_huerfanos_decisiones.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/06_comparacion_circe.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/07_variantes_sexo.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab18/evidencias/analisis/08_sensibilidad_resumen.csv (3 filas)
+
+===== LABORATORIO 18 GENERADO =====
+Cohorte: 22 personas
+Pacientes con eGFR < 60: 6
+N final en ambos órdenes: 22
+Concepto índice dominante: 86.36%
+Variantes de lavado: 22, 22, 22
+Commit y push: NO ejecutados

@@ -1,0 +1,3 @@
+unit_concept_id,unit_concept_name,unit_source_value,measurements,patients,minimum,median,maximum
+0,No matching concept,mL/min/{1.73_m2},235,17,15.7,82.2,159.8
+8795,milliliter per minute,mL/min,20,6,5.7,24.0,148.7
