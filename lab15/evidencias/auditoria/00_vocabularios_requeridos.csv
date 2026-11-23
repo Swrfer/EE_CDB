@@ -1,0 +1,5 @@
+vocabulary_id,conceptos,estandar,vigentes,vocabulary_version,vocabulary_reference
+ATC,7327,0,6998,ATC 2026-02-01,http://www.whocc.no/atc_ddd_index/
+LOINC,287814,125586,244084,LOINC 2.82,http://loinc.org/downloads/loinc
+RxNorm,316330,158086,215026,RxNorm 20260601,http://www.nlm.nih.gov/research/umls/rxnorm/docs/rxnormfiles.html
+UCUM,1130,1041,1041,Version 1.8.2,http://aurora.regenstrief.org/~ucum/ucum.html#section-Alphabetic-Index

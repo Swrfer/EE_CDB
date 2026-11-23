@@ -1,0 +1,43 @@
+
+11_comparacion_ventanas_t2dm.csv
+                             variant  t2dm_patients  after_1_bp_date  after_2_bp_dates  after_3_bp_dates  final_after_exclusions
+           A_inicio_ultimos_365_dias             17               11                 6                 1                       6
+B_diagnostico_observado_antes_indice            179               54                22                10                      22
+         D_cualquier_registro_previo            179               54                22                10                      22
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/auditoria/11_comparacion_ventanas_t2dm.csv (3 filas)
+
+12_tiempo_t2dm_antes_indice.csv
+                             variant  events  median_days_before_index  q1_days  q3_days  min_days  max_days
+           A_inicio_ultimos_365_dias      17                       1.0      0.0     30.0         0       295
+B_diagnostico_observado_antes_indice     179                    2969.0    647.5   7259.0         0     21498
+         D_cualquier_registro_previo     179                    2969.0    647.5   7259.0         0     21498
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/auditoria/12_tiempo_t2dm_antes_indice.csv (3 filas)
+
+13_distribucion_fechas_presion.csv
+                             variant  bp_dates  patients
+           A_inicio_ultimos_365_dias         0         6
+           A_inicio_ultimos_365_dias         1         5
+           A_inicio_ultimos_365_dias         2         5
+           A_inicio_ultimos_365_dias         3         1
+B_diagnostico_observado_antes_indice         0       125
+B_diagnostico_observado_antes_indice         1        32
+B_diagnostico_observado_antes_indice         2        12
+B_diagnostico_observado_antes_indice         3         7
+B_diagnostico_observado_antes_indice         5         1
+B_diagnostico_observado_antes_indice        12         1
+B_diagnostico_observado_antes_indice        14         1
+         D_cualquier_registro_previo         0       125
+         D_cualquier_registro_previo         1        32
+         D_cualquier_registro_previo         2        12
+         D_cualquier_registro_previo         3         7
+         D_cualquier_registro_previo         5         1
+         D_cualquier_registro_previo        12         1
+         D_cualquier_registro_previo        14         1
+Guardado: /Users/alejandrogarciacolorado/EE_CDB/lab17/evidencias/auditoria/13_distribucion_fechas_presion.csv (18 filas)
+
+===== RECOMENDACIÓN =====
+Ventana recomendada: diagnóstico de T2DM observado entre el inicio
+del periodo continuo y la fecha índice.
+Pacientes con T2DM: 179
+Final con >=2 fechas de presión y exclusiones: 22
+COMPARACIÓN COMPLETADA

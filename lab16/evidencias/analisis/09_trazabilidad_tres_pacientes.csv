@@ -1,0 +1,4 @@
+criterio_seleccion,person_id,event_id,event_date,condition_source_value,condition_source_concept_id,source_concept_name,standard_concept_id,standard_concept_name,concept_set_ancestor_id,concept_set_ancestor_name,why_branch
+muestra reproducible con semilla fija,1456,23116,1994-08-26,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,inclusión directa
+muestra reproducible con semilla fija,1112,17429,2022-02-23,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,inclusión directa
+selección independiente de apoyo,635,9728,2019-11-29,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus,inclusión directa

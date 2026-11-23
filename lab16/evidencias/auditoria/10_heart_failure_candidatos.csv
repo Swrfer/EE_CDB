@@ -1,0 +1,51 @@
+concept_id,concept_name,concept_code,eventos,pacientes
+4229440,Chronic congestive heart failure,88805009,162,162
+316139,Heart failure,84114007,3,3
+44782718,Acute combined systolic and diastolic heart failure,153931000119109,0,0
+4023479,Acute congestive heart failure,10633002,0,0
+40481042,Acute diastolic heart failure,443343001,0,0
+44782655,Acute exacerbation of chronic congestive heart failure,698296002,0,0
+1245073,Acute exacerbation of chronic heart failure,1296659009,0,0
+442310,Acute heart failure,56675007,0,0
+764877,Acute heart failure co-occurrent with normal ejection fraction,7421000175106,0,0
+4327205,Acute left-sided congestive heart failure,74960003,0,0
+44782733,Acute on chronic combined systolic and diastolic heart failure,153951000119103,0,0
+40481043,Acute on chronic diastolic heart failure,443344007,0,0
+764874,Acute on chronic heart failure co-occurrent with normal ejection fraction,7401000175100,0,0
+37309625,Acute on chronic right-sided congestive heart failure,16838951000119100,0,0
+40480602,Acute on chronic systolic heart failure,443253003,0,0
+4215446,Acute right-sided congestive heart failure,80479009,0,0
+4233424,Acute right-sided heart failure,359617009,0,0
+40480603,Acute systolic heart failure,443254009,0,0
+313502,Benign hypertensive heart disease without congestive heart failure,77970009,0,0
+4242669,Biventricular congestive heart failure,92506005,0,0
+44782719,Chronic combined systolic and diastolic heart failure,153941000119100,0,0
+40479576,Chronic diastolic heart failure,441530006,0,0
+444031,Chronic heart failure,48447003,0,0
+764876,Chronic heart failure co-occurrent with normal ejection fraction,7411000175102,0,0
+4206009,Chronic left-sided congestive heart failure,5375005,0,0
+4009047,Chronic left-sided heart failure,111283005,0,0
+4284562,Chronic right-sided congestive heart failure,66989003,0,0
+4014159,Chronic right-sided heart failure,10335000,0,0
+40479192,Chronic systolic heart failure,441481004,0,0
+319835,Congestive heart failure,42343007,0,0
+44784345,Congestive heart failure as early postoperative complication,72481000119103,0,0
+762002,Congestive heart failure as post-operative complication of cardiac surgery,285211000119102,0,0
+762003,Congestive heart failure as post-operative complication of non-cardiac surgery,285221000119109,0,0
+44782428,Congestive heart failure due to cardiomyopathy,101281000119107,0,0
+4139864,Congestive heart failure due to left ventricular systolic dysfunction,426263006,0,0
+4142561,Congestive heart failure due to valvular disease,426611007,0,0
+43021826,Congestive heart failure stage C,67441000119101,0,0
+36712927,Congestive heart failure stage C due to ischemic cardiomyopathy,15629541000119106,0,0
+43021825,Congestive heart failure stage D,67431000119105,0,0
+44782713,Congestive heart failure with right heart failure,23341000119109,0,0
+315295,Congestive rheumatic heart failure,82523003,0,0
+4311437,Decompensated chronic heart failure,424404003,0,0
+443587,Diastolic heart failure,418304008,0,0
+43531001,Diastolic heart failure stage A,609555007,0,0
+43021842,Diastolic heart failure stage C,120891000119109,0,0
+43021841,Diastolic heart failure stage D,120881000119106,0,0
+43022068,Exacerbation of congestive heart failure,96311000119109,0,0
+43021735,Fetal heart failure,462172006,0,0
+45766964,Fetal heart failure due to extracardiac disease,704242009,0,0
+43022054,Fetal heart failure with myocardial hypertrophy,462174007,0,0

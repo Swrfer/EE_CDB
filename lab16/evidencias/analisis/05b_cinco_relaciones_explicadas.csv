@@ -1,0 +1,6 @@
+relationship_id,explicacion
+RxNorm ing of,Conecta el ingrediente con productos y formas que lo contienen; sí define ancestría.
+Has brand name,"Relaciona el ingrediente con nombres comerciales; es jerárquica en metadatos, pero no define CONCEPT_ANCESTOR."
+Mapped from,Muestra conceptos no estándar que se normalizan hacia lisinopril en sentido inverso a Maps to.
+RxNorm - ATC pr lat,Enlace lateral primario entre RxNorm y una clase o combinación ATC; no es una relación de descendencia.
+Has form,"Vincula el ingrediente general con una forma precisa, como lisinopril anhidro."

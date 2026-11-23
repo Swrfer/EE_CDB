@@ -1,0 +1,4 @@
+medicamento,rxcui,nombre_rxnav,tty,formas_clinicas_scdf,nombres_marca_bn,fecha_consulta,fuente
+metformin,6809,metformin,IN,21,14,2026-11-22,https://rxnav.nlm.nih.gov/REST/rxcui/6809/related.json?tty=SCDF+BN
+lisinopril,29046,lisinopril,IN,3,4,2026-11-22,https://rxnav.nlm.nih.gov/REST/rxcui/29046/related.json?tty=SCDF+BN
+cisplatin,2555,cisplatin,IN,2,0,2026-11-22,https://rxnav.nlm.nih.gov/REST/rxcui/2555/related.json?tty=SCDF+BN

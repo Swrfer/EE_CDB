@@ -1,0 +1,113 @@
+termino_buscado,concept_id,concept_name,vocabulary_id,concept_class_id,standard_concept,concept_code,exposiciones_en_base
+metformin,40163924,24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet,RxNorm,Quant Clinical Drug,S,860975,10098
+metformin,1503297,metformin,RxNorm,Ingredient,S,6809,0
+metformin,40220371,Modified 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1807888,0
+metformin,40220375,Modified 24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1807915,0
+metformin,40220373,Osmotic 24 HR metformin hydrochloride 1000 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1807894,0
+metformin,40220376,Osmotic 24 HR metformin hydrochloride 500 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1807917,0
+metformin,43013896,alogliptin 12.5 MG / metformin hydrochloride 1000 MG Oral Tablet,RxNorm,Clinical Drug,S,1368385,0
+metformin,43013899,alogliptin 12.5 MG / metformin hydrochloride 500 MG Oral Tablet,RxNorm,Clinical Drug,S,1368392,0
+lisinopril,19080128,lisinopril 10 MG Oral Tablet,RxNorm,Clinical Drug,S,314076,25324
+lisinopril,19080129,lisinopril 20 MG Oral Tablet,RxNorm,Clinical Drug,S,314077,814
+lisinopril,1308251,lisinopril 5 MG Oral Tablet,RxNorm,Clinical Drug,S,311354,18
+lisinopril,1308250,lisinopril 2.5 MG Oral Tablet,RxNorm,Clinical Drug,S,311353,11
+lisinopril,1308221,lisinopril 40 MG Oral Tablet,RxNorm,Clinical Drug,S,197884,11
+lisinopril,974199,hydrochlorothiazide 12.5 MG / lisinopril 10 MG Oral Tablet,RxNorm,Clinical Drug,S,197885,6
+lisinopril,974201,hydrochlorothiazide 25 MG / lisinopril 20 MG Oral Tablet,RxNorm,Clinical Drug,S,197887,6
+lisinopril,974200,hydrochlorothiazide 12.5 MG / lisinopril 20 MG Oral Tablet,RxNorm,Clinical Drug,S,197886,5
+omeprazole,904453,esomeprazole,RxNorm,Ingredient,S,283742,0
+omeprazole,923645,omeprazole,RxNorm,Ingredient,S,7646,0
+omeprazole,37497620,amoxicillin 250 MG / omeprazole 10 MG / rifabutin 12.5 MG Delayed Release Oral Capsule,RxNorm,Clinical Drug,S,2262026,0
+omeprazole,1718972,aspirin 325 MG / omeprazole 40 MG Delayed Release Oral Tablet,RxNorm,Clinical Drug,S,1811632,0
+omeprazole,1718971,aspirin 81 MG / omeprazole 40 MG Delayed Release Oral Tablet,RxNorm,Clinical Drug,S,1811631,0
+omeprazole,40165707,esomeprazole 10 MG Granules for Oral Suspension,RxNorm,Clinical Drug,S,861568,0
+omeprazole,42800715,esomeprazole 2.5 MG Granules for Oral Suspension,RxNorm,Clinical Drug,S,1297658,0
+omeprazole,40222575,esomeprazole 20 MG / naproxen 375 MG Delayed Release Oral Tablet,RxNorm,Clinical Drug,S,994005,0
+hydrochlorothiazide,19078106,hydrochlorothiazide 25 MG Oral Tablet,RxNorm,Clinical Drug,S,310798,19605
+hydrochlorothiazide,40224154,amlodipine / hydrochlorothiazide / olmesartan Oral Tablet [Tribenzor],RxNorm,Branded Drug Form,S,999970,9
+hydrochlorothiazide,974199,hydrochlorothiazide 12.5 MG / lisinopril 10 MG Oral Tablet,RxNorm,Clinical Drug,S,197885,6
+hydrochlorothiazide,974201,hydrochlorothiazide 25 MG / lisinopril 20 MG Oral Tablet,RxNorm,Clinical Drug,S,197887,6
+hydrochlorothiazide,974200,hydrochlorothiazide 12.5 MG / lisinopril 20 MG Oral Tablet,RxNorm,Clinical Drug,S,197886,5
+hydrochlorothiazide,40184217,hydrochlorothiazide 25 MG / losartan potassium 100 MG Oral Tablet,RxNorm,Clinical Drug,S,979471,5
+hydrochlorothiazide,40162871,bisoprolol fumarate 2.5 MG / hydrochlorothiazide 6.25 MG Oral Tablet,RxNorm,Clinical Drug,S,854916,3
+hydrochlorothiazide,19023454,hydrochlorothiazide 12.5 MG / valsartan 160 MG Oral Tablet,RxNorm,Clinical Drug,S,200285,3
+losartan,40185280,losartan potassium 25 MG Oral Tablet,RxNorm,Clinical Drug,S,979485,991
+losartan,40185304,losartan potassium 50 MG Oral Tablet,RxNorm,Clinical Drug,S,979492,785
+losartan,40185276,losartan potassium 100 MG Oral Tablet,RxNorm,Clinical Drug,S,979480,10
+losartan,40184217,hydrochlorothiazide 25 MG / losartan potassium 100 MG Oral Tablet,RxNorm,Clinical Drug,S,979471,5
+losartan,40184184,hydrochlorothiazide 12.5 MG / losartan potassium 100 MG Oral Tablet,RxNorm,Clinical Drug,S,979464,2
+losartan,40184187,hydrochlorothiazide 12.5 MG / losartan potassium 50 MG Oral Tablet,RxNorm,Clinical Drug,S,979468,2
+losartan,1367500,losartan,RxNorm,Ingredient,S,52175,0
+losartan,1367533,losartan 12.5 MG Oral Tablet,RxNorm,Clinical Drug,S,252576,0
+amoxicillin,1713671,amoxicillin 250 MG / clavulanate 125 MG Oral Tablet,RxNorm,Clinical Drug,S,562251,1320
+amoxicillin,19073188,amoxicillin 500 MG Oral Tablet,RxNorm,Clinical Drug,S,308192,494
+amoxicillin,19073183,amoxicillin 250 MG Oral Capsule,RxNorm,Clinical Drug,S,308182,149
+amoxicillin,1713694,amoxicillin 500 MG / clavulanate 125 MG Oral Tablet,RxNorm,Clinical Drug,S,617296,34
+amoxicillin,19115197,amoxicillin 875 MG / clavulanate 125 MG Oral Tablet,RxNorm,Clinical Drug,S,562508,9
+amoxicillin,1713332,amoxicillin,RxNorm,Ingredient,S,723,0
+amoxicillin,1713418,ambroxol 3 MG/ML / amoxicillin 100 MG/ML Oral Suspension,RxNorm,Clinical Drug,S,248765,0
+amoxicillin,19105338,ambroxol 3 MG/ML / amoxicillin 150 MG/ML Oral Suspension,RxNorm,Clinical Drug,S,420058,0
+acetaminophen,19041324,acetaminophen 325 MG Oral Tablet [Tylenol],RxNorm,Branded Drug,S,209387,4553
+acetaminophen,40231918,acetaminophen 325 MG / oxycodone hydrochloride 10 MG Oral Tablet [Percocet],RxNorm,Branded Drug,S,1049625,4227
+acetaminophen,40162606,acetaminophen 300 MG / hydrocodone bitartrate 5 MG Oral Tablet,RxNorm,Clinical Drug,S,856987,3933
+acetaminophen,1127433,acetaminophen 325 MG Oral Tablet,RxNorm,Clinical Drug,S,313782,3059
+acetaminophen,40221901,acetaminophen 300 MG / codeine phosphate 15 MG Oral Tablet,RxNorm,Clinical Drug,S,993770,1251
+acetaminophen,19020053,acetaminophen 500 MG Oral Tablet,RxNorm,Clinical Drug,S,198440,1087
+acetaminophen,40229134,acetaminophen 21.7 MG/ML / dextromethorphan hydrobromide 1 MG/ML / doxylamine succinate 0.417 MG/ML Oral Solution,RxNorm,Clinical Drug,S,1043400,700
+acetaminophen,19079924,acetaminophen 160 MG Chewable Tablet,RxNorm,Clinical Drug,S,313820,636
+insulin glargine,1502905,insulin glargine,RxNorm,Ingredient,S,274783,0
+insulin glargine,37498226,Sensor 3 ML insulin glargine 100 UNT/ML Pen Injector,RxNorm,Clinical Drug,S,2268064,0
+insulin glargine,1718605,insulin glargine 100 UNT/ML / lixisenatide 0.033 MG/ML Pen Injector,RxNorm,Clinical Drug,S,1859001,0
+insulin glargine,19078559,insulin glargine 100 UNT/ML Injectable Solution,RxNorm,Clinical Drug,S,311041,0
+insulin glargine,42902742,insulin glargine 100 UNT/ML Pen Injector,RxNorm,Clinical Drug,S,1359855,0
+insulin glargine,46221558,insulin glargine 300 UNT/ML Pen Injector,RxNorm,Clinical Drug,S,1604545,0
+insulin glargine,1758673,insulin glargine-aglr 100 UNT/ML Pen Injector,RxNorm,Clinical Drug,S,2589009,0
+insulin glargine,701385,insulin glargine-yfgn 100 UNT/ML Injectable Solution,RxNorm,Clinical Drug,S,2563976,0
+albuterol,19123989,albuterol 0.83 MG/ML Inhalation Solution,RxNorm,Clinical Drug,S,630208,2940
+albuterol,1154380,albuterol 5 MG/ML Inhalation Solution,RxNorm,Clinical Drug,S,245314,2722
+albuterol,1154619,NDA021457 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [ProAir],RxNorm,Branded Drug,S,745752,772
+albuterol,40163900,NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin],RxNorm,Branded Drug,S,859088,696
+albuterol,1154536,albuterol 0.21 MG/ML Inhalation Solution,RxNorm,Clinical Drug,S,351137,509
+albuterol,1511248,NDA020503 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler,RxNorm,Clinical Drug,S,2123111,475
+albuterol,1154535,albuterol 0.417 MG/ML Inhalation Solution,RxNorm,Clinical Drug,S,351136,466
+albuterol,1154621,NDA020503 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Proventil],RxNorm,Branded Drug,S,746763,14
+sulfamethoxazole,1836434,sulfamethoxazole 800 MG / trimethoprim 160 MG Oral Tablet,RxNorm,Clinical Drug,S,198335,128
+sulfamethoxazole,1836430,sulfamethoxazole,RxNorm,Ingredient,S,10180,0
+sulfamethoxazole,40236821,phenazopyridine hydrochloride 100 MG / sulfamethoxazole 500 MG Oral Tablet,RxNorm,Clinical Drug,S,1094024,0
+sulfamethoxazole,40236837,phenazopyridine hydrochloride 200 MG / sulfamethoxazole 800 MG / trimethoprim 160 MG Oral Tablet,RxNorm,Clinical Drug,S,1094352,0
+sulfamethoxazole,45776572,sulfamethoxazole 1.67 MG/ML / trimethoprim 0.333 MG/ML Oral Solution,RxNorm,Clinical Drug,S,1549233,0
+sulfamethoxazole,1836431,sulfamethoxazole 100 MG / trimethoprim 20 MG Oral Tablet,RxNorm,Clinical Drug,S,142118,0
+sulfamethoxazole,1836450,sulfamethoxazole 100 MG/ML Oral Suspension,RxNorm,Clinical Drug,S,313135,0
+sulfamethoxazole,1836448,sulfamethoxazole 1000 MG Oral Tablet,RxNorm,Clinical Drug,S,313133,0
+trimethoprim,1836434,sulfamethoxazole 800 MG / trimethoprim 160 MG Oral Tablet,RxNorm,Clinical Drug,S,198335,128
+trimethoprim,1705674,trimethoprim,RxNorm,Ingredient,S,10829,0
+trimethoprim,40236837,phenazopyridine hydrochloride 200 MG / sulfamethoxazole 800 MG / trimethoprim 160 MG Oral Tablet,RxNorm,Clinical Drug,S,1094352,0
+trimethoprim,19063846,polymyxin B 10 UNT/MG / trimethoprim 0.005 MG/MG Ophthalmic Ointment,RxNorm,Clinical Drug,S,250858,0
+trimethoprim,948637,polymyxin B 10000 UNT/ML / trimethoprim 1 MG/ML Ophthalmic Solution,RxNorm,Clinical Drug,S,244967,0
+trimethoprim,1763259,rifampin 20 MG/ML / trimethoprim 5.4 MG/ML Oral Solution,RxNorm,Clinical Drug,S,248766,0
+trimethoprim,19103700,rifampin 300 MG / trimethoprim 80 MG Oral Capsule,RxNorm,Clinical Drug,S,411475,0
+trimethoprim,1763258,rifampin 300 MG / trimethoprim 80 MG Oral Tablet,RxNorm,Clinical Drug,S,246378,0
+sitagliptin,1580747,sitagliptin,RxNorm,Ingredient,S,593411,0
+sitagliptin,793335,ertugliflozin 15 MG / sitagliptin 100 MG Oral Tablet,RxNorm,Clinical Drug,S,1992826,0
+sitagliptin,793342,ertugliflozin 5 MG / sitagliptin 100 MG Oral Tablet,RxNorm,Clinical Drug,S,1992835,0
+sitagliptin,42708168,metformin hydrochloride 1000 MG / sitagliptin 100 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1243834,0
+sitagliptin,42708172,metformin hydrochloride 1000 MG / sitagliptin 50 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,1243844,0
+sitagliptin,40164891,metformin hydrochloride 1000 MG / sitagliptin 50 MG Oral Tablet,RxNorm,Clinical Drug,S,861769,0
+sitagliptin,1465883,metformin hydrochloride 1000 MG / sitagliptin phosphate 100 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,2709471,0
+sitagliptin,1465887,metformin hydrochloride 1000 MG / sitagliptin phosphate 50 MG Extended Release Oral Tablet,RxNorm,Clinical Drug,S,2709478,0
+cisplatin,35604087,cisplatin 50 MG Injection,RxNorm,Clinical Drug,S,1736854,10407
+cisplatin,1397599,cisplatin,RxNorm,Ingredient,S,2555,0
+cisplatin,19075392,cisplatin 1 MG/ML Injectable Solution,RxNorm,Clinical Drug,S,309311,0
+cisplatin,19030418,cisplatin 1 MG/ML Injectable Solution [Platinol],RxNorm,Branded Drug,S,205821,0
+cisplatin,35604090,cisplatin 50 MG Injection [Platinol],RxNorm,Branded Drug,S,1736857,0
+cisplatin,19082971,cisplatin 1 MG/ML,RxNorm,Clinical Drug Comp,S,328303,0
+cisplatin,19044148,cisplatin 1 MG/ML [Platinol],RxNorm,Branded Drug Comp,S,566711,0
+cisplatin,35604085,cisplatin 50 MG,RxNorm,Clinical Drug Comp,S,1736852,0
+sodium chloride,19079524,sodium chloride 9 MG/ML Injectable Solution,RxNorm,Clinical Drug,S,313002,15
+sodium chloride,967823,sodium chloride,RxNorm,Ingredient,S,9863,0
+sodium chloride,1464782,Shortage Import Unapproved 1000 ML glucose 50 MG/ML / sodium chloride 9 MG/ML Injection,RxNorm,Clinical Drug,S,2698222,0
+sodium chloride,19131051,acetate 0.044 MEQ/ML / cysteine 0.2 MG/ML / histidine 2.5 MG/ML / isoleucine 5.6 MG/ML / leucine 8.8 MG/ML / lysine 9 MG/ML / methionine 8.8 MG/ML / phenylalanine 8.8 MG/ML / sodium bisulfite 0.5 MG/ML / sodium chloride 0.005 MEQ/ML / threonine 4 MG/ML...,RxNorm,Clinical Drug,S,800976,0
+sodium chloride,19131007,ascorbic acid 4700 MG / polyethylene glycol 3350 100000 MG / potassium chloride 1015 MG / sodium ascorbate 5900 MG / sodium chloride 2690 MG / sodium sulfate 7500 MG Powder for Oral Solution,RxNorm,Clinical Drug,S,800915,0
+sodium chloride,1510407,ascorbic acid 7540 MG / polyethylene glycol 3350 40000 MG / potassium chloride 1200 MG / sodium ascorbate 48110 MG / sodium chloride 3200 MG Powder for Oral Solution,RxNorm,Clinical Drug,S,2045243,0
+sodium chloride,19122232,benzyl alcohol 0.09 ML/ML / sodium chloride 0.154 MEQ/ML Injectable Solution,RxNorm,Clinical Drug,S,598040,0
+sodium chloride,19070421,calcium carbonate 18 MG / potassium chloride 15 MG / sodium chloride 220 MG Oral Tablet,RxNorm,Clinical Drug,S,283156,0

@@ -1,0 +1,88 @@
+Aviso:
+package ‘DatabaseConnector’ was built under R version 4.4.3 
+Aviso:
+package ‘SqlRender’ was built under R version 4.4.1 
+===== 1. VALIDAR ESTADO PREVIO =====
+Connecting using DuckDB driver
+  concepts standard_maps persons visits
+1  2026160       1251044    5745 320853
+
+===== 2. VACIAR EVENTOS DESDE CONDITION =====
+Vaciando: condition_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00144 secs
+Vaciando: observation 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00146 secs
+Vaciando: measurement 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000999 secs
+Vaciando: procedure_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000984 secs
+Vaciando: drug_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00256 secs
+Vaciando: condition_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00109 secs
+Vaciando: drug_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00117 secs
+Vaciando: cdm_source 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00101 secs
+Vaciando: device_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: death 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: payer_plan_period 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00109 secs
+Vaciando: cost 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0011 secs
+
+===== 3. PREPARAR CONSULTAS COMPATIBLES =====
+Connecting using DuckDB driver
+
+Ejecutando: insert_condition_occurrence.sql | datetime sustituidos: 2 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.103 secs
+
+Ejecutando: insert_observation.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.16 secs
+
+Ejecutando: insert_measurement.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 2.38 secs
+
+Ejecutando: insert_procedure_occurrence.sql | datetime sustituidos: 4 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.231 secs
+
+Ejecutando: insert_drug_exposure.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.234 secs
+
+Ejecutando: insert_cdm_source.sql | datetime sustituidos: 0 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.125 secs
+
+===== 4. GENERAR CONTEOS Y VALIDACIONES =====
+Connecting using DuckDB driver
+  total_concepts standard_concepts
+1        2026160            846202
+  persons visits conditions  drugs measurements procedures devices deaths
+1    5745 320853      92084 280617      3111032     385657       0      0
+  condition_datetime_non_null measurement_datetime_non_null
+1                           0                             0
+  drug_datetime_non_null
+1                 280617
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00101 secs
+
+===== CARGA COMPATIBLE COMPLETADA =====

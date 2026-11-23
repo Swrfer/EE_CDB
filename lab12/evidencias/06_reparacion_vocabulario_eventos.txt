@@ -1,0 +1,220 @@
+Aviso:
+package ‘DatabaseConnector’ was built under R version 4.4.3 
+Aviso:
+package ‘SqlRender’ was built under R version 4.4.1 
+===== 1. LOCALIZAR Y MATERIALIZAR VOCABULARIOS =====
+Connecting using DuckDB driver
+concept                      2,026,160 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00232 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.61 secs
+concept_ancestor             12,073,517 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00119 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.195 secs
+concept_class                433 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00112 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00185 secs
+concept_relationship         14,129,144 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0036 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.626 secs
+concept_synonym              2,503,953 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00111 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.438 secs
+domain                       50 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0016 secs
+drug_strength                209,849 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000987 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0311 secs
+relationship                 724 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00117 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00352 secs
+vocabulary                   42 filas
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00106 secs
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00145 secs
+
+===== 2. RECONSTRUIR MAPAS SIN ÍNDICES =====
+Connecting using DuckDB driver
+Ejecutando: create_source_to_standard_vocab_map.sql 
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.61 secs
+Ejecutando: create_source_to_source_vocab_map.sql 
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 2.39 secs
+Ejecutando: create_states_map.sql 
+  |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00359 secs
+
+===== 3. RECONSTRUIR ROLLUP DE VISITAS =====
+Connecting using DuckDB driver
+Running: AllVisitTable.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======                                                                |   9%  |                                                                              |=============                                                         |  18%  |                                                                              |===================                                                   |  27%  |                                                                              |=========================                                             |  36%  |                                                                              |================================                                      |  45%  |                                                                              |======================================                                |  55%  |                                                                              |=============================================                         |  64%  |                                                                              |===================================================                   |  73%  |                                                                              |=========================================================             |  82%  |                                                                              |================================================================      |  91%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.486 secs
+Running: AAVITable.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.254 secs
+Running: final_visit_ids.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0867 secs
+
+===== 4. VALIDAR MAPAS =====
+Connecting using DuckDB driver
+                    table_name row_count
+1 source_to_standard_vocab_map   1251044
+2   source_to_source_vocab_map   2026160
+3                   states_map        51
+4                   all_visits    322854
+5         assign_all_visit_ids    339440
+6              final_visit_ids    333849
+
+===== 5. VACIAR TABLAS CLÍNICAS PREVIAS =====
+Vaciando: care_site 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00303 secs
+Vaciando: cdm_source 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00156 secs
+Vaciando: cohort 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00127 secs
+Vaciando: cohort_definition 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00144 secs
+Vaciando: condition_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00326 secs
+Vaciando: condition_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00156 secs
+Vaciando: cost 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00136 secs
+Vaciando: death 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00119 secs
+Vaciando: device_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0011 secs
+Vaciando: dose_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00121 secs
+Vaciando: drug_era 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00108 secs
+Vaciando: drug_exposure 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00149 secs
+Vaciando: episode 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00118 secs
+Vaciando: episode_event 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.000966 secs
+Vaciando: fact_relationship 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00096 secs
+Vaciando: location 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0017 secs
+Vaciando: measurement 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00115 secs
+Vaciando: metadata 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00123 secs
+Vaciando: note 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00231 secs
+Vaciando: note_nlp 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00109 secs
+Vaciando: observation 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00124 secs
+Vaciando: observation_period 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0042 secs
+Vaciando: payer_plan_period 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.103 secs
+Vaciando: person 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00545 secs
+Vaciando: procedure_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00167 secs
+Vaciando: provider 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00266 secs
+Vaciando: specimen 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0014 secs
+Vaciando: visit_detail 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.541 secs
+Vaciando: visit_occurrence 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.534 secs
+
+===== 6. RECARGAR TABLAS CLÍNICAS =====
+Connecting using DuckDB driver
+Running: insert_location.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00602 secs
+Running: insert_care_site.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0024 secs
+Running: insert_person.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00899 secs
+Running: insert_observation_period.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00788 secs
+Running: insert_provider.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.00306 secs
+Running: insert_visit_occurrence.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.243 secs
+Running: insert_visit_detail.sql
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.246 secs
+Running: insert_condition_occurrence.sql
+  |                                                                              |                                                                      |   0%Error in `.createErrorReport()`:
+! Error executing SQL:
+Invalid Error: Conversion Error: Type INT32 with value 5877642-06-23 (BC) can't be cast to the destination type INT64 when casting from source column condition_end_datetime
+
+LINE 26: c.stop                                     condition_end_da...
+         ^
+ℹ Context: rapi_execute
+ℹ Error type: INVALID
+An error report has been created at  /Users/alejandrogarciacolorado/EE_CDB/errorReportSql.txt
+Backtrace:
+    ▆
+ 1. └─ETLSyntheaBuilder::LoadEventTables(...)
+ 2.   └─ETLSyntheaBuilder (local) runStep(sql, fileQuery)
+ 3.     └─DatabaseConnector::executeSql(conn, sql)
+ 4.       └─base::tryCatch(...)
+ 5.         └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 6.           └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 7.             └─value[[3L]](cond)
+ 8.               └─DatabaseConnector:::.createErrorReport(dbms, err$message, sqlStatement, errorReportFile)
+ 9.                 └─rlang::abort(...)
+Ejecución interrumpida

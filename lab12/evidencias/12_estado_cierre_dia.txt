@@ -1,0 +1,61 @@
+Fecha de cierre: sábado,  7 de noviembre de 2026, 22:12:32 CST
+
+Rama:
+lab12-omop-cdm
+
+Commit de partida:
+221b4ef feat(lab11): complete longitudinal SQL analytics lab
+
+Estado de Git:
+ M .gitignore
+?? lab12/
+
+Base OMOP:
+-rw-r--r--  1 alejandrogarciacolorado  staff   1.7G  7 nov 22:07 lab12/data/omop/synthea_omop_cdm54.duckdb
+
+Último error:
+Executing SQL took 0.18 secs
+
+Ejecutando: insert_observation.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 1.98 secs
+
+Ejecutando: insert_measurement.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 3.82 secs
+
+Ejecutando: insert_procedure_occurrence.sql | datetime sustituidos: 4 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.346 secs
+
+Ejecutando: insert_drug_exposure.sql | datetime sustituidos: 3 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.377 secs
+
+Ejecutando: insert_cdm_source.sql | datetime sustituidos: 0 
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Executing SQL took 0.0253 secs
+
+Ejecutando: insert_device_exposure.sql | datetime sustituidos: 4 
+  |                                                                              |                                                                      |   0%Error in `.createErrorReport()`:
+! Error executing SQL:
+Parser Error: syntax error at or near "cast"
+
+LINE 6: cast(null as TIMESTAMP) device_exposure_start_datetime,
+        ^
+
+LINE 6: cast(null as TIMESTAMP) device_exposure_start_datetime,
+        ^
+ℹ Context: rapi_prepare
+ℹ Error type: PARSER
+An error report has been created at  /Users/alejandrogarciacolorado/EE_CDB/errorReportSql.txt
+Backtrace:
+    ▆
+ 1. └─DatabaseConnector::executeSql(conexion, sql_traducido)
+ 2.   └─base::tryCatch(...)
+ 3.     └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 4.       └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 5.         └─value[[3L]](cond)
+ 6.           └─DatabaseConnector:::.createErrorReport(dbms, err$message, sqlStatement, errorReportFile)
+ 7.             └─rlang::abort(...)
+Ejecución interrumpida

@@ -1,0 +1,3 @@
+condicion_evaluada,concept_id,pacientes,eventos,decision
+Primary malignant neoplasm of stomach,196044,2,2,Descartada: menos de 50 pacientes
+Type 2 diabetes mellitus,201826,457,457,Seleccionada: tamaño suficiente y relevancia para resultados metabólicos

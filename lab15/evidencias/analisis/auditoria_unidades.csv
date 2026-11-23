@@ -1,0 +1,4 @@
+loinc,analito,unit_concept_id,unidad,codigo_ucum,mediciones,pacientes,porcentaje_unidad_0_nula,minimo,mediana,maximo
+2160-0,Creatinine [Mass/volume] in Serum or Plasma,8840,milligram per deciliter,mg/dL,35354,1059,0.0,0.4,2.0,20.5
+2345-7,Glucose [Mass/volume] in Serum or Plasma,8840,milligram per deciliter,mg/dL,35354,1059,0.0,64.0,86.1,200.0
+4548-4,Hemoglobin A1c/Hemoglobin.total in Blood,8554,percent,%,46481,2462,0.0,1.9,4.2,10.3

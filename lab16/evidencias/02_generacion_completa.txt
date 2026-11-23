@@ -1,0 +1,15 @@
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/03b_raiz_tecnica_snomed.csv (1 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/05b_cinco_relaciones_explicadas.csv (5 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/07b_dos_caminos_representativos.csv (2 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/09_trazabilidad_tres_pacientes.csv (3 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/13_rendimiento_tres_corridas.csv (2 filas)
+OK: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/00_version_vocabularios.csv (2 filas)
+
+===== LABORATORIO 16 GENERADO =====
+Recursiva y CONCEPT_ANCESTOR idénticos: False
+Caminos de poli-jerarquía: 13
+Pacientes por ramas solapadas: 165
+Conceptos retirados: 0
+Mediana subconsulta (ms): 2.4825
+Mediana materializada (ms): 1.3586
+Commit y push: NO ejecutados

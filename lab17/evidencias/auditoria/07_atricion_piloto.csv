@@ -1,0 +1,8 @@
+step,criterion,n,lost_at_step,percent_initial_remaining,percent_lost_at_step
+1,Evento inicial: primera exposición,1014,,100.0,
+2,+ 365 días de observación,1014,0,100.0,0.0
+3,+ lavado de 365 días,1014,0,100.0,0.0
+4,"+ T2DM en [-365,0]",17,997,1.68,98.32
+5,+ >=2 fechas con presión arterial,6,11,0.59,64.71
+6,- menores de 18 años,6,0,0.59,0.0
+7,"- embarazo en [-365,0]",6,0,0.59,0.0

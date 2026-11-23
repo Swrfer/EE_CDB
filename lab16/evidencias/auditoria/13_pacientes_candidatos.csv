@@ -1,0 +1,11 @@
+person_id,condition_occurrence_id,condition_start_date,condition_source_value,condition_source_concept_id,source_concept_name,condition_concept_id,standard_concept_name
+1456,23116,1994-08-26,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+1112,17429,2022-02-23,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+635,9728,2019-11-29,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+4560,73128,2024-04-11,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+743,11650,2002-11-25,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+3691,59350,2012-05-25,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+3095,49424,2009-09-18,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+3758,60560,1986-12-08,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+3577,57589,2015-06-08,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus
+2285,36882,2014-02-18,44054006,201826,Type 2 diabetes mellitus,201826,Type 2 diabetes mellitus

@@ -1,0 +1,82 @@
+1. Rama
+PASS: rama = lab13-drug-measurement
+
+2. Archivos obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/farmacoepi.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/reporte_calidad.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/notebooks/analisis_farmacoepi.ipynb
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/scripts/01_generar_lab13.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/tipo_exposicion.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/top20_ingredientes.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/ingrediente_directo_jerarquia.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/drug_era_resumen.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/pdc_resumen.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/top15_analitos.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/unidades_egfr.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/normalizacion_peso_resumen.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/criterios_plausibilidad.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/valores_implausibles_resumen.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/measurement_vs_observation.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/evidencias/analisis/glucosa_indice_resumen.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/figuras/01_days_supply.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/figuras/02_pdc_lisinopril.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/figuras/03_normalizacion_peso.png
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab13/figuras/04_glucosa_indice.png
+
+3. Notebook
+PASS: celdas de código = 5
+PASS: todas las celdas de código fueron ejecutadas
+PASS: todas las celdas tienen identificador
+
+4. Tipo y calidad de exposición
+PASS: 100% de las exposiciones son EHR prescription
+PASS: DRUG_EXPOSURE sin concept_id = 0
+PASS: DRUG_EXPOSURE sin fechas finales nulas
+
+5. Ingrediente y jerarquía
+PASS: ingrediente seleccionado = lisinopril
+PASS: búsqueda directa 0 frente a jerarquía 1024
+
+6. DRUG_ERA y PDC
+PASS: 6028 eras construidas manualmente
+PASS: ausencia de eras derivadas documentada
+PASS: PDC calculado para 975 pacientes elegibles
+PASS: PDC limitado al intervalo [0, 1]
+PASS: 259 pacientes con PDC >= 0.8
+
+7. MEASUREMENT
+PASS: top 15 de analitos generado
+PASS: dos representaciones de unidad para eGFR
+PASS: MEASUREMENT sin concept_id = 0
+PASS: ausencia de operadores censurados documentada
+
+8. Normalización y plausibilidad
+PASS: simulación contiene kg y lb
+PASS: filas en lb convertidas a kg
+PASS: tres criterios de plausibilidad
+PASS: todos los criterios tienen fuente
+PASS: tres analitos evaluados
+PASS: tres valores fuera de rangos plausibles
+PASS: sin centinelas imposibles repetidos
+
+9. Dominios OMOP y valor basal
+PASS: tres hechos clínicos localizados
+PASS: todos los concept_id tienen concept_name
+PASS: conteo de disponibilidad basal consistente
+PASS: 13 de 5655 personas con glucosa basal
+
+10. Tablas derivadas en DuckDB
+PASS: results.drug_era_lisinopril disponible
+PASS: results.pdc_lisinopril disponible
+PASS: results.weight_unit_normalized disponible
+
+11. Documentación
+PASS: SQL usa CONCEPT_ANCESTOR
+PASS: SQL usa conteos de personas distintas
+PASS: SQL acompaña conceptos con nombres legibles
+PASS: reporte contiene interpretación y limitaciones
+PASS: reporte contiene fuentes citadas
+
+===== RESULTADO FINAL =====
+PASS: 58 comprobaciones superadas

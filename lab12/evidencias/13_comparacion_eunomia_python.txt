@@ -1,0 +1,24 @@
+ZIP de referencia: lab12/data/reference/eunomia_cache/GiBleed_5.3.zip
+Extraída: person
+Extraída: observation_period
+Extraída: condition_occurrence
+Extraída: visit_occurrence
+Extraída: concept
+OK: lab12/evidencias/analisis/eunomia_personas_sexo.csv (2 filas)
+OK: lab12/evidencias/analisis/eunomia_personas_nacimiento.csv (78 filas)
+OK: lab12/evidencias/analisis/eunomia_observacion_resumen.csv (1 filas)
+OK: lab12/evidencias/analisis/eunomia_top20_diagnosticos.csv (20 filas)
+OK: lab12/evidencias/analisis/eunomia_visitas_resumen.csv (1 filas)
+OK: lab12/evidencias/analisis/eunomia_visitas_tipo.csv (1 filas)
+OK: lab12/evidencias/analisis/comparacion_synthea_eunomia.csv (7 filas)
+
+===== COMPARACIÓN CON EUNOMIA COMPLETADA =====
+                              metrica synthea_propio         eunomia
+                             Personas           5745            2694
+                   Categorías de sexo              1               2
+       Mediana de días de observación        11516.0         13868.0
+                              Visitas       320853.0          1037.0
+         Media de visitas por persona        55.8491          0.3849
+            Diagnóstico más frecuente     Gingivitis Viral sinusitis
+Eventos del diagnóstico más frecuente          10343           17268
+Base de referencia: lab12/data/reference/eunomia_gibleed.duckdb

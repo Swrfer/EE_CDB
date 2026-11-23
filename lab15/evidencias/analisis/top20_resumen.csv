@@ -1,0 +1,2 @@
+productos_evaluados,filas_antes_join,filas_ingrediente_despues_join,productos_multingrediente,decision_separacion_cero
+20,20,23,3,Se incluye para resolver exposiciones codificadas directamente como ingrediente

@@ -1,0 +1,2 @@
+concept_id,concept_name,vocabulary_id,concept_class_id,standard_concept,concept_code,valid_start_date,valid_end_date,invalid_reason
+1503297,metformin,RxNorm,Ingredient,S,6809,1970-01-01,2099-12-31,

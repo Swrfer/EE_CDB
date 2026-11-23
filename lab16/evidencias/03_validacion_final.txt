@@ -1,0 +1,158 @@
+===== VALIDACIÓN FORMAL DEL LABORATORIO 16 =====
+
+1. Rama
+PASS: rama = lab16-hierarchies
+
+2. Archivos obligatorios
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/README.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/jerarquias.sql
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/hallazgos.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/tiempos.md
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/scripts/00_auditar_lab16.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/scripts/01_generar_lab16.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/scripts/02_validar_lab16.py
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/01_camino_recursivo.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/03_comparacion_ancestros.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/05b_cinco_relaciones_explicadas.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/07_polijerarquia_caminos.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/07b_dos_caminos_representativos.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/08_conteos_solapamiento.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/09_trazabilidad_tres_pacientes.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/12_conceptos_retirados_efecto.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/13_rendimiento_tres_corridas.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/14_plan_subconsulta.txt
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/15_plan_materializado.txt
+
+3. Sintaxis Python
+PASS: sintaxis correcta: 00_auditar_lab16.py
+PASS: sintaxis correcta: 01_generar_lab16.py
+PASS: sintaxis correcta: 02_validar_lab16.py
+
+4. Recursiva y CONCEPT_ANCESTOR
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/01_camino_recursivo.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/03_comparacion_ancestros.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/03b_raiz_tecnica_snomed.csv
+PASS: profundidad recursiva máxima = 7
+PASS: 10 conceptos incluyendo semilla y raíz
+PASS: 9 ancestros en la recursiva
+PASS: 8 ancestros en CONCEPT_ANCESTOR
+PASS: los ocho ancestros clínicos coinciden
+PASS: una diferencia explicada
+PASS: diferencia = SNOMED CT Concept
+PASS: metadatos de la raíz técnica documentados
+PASS: raíz técnica no estándar
+
+5. Metadatos de relaciones
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/04_relationship_resumen.csv
+PASS: 724 tipos de relación
+PASS: 124 relaciones jerárquicas
+PASS: 63 relaciones que definen ancestría
+PASS: 55 relaciones en ambos conjuntos
+PASS: 69 solo jerárquicas
+PASS: 8 solo de ancestría
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/05_lisinopril_tipos_relacion.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/05b_cinco_relaciones_explicadas.csv
+PASS: 10 tipos de relación salientes de lisinopril
+PASS: cinco relaciones explicadas
+PASS: cinco explicaciones distintas
+PASS: explicaciones sustantivas
+
+6. Poli-jerarquía real
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/07_polijerarquia_caminos.csv
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/07b_dos_caminos_representativos.csv
+PASS: 13 caminos reconstruidos
+PASS: distancia mínima = 4
+PASS: distancia máxima = 8
+PASS: todos parten de Gingivitis
+PASS: todos llegan a Disease
+PASS: dos caminos representativos
+PASS: rutas anatómicas distintas
+PASS: rama cabeza/mandíbula
+PASS: rama digestiva
+
+7. Daño de los conteos
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/08_conteos_solapamiento.csv
+PASS: COUNT(*) = 327
+PASS: COUNT(DISTINCT concept_id) = 2
+PASS: COUNT(DISTINCT person_id) = 165
+PASS: 165 eventos únicos
+PASS: 162 filas duplicadas por solapamiento
+PASS: el JOIN infla el resultado
+
+8. Trazabilidad parametrizable
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/09_trazabilidad_tres_pacientes.csv
+PASS: camino completo de trazabilidad
+PASS: tres pacientes distintos
+PASS: pacientes esperados documentados
+PASS: todos los conceptos tienen nombre
+PASS: rama de inclusión explicada
+PASS: una selección independiente documentada
+
+9. Conceptos retirados
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/12_conceptos_retirados_efecto.csv
+PASS: cero conceptos D/U
+PASS: 457 pacientes antes
+PASS: 457 pacientes después
+PASS: efecto numérico = 0
+
+10. Rendimiento
+PASS: /Users/alejandrogarciacolorado/EE_CDB/lab16/evidencias/analisis/13_rendimiento_tres_corridas.csv
+PASS: dos versiones comparadas
+PASS: ambas versiones devuelven 457 pacientes
+PASS: seis tiempos positivos
+PASS: mediana correcta: IN + CONCEPT_ANCESTOR
+PASS: mediana correcta: JOIN + concept set materializado
+PASS: plan de subconsulta completo
+PASS: plan materializado completo
+PASS: plan 1 usa CONDITION_OCCURRENCE
+PASS: plan 2 usa CONDITION_OCCURRENCE
+PASS: plan 2 contiene un JOIN
+
+11. SQL reproducible
+PASS: actividad 1 presente
+PASS: actividad 2 presente
+PASS: actividad 3 presente
+PASS: actividad 4 presente
+PASS: actividad 5 presente
+PASS: actividad 6 presente
+PASS: actividad 7 presente
+PASS: actividad 8 presente
+PASS: usa WITH RECURSIVE
+PASS: filtra Is a
+PASS: filtra relaciones vigentes
+PASS: freno de profundidad < 20
+PASS: protección adicional contra ciclos
+PASS: usa CONCEPT_ANCESTOR
+PASS: cuenta conceptos distintos
+PASS: cuenta pacientes distintos
+PASS: consulta parametrizable por person_id
+PASS: busca reemplazos de conceptos U
+PASS: dos instrucciones EXPLAIN ANALYZE
+PASS: índice del concept set materializado
+
+12. Tabla derivada en DuckDB
+PASS: base OMOP local disponible
+PASS: results.lab16_t2dm_concept_set disponible
+PASS: concept set materializado con 15 conceptos
+PASS: tabla materializada recupera 457 pacientes
+
+13. Documentación
+PASS: poli-jerarquía interpretada
+PASS: explicación clínica del doble camino
+PASS: conceptos retirados documentados
+PASS: trazabilidad documentada
+PASS: tres ejecuciones documentadas
+PASS: mediana documentada
+PASS: cambio del plan explicado
+PASS: resultado de rendimiento interpretado sin exageración
+PASS: README describe el alcance
+PASS: Git permanece manual
+
+14. Archivos no deseados y formato
+PASS: sin bases, ZIP, cachés ni archivos del sistema
+PASS: sin archivos mayores de 10 MB
+PASS: archivos de texto sin espacios finales
+
+===== RESULTADO FINAL =====
+PASS: 125 comprobaciones superadas
+Commit y push: NO ejecutados
