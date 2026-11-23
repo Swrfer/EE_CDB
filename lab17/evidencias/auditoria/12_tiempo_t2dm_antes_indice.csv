@@ -1,0 +1,4 @@
+variant,events,median_days_before_index,q1_days,q3_days,min_days,max_days
+A_inicio_ultimos_365_dias,17,1.0,0.0,30.0,0,295
+B_diagnostico_observado_antes_indice,179,2969.0,647.5,7259.0,0,21498
+D_cualquier_registro_previo,179,2969.0,647.5,7259.0,0,21498

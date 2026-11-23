@@ -1,0 +1,10 @@
+table_schema,table_name,filas_estimadas
+cdm,concept,2026160
+cdm,concept_ancestor,12073517
+cdm,condition_occurrence,92084
+cdm,drug_exposure,280617
+cdm,measurement,3111032
+cdm,observation_period,5745
+cdm,person,5745
+results,lab14_concept_set_membership,28
+results,lab16_t2dm_concept_set,15

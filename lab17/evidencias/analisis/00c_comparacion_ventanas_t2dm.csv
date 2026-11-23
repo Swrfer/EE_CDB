@@ -1,0 +1,4 @@
+variant,t2dm_patients,after_1_bp_date,after_2_bp_dates,after_3_bp_dates,final_after_exclusions
+A_inicio_ultimos_365_dias,17,11,6,1,6
+B_diagnostico_observado_antes_indice,179,54,22,10,22
+D_cualquier_registro_previo,179,54,22,10,22
