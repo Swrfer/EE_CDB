@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LeerSoloObjetosPublicos",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::lab19-cdb-seguro-20261126-m4p7x2/publico/*"
+    }
+  ]
+}
